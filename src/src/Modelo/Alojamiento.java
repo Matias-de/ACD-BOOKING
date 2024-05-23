@@ -76,6 +76,39 @@ public abstract class Alojamiento {
         return zona;
     }
 
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
+
+    //setters
+
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setComentarios(String comentarios) {
+        this.comentarios = comentarios;
+    }
+
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
+    public void setPrecioXAlojar(double precioXAlojar) {
+        this.precioXAlojar = precioXAlojar;
+    }
+
+    public void setValoracion(int valoracion) {
+        this.valoracion = valoracion;
+    }
+
+    public void setFechaOcupacion(Date fechaOcupacion) {
+        this.fechaOcupacion = fechaOcupacion;
+    }
+
+    
+
 
 }
 
