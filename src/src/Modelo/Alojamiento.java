@@ -7,6 +7,7 @@ public abstract class Alojamiento {
     //atributos
     private double precioXAlojar;
     private int valoracion; //0 a 5 VALIDAR
+    private int cantReservas;
     private String descripcion;
     private String nombre;
     private String direccion;
@@ -18,9 +19,10 @@ public abstract class Alojamiento {
     //constructores
 
 
-    public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad) {
+    public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad, int cantReservas) {
         this.precioXAlojar = precioXAlojar;
         //valoracion se saca porcentaje entre las que se pongan despues de una reserva
+        this.cantReservas=cantReservas;
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -33,6 +35,7 @@ public abstract class Alojamiento {
     public Alojamiento() {
         precioXAlojar = 0;
         valoracion = 0;
+        cantReservas=0;
         descripcion = "";
         nombre="";
         direccion="";
@@ -80,6 +83,9 @@ public abstract class Alojamiento {
         return disponibilidad;
     }
 
+    public int getCantReservas() {
+        return cantReservas;
+    }
     //setters
 
 
@@ -145,5 +151,14 @@ public abstract class Alojamiento {
     public int hashCode() {
         return 1;
     }
+
+    public void aumentarCantReservas(){
+        cantReservas++;
+    }
+
+    public void calculoValoracion(int nuevaValoracion){
+        valoracion= (valoracion + nuevaValoracion) / cantReservas;
+    }
+
 }
 
