@@ -18,9 +18,9 @@ public abstract class Alojamiento {
     //constructores
 
 
-    public Alojamiento(double precioXAlojar, int valoracion, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad) {
+    public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad) {
         this.precioXAlojar = precioXAlojar;
-        this.valoracion = valoracion;
+        //valoracion se saca porcentaje entre las que se pongan despues de una reserva
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -107,8 +107,43 @@ public abstract class Alojamiento {
         this.fechaOcupacion = fechaOcupacion;
     }
 
-    
+    //metodos
 
 
+    @Override
+    public String toString() {
+        return "Alojamiento{" +
+                "precioXAlojar=" + precioXAlojar +
+                ", valoracion=" + valoracion +
+                ", descripcion='" + descripcion + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", zona='" + zona + '\'' +
+                ", comentarios='" + comentarios + '\'' +
+                ", fechaOcupacion=" + fechaOcupacion +
+                ", disponibilidad=" + disponibilidad +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean rta=false;
+        if(obj!=null){
+            if(obj instanceof Alojamiento){
+                Alojamiento alojamiento=(Alojamiento)obj;
+                if(alojamiento.getNombre().equalsIgnoreCase(nombre)&& alojamiento.precioXAlojar==precioXAlojar && alojamiento.getValoracion()==valoracion && alojamiento.direccion.equalsIgnoreCase(direccion)){
+                    rta=true;
+                }
+            }
+        }
+
+
+        return rta;
+    }
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
 }
 
