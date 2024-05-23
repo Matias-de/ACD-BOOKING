@@ -31,8 +31,8 @@ public class Cliente {
         correoElectronico = "";
         medioDePago = "";
         cantPersonas = 0;
-        fechaInicio = null;
-        fechaFinal = null;
+        fechaInicio= new Date();
+        fechaFinal= new Date();
     }
 
     //getters
@@ -65,6 +65,7 @@ public class Cliente {
     public String getCorreoElectronico() {
         return correoElectronico;
     }
+
     //setters
 
     public void setCorreoElectronico(String correoElectronico) {
