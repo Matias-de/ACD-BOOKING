@@ -6,7 +6,7 @@ public abstract class Alojamiento {
 
     //atributos
     private double precioXAlojar;
-    private int valoracion; //0 a 5 VALIDAR
+    private double valoracion; //0 a 5
     private int cantReservas;
     private String descripcion;
     private String nombre;
@@ -68,7 +68,7 @@ public abstract class Alojamiento {
         return precioXAlojar;
     }
 
-    public int getValoracion() {
+    public double getValoracion() {
         return valoracion;
     }
 
@@ -157,7 +157,7 @@ public abstract class Alojamiento {
         cantReservas++;
     }
 
-    public void calculoValoracion(int nuevaValoracion){
+    public void calculoValoracion(double nuevaValoracion){
         valoracion= (valoracion + nuevaValoracion) / cantReservas;
     }
 
