@@ -126,9 +126,9 @@ public class Cliente {
     public String mostrarFechaDeViaje(){
         String rta="no asignada";
         Calendar calendar = Calendar.getInstance();
-        if(fechaInicio.getYear()!=124){
-            rta= rta= "fechaInicio= "+fechaInicio.getDate()+"/"+fechaInicio.getMonth()+"/"+fechaInicio.getYear() +
-                    "fechaFinal="+fechaFinal.getDate()+"/"+fechaFinal.getMonth()+"/"+fechaFinal.getYear();
+        if(fechaInicio.getYear()!=calendar.get(Calendar.YEAR)-1900){ //si el año actual -1900 es distinto de lo que guarda el getYear de un Date(124 si es 2024 etc), significa que ya esta asignada una fecha, por lo que la muestra
+            rta= "fechaInicio= "+fechaInicio.getDate()+" / "+fechaInicio.getMonth()+" / "+fechaInicio.getYear() +
+                    " fechaFinal= "+fechaFinal.getDate()+" / "+fechaFinal.getMonth()+" / "+fechaFinal.getYear();
         }
 
 
@@ -144,7 +144,7 @@ public class Cliente {
                 ", medioDePago='" + medioDePago + '\'' +
                 ", cantPersonas= " + cantPersonas + '\'' +
                 mostrarFechaDeViaje()+
-                '}';
+                 '}';
     }
 
     @Override
