@@ -2,7 +2,7 @@ package Modelo;
 
 import java.util.Date;
 
-public abstract class Alojamiento {
+public abstract class Alojamiento{
 
     //atributos
     private double precioXAlojar;
@@ -43,7 +43,7 @@ public abstract class Alojamiento {
         zona="";
         comentarios="";
         fechaOcupacion= new Date();
-        disponibilidad = false;
+        disponibilidad = true;
 
     }
 

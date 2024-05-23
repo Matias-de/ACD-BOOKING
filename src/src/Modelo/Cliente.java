@@ -9,21 +9,24 @@ public class Cliente {
     private String apellido;
     private String correoElectronico;
     private String medioDePago;
+    private String contraseña;
     private int cantPersonas;
     private Date fechaInicio;
     private Date fechaFinal;
 
+
     //constructores
 
-
-    public Cliente(String nombre, String apellido, String correoElectronico, String medioDePago, int cantPersonas){
+    public Cliente(String nombre, String apellido, String correoElectronico, String medioDePago, String contraseña, int cantPersonas){
         this.nombre = nombre;
         this.apellido = apellido;
         this.correoElectronico = correoElectronico;
         this.medioDePago = medioDePago;
         this.cantPersonas = cantPersonas;
+        this.contraseña=contraseña;
         fechaInicio= new Date();
         fechaFinal= new Date(); // las fechas que elija el usuario aparte en otra funcion
+
     }
 
     public Cliente() {
@@ -31,6 +34,7 @@ public class Cliente {
         apellido = "";
         correoElectronico = "";
         medioDePago = "";
+        contraseña="";
         cantPersonas = 0;
         fechaInicio= new Date();
         fechaFinal= new Date();
@@ -46,6 +50,7 @@ public class Cliente {
     public Date getFechaFinal() {
         return fechaFinal;
     }
+
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -65,6 +70,9 @@ public class Cliente {
 
     public String getCorreoElectronico() {
         return correoElectronico;
+    }
+    public String getContraseña() {
+        return contraseña;
     }
 
     //setters
@@ -127,7 +135,7 @@ public class Cliente {
                 ", apellido='" + apellido + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
                 ", medioDePago='" + medioDePago + '\'' +
-                ", cantPersonas= " + cantPersonas +
+                ", cantPersonas= " + cantPersonas + '\'' +
                 mostrarFechaDeViaje()+
                 '}';
     }
@@ -143,8 +151,8 @@ public class Cliente {
         if(obj!=null){
             if(obj instanceof Cliente){
                 Cliente aux= (Cliente)obj;
-                if(aux.nombre.equalsIgnoreCase(nombre)&& aux.cantPersonas==cantPersonas&& aux.apellido.equalsIgnoreCase(apellido)){
-                    rta=true; //si el nombre, la cantidad de personas y el apellido concuerdan, efectivamente son iguales
+                if(aux.correoElectronico.equalsIgnoreCase(correoElectronico)&& aux.contraseña.equalsIgnoreCase(contraseña)){
+                    rta=true; //si el email y la contraseña son iguales, devuelve true
                 }
             }
         }
