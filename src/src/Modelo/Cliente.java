@@ -9,21 +9,24 @@ public class Cliente {
     private String apellido;
     private String correoElectronico;
     private String medioDePago;
+    private String contraseña;
     private int cantPersonas;
     private Date fechaInicio;
     private Date fechaFinal;
 
+
     //constructores
 
-
-    public Cliente(String nombre, String apellido, String correoElectronico, String medioDePago, int cantPersonas){
+    public Cliente(String nombre, String apellido, String correoElectronico, String medioDePago, String contraseña, int cantPersonas){
         this.nombre = nombre;
         this.apellido = apellido;
         this.correoElectronico = correoElectronico;
         this.medioDePago = medioDePago;
         this.cantPersonas = cantPersonas;
+        this.contraseña=contraseña;
         fechaInicio= new Date();
         fechaFinal= new Date(); // las fechas que elija el usuario aparte en otra funcion
+
     }
 
     public Cliente() {
@@ -31,6 +34,7 @@ public class Cliente {
         apellido = "";
         correoElectronico = "";
         medioDePago = "";
+        contraseña="";
         cantPersonas = 0;
         fechaInicio= new Date();
         fechaFinal= new Date();
@@ -46,6 +50,7 @@ public class Cliente {
     public Date getFechaFinal() {
         return fechaFinal;
     }
+
 
     public Date getFechaInicio() {
         return fechaInicio;
@@ -65,6 +70,9 @@ public class Cliente {
 
     public String getCorreoElectronico() {
         return correoElectronico;
+    }
+    public String getContraseña() {
+        return contraseña;
     }
 
     //setters
@@ -92,6 +100,40 @@ public class Cliente {
 
     //metodos
 
+    public void asignarFecha(int diainicio, int diaFinal, int mesInicial, int mesFinal, boolean anioInicio, boolean anioFinal){ //
+
+        fechaInicio.setDate(diainicio); //ya tendria que venir validado el año entre 1 y 31 o 30 segun el mes
+        fechaInicio.setMonth(mesInicial);
+        if(anioInicio){
+            fechaInicio.setYear(fechaInicio.getYear()+1901);// si es true quiere decir que el año elegido es el siguiente
+        }else {
+            fechaInicio.setYear(fechaInicio.getYear()+1900);
+        }
+
+        fechaFinal.setDate(diaFinal);
+        fechaFinal.setMonth(mesFinal);
+        if(anioFinal){
+            fechaFinal.setYear(fechaFinal.getYear()+1901); // si es true quiere decir que el año elegido es el siguiente
+
+        }else{
+            fechaFinal.setYear(fechaFinal.getYear()+1900);
+        }
+
+
+
+    }
+
+    public String mostrarFechaDeViaje(){
+        String rta="no asignada";
+        Calendar calendar = Calendar.getInstance();
+        if(fechaInicio.getYear()!=124){
+            rta= rta= "fechaInicio= "+fechaInicio.getDate()+"/"+fechaInicio.getMonth()+"/"+fechaInicio.getYear() +
+                    "fechaFinal="+fechaFinal.getDate()+"/"+fechaFinal.getMonth()+"/"+fechaFinal.getYear();
+        }
+
+
+        return rta;
+    }
 
     @Override
     public String toString() {
@@ -100,9 +142,8 @@ public class Cliente {
                 ", apellido='" + apellido + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
                 ", medioDePago='" + medioDePago + '\'' +
-                ", cantPersonas=" + cantPersonas +
-                ", fechaInicio=" + fechaInicio +
-                ", fechaFinal=" + fechaFinal +
+                ", cantPersonas= " + cantPersonas + '\'' +
+                mostrarFechaDeViaje()+
                 '}';
     }
 
@@ -117,8 +158,8 @@ public class Cliente {
         if(obj!=null){
             if(obj instanceof Cliente){
                 Cliente aux= (Cliente)obj;
-                if(aux.nombre.equalsIgnoreCase(nombre)&& aux.cantPersonas==cantPersonas&& aux.apellido.equalsIgnoreCase(apellido)){
-                    rta=true; //si el nombre, la cantidad de personas y el apellido concuerdan, efectivamente son iguales
+                if(aux.correoElectronico.equalsIgnoreCase(correoElectronico)&& aux.contraseña.equalsIgnoreCase(contraseña)){
+                    rta=true; //si el email y la contraseña son iguales, devuelve true
                 }
             }
         }
@@ -126,14 +167,7 @@ public class Cliente {
         return rta;
     }
 
-    public void asignarFecha(int diainicio, int diaFinal, int anio){ //se puede hacer en interfaz para cada clase que use fechas, en ese caso recibiria el date tambien o no?
-        fechaInicio.setDate(diainicio); //ya tendria que venir validado el año entre 1 y 31 o 30 segun el mes
-        fechaInicio.setYear(anio); //tendriamos que validar que el año no sea menor a 2024, o hacer que sea solo del año actual de la compu //en otra funcion o aca?
-        fechaFinal.setDate(diaFinal);
-        fechaFinal.setYear(anio);
-        //el mes bueno se hara segun las constantes de CALLENDAR, ej CALLENDAR_MARCH
-        //la idea es que sea elegido en un switch o algo por el usuario y nosotros seteemos
-    }
+
 
 
 
