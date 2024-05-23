@@ -1,6 +1,5 @@
 package Modelo;
 
-import java.time.Year;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -93,6 +92,33 @@ public class Cliente {
 
     //metodos
 
+    public void asignarFecha(int diainicio, int diaFinal, int mesInicial, int mesFinal, boolean anioInicio, boolean anioFinal){ //
+
+        fechaInicio.setDate(diainicio); //ya tendria que venir validado el año entre 1 y 31 o 30 segun el mes
+        fechaInicio.setMonth(mesInicial);
+        if(anioInicio){
+            fechaInicio.setYear(fechaInicio.getYear()+1901);
+        }else {
+            fechaInicio.setYear(fechaInicio.getYear()+1900);
+        }
+
+        fechaFinal.setDate(diaFinal);
+        fechaFinal.setMonth(mesFinal);
+        if(anioFinal){
+            fechaFinal.setYear(fechaFinal.getYear()+1901); // si es true quiere decir que el año elegido es el siguiente
+
+        }else{
+            fechaFinal.setYear(fechaFinal.getYear()+1900);
+        }
+
+
+
+    }
+
+    public String mostrarFechaDeViaje(){
+        return"fechaInicio= "+fechaInicio.getDate()+"/"+fechaInicio.getMonth()+"/"+fechaInicio.getYear() +
+                "fechaFinal="+fechaFinal.getDate()+"/"+fechaFinal.getMonth()+"/"+fechaFinal.getYear();
+    }
 
     @Override
     public String toString() {
@@ -101,9 +127,8 @@ public class Cliente {
                 ", apellido='" + apellido + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
                 ", medioDePago='" + medioDePago + '\'' +
-                ", cantPersonas=" + cantPersonas +
-                ", fechaInicio=" + fechaInicio +
-                ", fechaFinal=" + fechaFinal +
+                ", cantPersonas= " + cantPersonas +
+                mostrarFechaDeViaje()+
                 '}';
     }
 
@@ -127,21 +152,7 @@ public class Cliente {
         return rta;
     }
 
-    public void asignarFecha(int diainicio, int diaFinal, int mesInicial, int mesFinal, boolean anioInicio, boolean anioFinal){ //
 
-        fechaInicio.setDate(diainicio); //ya tendria que venir validado el año entre 1 y 31 o 30 segun el mes
-        fechaInicio.setMonth(mesInicial);
-        if(anioInicio){
-            fechaInicio.setYear(fechaInicio.getYear()+1);
-        }
-
-        fechaFinal.setDate(diaFinal);
-        fechaFinal.setMonth(mesFinal);
-        if(anioFinal){
-            fechaFinal.setYear(fechaFinal.getYear()+1); // si es true quiere decir que el año elegido es el siguiente
-        }
-
-    }
 
 
 
