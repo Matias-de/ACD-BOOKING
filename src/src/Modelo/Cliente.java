@@ -88,6 +88,7 @@ public class Cliente {
         this.fechaFinal = fechaFinal;
     }
 
+
     //metodos
 
 
@@ -116,7 +117,7 @@ public class Cliente {
             if(obj instanceof Cliente){
                 Cliente aux= (Cliente)obj;
                 if(aux.nombre.equalsIgnoreCase(nombre)&& aux.cantPersonas==cantPersonas&& aux.apellido.equalsIgnoreCase(apellido)){
-                    rta=true;
+                    rta=true; //si el nombre, la cantidad de personas y el apellido concuerdan, efectivamente son iguales
                 }
             }
         }
