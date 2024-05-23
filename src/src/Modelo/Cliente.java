@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.time.Year;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -126,13 +127,20 @@ public class Cliente {
         return rta;
     }
 
-    public void asignarFecha(int diainicio, int diaFinal, int anio){ //se puede hacer en interfaz para cada clase que use fechas, en ese caso recibiria el date tambien o no?
+    public void asignarFecha(int diainicio, int diaFinal, int mesInicial, int mesFinal, boolean anioInicio, boolean anioFinal){ //
+
         fechaInicio.setDate(diainicio); //ya tendria que venir validado el año entre 1 y 31 o 30 segun el mes
-        fechaInicio.setYear(anio); //tendriamos que validar que el año no sea menor a 2024, o hacer que sea solo del año actual de la compu //en otra funcion o aca?
+        fechaInicio.setMonth(mesInicial);
+        if(anioInicio){
+            fechaInicio.setYear(fechaInicio.getYear()+1);
+        }
+
         fechaFinal.setDate(diaFinal);
-        fechaFinal.setYear(anio);
-        //el mes bueno se hara segun las constantes de CALLENDAR, ej CALLENDAR_MARCH
-        //la idea es que sea elegido en un switch o algo por el usuario y nosotros seteemos
+        fechaFinal.setMonth(mesFinal);
+        if(anioFinal){
+            fechaFinal.setYear(fechaFinal.getYear()+1); // si es true quiere decir que el año elegido es el siguiente
+        }
+
     }
 
 
