@@ -13,7 +13,6 @@ public abstract class Alojamiento{
     private String direccion;
     private String zona;
     private String comentarios;
-    private Date fechaOcupacion;
     private boolean disponibilidad;
 
     //constructores
@@ -22,14 +21,13 @@ public abstract class Alojamiento{
     public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad, int cantReservas) {
         this.precioXAlojar = precioXAlojar;
         //valoracion se saca porcentaje entre las que se pongan despues de una reserva
-        valoracion=0;
-        this.cantReservas=cantReservas;
+        valoracion = 0;
+        this.cantReservas = cantReservas;
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.direccion = direccion;
         this.zona = zona;
         this.comentarios = comentarios;
-        fechaOcupacion= new Date();
         this.disponibilidad = disponibilidad;
     }
 
@@ -42,7 +40,6 @@ public abstract class Alojamiento{
         direccion="";
         zona="";
         comentarios="";
-        fechaOcupacion= new Date();
         disponibilidad = true;
 
     }
@@ -58,10 +55,6 @@ public abstract class Alojamiento{
 
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public Date getFechaOcupacion() {
-        return fechaOcupacion;
     }
 
     public double getPrecioXAlojar() {
@@ -110,9 +103,6 @@ public abstract class Alojamiento{
         this.valoracion = valoracion;
     }
 
-    public void setFechaOcupacion(Date fechaOcupacion) {
-        this.fechaOcupacion = fechaOcupacion;
-    }
 
     //metodos
 
@@ -127,7 +117,6 @@ public abstract class Alojamiento{
                 ", direccion='" + direccion + '\'' +
                 ", zona='" + zona + '\'' +
                 ", comentarios='" + comentarios + '\'' +
-                ", fechaOcupacion=" + fechaOcupacion +
                 ", disponibilidad=" + disponibilidad +
                 '}';
     }
