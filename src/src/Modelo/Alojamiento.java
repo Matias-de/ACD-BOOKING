@@ -22,6 +22,7 @@ public abstract class Alojamiento {
     public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad, int cantReservas) {
         this.precioXAlojar = precioXAlojar;
         //valoracion se saca porcentaje entre las que se pongan despues de una reserva
+        valoracion=0;
         this.cantReservas=cantReservas;
         this.descripcion = descripcion;
         this.nombre = nombre;
