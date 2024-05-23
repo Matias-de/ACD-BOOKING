@@ -9,9 +9,9 @@ public abstract class Alojamiento{
     private double valoracion; //0 a 5
     private int cantReservas;
     private String descripcion;
-    private String nombre;
-    private String direccion;
-    private String zona;
+    private final String nombre;
+    private final String direccion;
+    private final String zona;
     private String comentarios;
     private boolean disponibilidad;
 
@@ -125,8 +125,7 @@ public abstract class Alojamiento{
     public boolean equals(Object obj) {
         boolean rta=false;
         if(obj!=null){
-            if(obj instanceof Alojamiento){
-                Alojamiento alojamiento=(Alojamiento)obj;
+            if(obj instanceof Alojamiento alojamiento){
                 if(alojamiento.getNombre().equalsIgnoreCase(nombre)&& alojamiento.precioXAlojar==precioXAlojar && alojamiento.getValoracion()==valoracion && alojamiento.direccion.equalsIgnoreCase(direccion)){
                     rta=true;
                 }

@@ -105,7 +105,7 @@ public class Cliente {
         fechaInicio.setDate(diainicio); //ya tendria que venir validado el año entre 1 y 31 o 30 segun el mes
         fechaInicio.setMonth(mesInicial);
         if(anioInicio){
-            fechaInicio.setYear(fechaInicio.getYear()+1901);
+            fechaInicio.setYear(fechaInicio.getYear()+1901);// si es true quiere decir que el año elegido es el siguiente
         }else {
             fechaInicio.setYear(fechaInicio.getYear()+1900);
         }
@@ -124,8 +124,15 @@ public class Cliente {
     }
 
     public String mostrarFechaDeViaje(){
-        return"fechaInicio= "+fechaInicio.getDate()+"/"+fechaInicio.getMonth()+"/"+fechaInicio.getYear() +
-                "fechaFinal="+fechaFinal.getDate()+"/"+fechaFinal.getMonth()+"/"+fechaFinal.getYear();
+        String rta="no asignada";
+        Calendar calendar = Calendar.getInstance();
+        if(fechaInicio.getYear()!=124){
+            rta= rta= "fechaInicio= "+fechaInicio.getDate()+"/"+fechaInicio.getMonth()+"/"+fechaInicio.getYear() +
+                    "fechaFinal="+fechaFinal.getDate()+"/"+fechaFinal.getMonth()+"/"+fechaFinal.getYear();
+        }
+
+
+        return rta;
     }
 
     @Override
