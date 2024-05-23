@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Cliente {
@@ -15,14 +16,14 @@ public class Cliente {
     //constructores
 
 
-    public Cliente(String nombre, String apellido, String correoElectronico, String medioDePago, int cantPersonas, Date fechaInicio, Date fechaFinal) {
+    public Cliente(String nombre, String apellido, String correoElectronico, String medioDePago, int cantPersonas){
         this.nombre = nombre;
         this.apellido = apellido;
         this.correoElectronico = correoElectronico;
         this.medioDePago = medioDePago;
         this.cantPersonas = cantPersonas;
-        this.fechaInicio = fechaInicio;
-        this.fechaFinal = fechaFinal;
+        fechaInicio= new Date();
+        fechaFinal= new Date(); // las fechas que elija el usuario aparte en otra funcion
     }
 
     public Cliente() {
@@ -124,6 +125,30 @@ public class Cliente {
 
         return rta;
     }
+
+    public void asignarFecha(int diainicio, int diaFinal, int anio){ //se puede hacer en interfaz para cada clase que use fechas
+        fechaInicio.setDate(diainicio); //ya tendria que venir validado el año entre 1 y 31 o 30 segun el mes
+        fechaInicio.setYear(anio); //tendriamos que validar que el año no sea menor a 2024, o hacer que sea solo del año actual de la compu
+        fechaFinal.setDate(diaFinal);
+        fechaFinal.setYear(anio);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
