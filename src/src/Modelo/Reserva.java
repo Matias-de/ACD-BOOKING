@@ -7,7 +7,7 @@ public class Reserva{
     private Alojamiento alojamiento;
     private Cliente cliente;
     private double precioTotal;
-    private int pin; //buscar como aumentarse y no repetirse (archivos quizas?)
+    private UUID pin; //genera claves gigantes pero aleatorias //revisar otra forma o si se puede acortar
 
     //constructores
 
@@ -15,14 +15,14 @@ public class Reserva{
         alojamiento= null;
         cliente= new Cliente();
         precioTotal=0;
-        pin=0;
+        pin=UUID.randomUUID(); //la genera
     }
 
     public Reserva(Alojamiento alojamiento, Cliente cliente, double precioTotal) {
         this.alojamiento = alojamiento;
         this.cliente = cliente;
         this.precioTotal = precioTotal;
-        pin=0;
+        pin=UUID.randomUUID();
     }
 
     //Getters
@@ -39,7 +39,7 @@ public class Reserva{
         return precioTotal;
     }
 
-    public int getPin() {
+    public UUID getPin() {
         return pin;
     }
 
@@ -51,7 +51,7 @@ public class Reserva{
                 "alojamiento=" + alojamiento +
                 ", cliente=" + cliente +
                 ", precioTotal=" + precioTotal +
-                ", pin=" + pin +
+               // ", pin=" + pin +
                 '}';
     }
 
@@ -61,7 +61,7 @@ public class Reserva{
         if(obj!=null){
             if(obj instanceof Reserva){
                 Reserva reserva=(Reserva)obj;
-                if(reserva.pin==pin){
+                if(reserva.pin==pin&&reserva.precioTotal==precioTotal){
                     sonIguales=true;
                 }
             }
