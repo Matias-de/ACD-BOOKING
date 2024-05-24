@@ -13,10 +13,7 @@ public abstract class Alojamiento{
     private final String direccion;
     private final String zona;
     private String comentarios;
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
     private boolean disponibilidad;
 
     //constructores
@@ -32,10 +29,7 @@ public abstract class Alojamiento{
         this.direccion = direccion;
         this.zona = zona;
         this.comentarios = comentarios;
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
         this.disponibilidad = disponibilidad;
     }
 
@@ -48,10 +42,7 @@ public abstract class Alojamiento{
         direccion="";
         zona="";
         comentarios="";
-<<<<<<< Updated upstream
-=======
-       
->>>>>>> Stashed changes
+
         disponibilidad = true;
 
     }
@@ -69,11 +60,7 @@ public abstract class Alojamiento{
         return descripcion;
     }
 
-<<<<<<< Updated upstream
-=======
 
-
->>>>>>> Stashed changes
     public double getPrecioXAlojar() {
         return precioXAlojar;
     }
@@ -120,10 +107,6 @@ public abstract class Alojamiento{
         this.valoracion = valoracion;
     }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
     //metodos
 
@@ -138,11 +121,10 @@ public abstract class Alojamiento{
                 ", direccion='" + direccion + '\'' +
                 ", zona='" + zona + '\'' +
                 ", comentarios='" + comentarios + '\'' +
-<<<<<<< Updated upstream
+
                 ", disponibilidad=" + disponibilidad +
-=======
-                                ", disponibilidad=" + disponibilidad +
->>>>>>> Stashed changes
+
+
                 '}';
     }
 
