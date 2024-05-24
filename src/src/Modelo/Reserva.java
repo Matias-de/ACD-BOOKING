@@ -18,10 +18,10 @@ public class Reserva{
         pin=UUID.randomUUID(); //la genera
     }
 
-    public Reserva(Alojamiento alojamiento, Cliente cliente, double precioTotal) {
+    public Reserva(Alojamiento alojamiento, Cliente cliente, double precioTotal) { //(andru) para mi habria que tener un metodo reservar
         this.alojamiento = alojamiento;
         this.cliente = cliente;
-        this.precioTotal = precioTotal;
+        this.precioTotal = precioTotal; //Habria que chequear si es departamento o hotel y dependiendo q sea agregar un precio
         pin=UUID.randomUUID();
     }
 
