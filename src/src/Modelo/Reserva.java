@@ -25,6 +25,25 @@ public class Reserva{
         pin=0;
     }
 
+    //Getters
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public Alojamiento getAlojamiento() {
+        return alojamiento;
+    }
+
+    public double getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public int getPin() {
+        return pin;
+    }
+
+    
 
 
     //hacer funcion que copie las fechas que tiene guardado cliente en alojamiento
