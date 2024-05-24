@@ -43,8 +43,38 @@ public class Reserva{
         return pin;
     }
 
+    //Metodos
+
+    @Override
+    public String toString() {
+        return "Reserva{" +
+                "alojamiento=" + alojamiento +
+                ", cliente=" + cliente +
+                ", precioTotal=" + precioTotal +
+                ", pin=" + pin +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean sonIguales=false;
+        if(obj!=null){
+            if(obj instanceof Reserva){
+                Reserva reserva=(Reserva)obj;
+                if(reserva.pin==pin){
+                    sonIguales=true;
+                }
+            }
+        }
+
+        return sonIguales;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return 1;
+    }
     
 
-
-    //hacer funcion que copie las fechas que tiene guardado cliente en alojamiento
 }
