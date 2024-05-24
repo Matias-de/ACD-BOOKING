@@ -13,6 +13,7 @@ public abstract class Alojamiento{
     private final String direccion;
     private final String zona;
     private String comentarios;
+
     private boolean disponibilidad;
 
     //constructores
@@ -28,6 +29,7 @@ public abstract class Alojamiento{
         this.direccion = direccion;
         this.zona = zona;
         this.comentarios = comentarios;
+
         this.disponibilidad = disponibilidad;
     }
 
@@ -40,6 +42,7 @@ public abstract class Alojamiento{
         direccion="";
         zona="";
         comentarios="";
+
         disponibilidad = true;
 
     }
@@ -56,6 +59,7 @@ public abstract class Alojamiento{
     public String getDescripcion() {
         return descripcion;
     }
+
 
     public double getPrecioXAlojar() {
         return precioXAlojar;
@@ -117,7 +121,10 @@ public abstract class Alojamiento{
                 ", direccion='" + direccion + '\'' +
                 ", zona='" + zona + '\'' +
                 ", comentarios='" + comentarios + '\'' +
+
                 ", disponibilidad=" + disponibilidad +
+
+
                 '}';
     }
 
