@@ -1,10 +1,12 @@
 package Modelo;
 
+import Interfaces.IOperaciones;
+
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
-public class BookingACD{
+public class BookingACD implements IOperaciones<Object, Object>{
     //atributos
     HashMap <Cliente, HashSet<Reserva>> hashMapCliente; //Estos dos en archivos
     HashMap <Alojamiento, HashSet<Reserva>> hashMapAlojamiento;
@@ -43,4 +45,29 @@ public class BookingACD{
         return reservaHashSet;
     }
 
+    @Override
+    public void cargarHashMap(Object clave, Object valor) {
+
+    }
+
+    @Override
+    public void listarHashMap() {
+
+    }
+
+    @Override
+    public void cargarHashSet(Object valor) {
+
+    }
+
+    @Override
+    public void listarHashSet() {
+
+    }
+
+
+    //metodos
+
+
 }
+
