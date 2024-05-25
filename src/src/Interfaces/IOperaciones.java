@@ -1,5 +1,7 @@
 package Interfaces;
 
-public interface IOperaciones{
+public interface IOperaciones<E>{
     
+
+
 }
