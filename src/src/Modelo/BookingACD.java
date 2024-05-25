@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class BookingACD implements IOperaciones<Object, Object>{
+public class BookingACD implements IOperaciones<Object>{
    //no tendriamos que estar usando object, es lo que hay que revisar
     //encima claro al tener dos de cada una no podemos tirar de 2 veces el mismo metodo
     //porque sino ya no seria generico
@@ -28,8 +28,10 @@ public class BookingACD implements IOperaciones<Object, Object>{
     }
 
     //getters
-    public HashSet<Cliente> getClienteHashSet() {
+    public HashSet<Cliente> getClienteHashSet(){
+
         return clienteHashSet;
+
     }
 
     public HashMap<Alojamiento, HashSet<Reserva>> getHashMapAlojamiento() {
@@ -50,6 +52,7 @@ public class BookingACD implements IOperaciones<Object, Object>{
 
     @Override
     public void cargarHashMap(Object clave, Object valor) {
+
 
     }
 
