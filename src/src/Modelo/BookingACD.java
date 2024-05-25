@@ -49,7 +49,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
     }
 
     @Override
-    public void cargarHashMap(Cliente clave, Reserva valor) {
+    public void cargarHashMap(Cliente clave, Reserva valor) { //preguntar
         HashSet<Reserva> aux;
 
         if(hashMapCliente.containsKey(clave)){
@@ -65,7 +65,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
     @Override
     public void listarHashMap(){
-        for (Cliente cliente : hashMapCliente.keySet()) {
+        for (Cliente cliente : hashMapCliente.keySet()) { //preguntar si hay que sacar interfaz o como implementar
             System.out.println("Cliente: " + cliente + " - Reservas: " + hashMapCliente.get(cliente));
         }
     }
