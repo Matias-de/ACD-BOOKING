@@ -83,8 +83,26 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
     @Override
     public String listarHashSets(int opcion) {
+       String rta="";
+        switch (opcion){
+            case 1:
+                rta= clienteHashSet.toString();
+                break;
+            case 2:
+                rta= alojamientoHashSet.toString();
+                break;
+            case 3:
+                rta= reservaHashSet.toString();
+                break;
+            default:
+                rta="ERROR, OPCION INVALIDA.";
+                break;
+
+
+        }
        
-        return reservaHashSet.toString();
+
+        return rta;
     }
 
 
