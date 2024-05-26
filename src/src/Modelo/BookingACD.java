@@ -106,7 +106,13 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
     }
 
 
+    public boolean reservar(Cliente cliente, Alojamiento alojamiento){
+        boolean reservada=false;
+        
 
+
+        return reservada;
+    }
 
 
 
