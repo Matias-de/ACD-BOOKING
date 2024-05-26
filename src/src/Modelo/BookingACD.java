@@ -1,7 +1,7 @@
 package Modelo;
 
 import Interfaces.IOperaciones;
-import java.util.Collection;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -109,15 +109,31 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
     public boolean reservar(Cliente cliente, Alojamiento alojamiento){
         boolean reservada=false, enFecha=false;
-        HashSet<Reserva> reservas = hashMapCliente.get(cliente);
+        Iterator<Reserva> reservaIterator;
+        HashSet<Reserva> reservas;
+        Reserva reservaAux;
         if(hashMapCliente.containsKey(cliente)){
-            Iterator<Reserva> reservaIterator= reservas.iterator();
+            reservas= hashMapCliente.get(cliente);
+            reservaIterator= reservas.iterator();
             while(reservaIterator.hasNext()){
-                Reserva reserva = reservaIterator.next();
-                if(!cliente.getFechaInicio().equals(reserva.getCliente().getFechaInicio()) && !cliente.getFechaFinal().equals(reserva.getCliente().getFechaFinal())){
+                reservaAux= reservaIterator.next(); //en teoria esta parte revisa si el cliente no tiene otra reserva en esa fecha
+                if(!cliente.getFechaInicio().equals(reservaAux.getCliente().getFechaInicio()) && !cliente.getFechaFinal().equals(reservaAux.getCliente().getFechaFinal())){
                     enFecha=true;
                 }
             }
+        }
+        if(hashMapAlojamiento.containsKey(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado
+            reservas=hashMapAlojamiento.get(alojamiento);
+            reservaIterator = reservas.iterator();
+            while(reservaIterator.hasNext()){
+                reservaAux=reservaIterator.next();
+                if(alojamiento.isDisponibilidad() && reservaAux.getAlojamiento().isDisponibilidad() && (cliente.getFechaInicio().after(reservaAux.getCliente().getFechaFinal()) || !cliente.getFechaInicio().after(reservaAux.getCliente().getFechaInicio()) ||!cliente.getFechaFinal().after(reservaAux.getCliente().getFechaInicio()))){
+                    enFecha=true;
+                }
+
+            }
+
+
         }
 
 
