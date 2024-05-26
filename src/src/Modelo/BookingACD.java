@@ -4,6 +4,7 @@ import Interfaces.IOperaciones;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
@@ -107,8 +108,17 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
 
     public boolean reservar(Cliente cliente, Alojamiento alojamiento){
-        boolean reservada=false;
-        
+        boolean reservada=false, enFecha=false;
+        HashSet<Reserva> reservas = hashMapCliente.get(cliente);
+        if(hashMapCliente.containsKey(cliente)){
+            Iterator<Reserva> reservaIterator= reservas.iterator();
+            while(reservaIterator.hasNext()){
+                Reserva reserva = reservaIterator.next();
+                if(!cliente.getFechaInicio().equals(reserva.getCliente().getFechaInicio()) && !cliente.getFechaFinal().equals(reserva.getCliente().getFechaFinal())){
+                    enFecha=true;
+                }
+            }
+        }
 
 
         return reservada;
