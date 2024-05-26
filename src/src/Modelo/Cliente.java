@@ -154,7 +154,7 @@ public class Cliente {
 
     @Override
     public boolean equals(Object obj) {
-        boolean rta=true;
+        boolean rta=false;
         if(obj!=null){
             if(obj instanceof Cliente){
                 Cliente aux= (Cliente)obj;
