@@ -108,7 +108,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
 
     public boolean reservar(Cliente cliente, Alojamiento alojamiento){
-        boolean reservada=false, enFecha=false;
+        boolean reservada=false, enFecha=false, contieneCliente=true, contieneAlojamiento=true;
         Iterator<Reserva> reservaIterator;
         HashSet<Reserva> reservas;
         Reserva reservaAux;
@@ -121,19 +121,28 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
                     enFecha=true;
                 }
             }
+        }else{
+            contieneCliente=false;
         }
+        if(enFecha){
         if(hashMapAlojamiento.containsKey(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado
-            reservas=hashMapAlojamiento.get(alojamiento);
+            reservas = hashMapAlojamiento.get(alojamiento);
             reservaIterator = reservas.iterator();
-            while(reservaIterator.hasNext()){
-                reservaAux=reservaIterator.next();
-                if(alojamiento.isDisponibilidad() && reservaAux.getAlojamiento().isDisponibilidad() && (cliente.getFechaInicio().after(reservaAux.getCliente().getFechaFinal()) || !cliente.getFechaInicio().after(reservaAux.getCliente().getFechaInicio()) ||!cliente.getFechaFinal().after(reservaAux.getCliente().getFechaInicio()))){
-                    enFecha=true;
-                }
 
+                while (reservaIterator.hasNext()) {
+                    reservaAux = reservaIterator.next();
+                    if (alojamiento.isDisponibilidad() && reservaAux.getAlojamiento().isDisponibilidad() && (cliente.getFechaInicio().after(reservaAux.getCliente().getFechaFinal()) || !cliente.getFechaInicio().after(reservaAux.getCliente().getFechaInicio()) || !cliente.getFechaFinal().after(reservaAux.getCliente().getFechaInicio()))) {
+                        enFecha = true;
+                    }else{
+                        enFecha=false;
+                    }
+
+                }
             }
 
-
+        }
+        if(!contieneCliente && !contieneAlojamiento){
+            
         }
 
 
