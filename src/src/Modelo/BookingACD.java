@@ -10,6 +10,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
     //encima claro al tener dos de cada una no podemos tirar de 2 veces el mismo metodo
     //porque sino ya no seria generico
     //atributos
+
     HashMap<Cliente, HashSet<Reserva>> hashMapCliente; //Estos dos en archivos
     HashMap<Alojamiento, HashSet<Reserva>> hashMapAlojamiento;
     HashSet<Cliente> clienteHashSet; //Guardariamos un JSON
@@ -48,6 +49,10 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
         return reservaHashSet;
     }
 
+
+
+    //metodos
+
     @Override
     public void cargarHashMap(Cliente clave, Reserva valor) { //preguntar
         HashSet<Reserva> aux;
@@ -72,14 +77,14 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
     @Override
     public void cargarHashSet(Reserva valor) {
-
+        reservaHashSet.add(valor);
     }
 
     @Override
-    public void listarHashSet() {
-
+    public String listarHashSet() {
+        return reservaHashSet.toString();
     }
-    //metodos
+
 
 
 
