@@ -108,7 +108,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
 
     public boolean reservar(Cliente cliente, Alojamiento alojamiento){
-        boolean reservada=false, enFecha=false, contieneCliente=true, contieneAlojamiento=true;
+        boolean reservada=false, enFecha=false, contieneAlojamiento=true;
         Iterator<Reserva> reservaIterator;
         HashSet<Reserva> reservas;
         Reserva reservaAux;
@@ -121,11 +121,10 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
                     enFecha=true;
                 }
             }
-        }else{
-            contieneCliente=false;
         }
+
         if(enFecha){
-        if(hashMapAlojamiento.containsKey(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado
+        if(hashMapAlojamiento.containsKey(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado o si tiene alguna reserva
             reservas = hashMapAlojamiento.get(alojamiento);
             reservaIterator = reservas.iterator();
 
@@ -138,11 +137,21 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
                     }
 
                 }
-            }
+            }else{
+            contieneAlojamiento=false;
+        }
 
         }
-        if(!contieneCliente && !contieneAlojamiento){
-            
+        if(enFecha && !contieneAlojamiento){ //en el caso que ni el cliente ni el alojamiento tengan una reserva
+            Reserva nuevaReserva = new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar()*1.21);
+            cargarHashMap(cliente, nuevaReserva);
+            //en este punto antes de entrar a esta funcion en el menu hay que evaluar si el cliente y el alojamiento existen
+            //asi de ultima los guardamos en los hashSet antes :)
+
+
+
+
+            reservada=true;
         }
 
 
