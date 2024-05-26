@@ -54,6 +54,17 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
 
     //metodos
+    public void cargarHashMapAlojamiento(Alojamiento clave, Reserva valor){
+        HashSet<Reserva> aux;
+
+        if(hashMapAlojamiento.containsKey(clave)){
+            aux = hashMapAlojamiento.get(clave);
+        }else{
+            aux = new HashSet<>();
+            hashMapAlojamiento.put(clave, aux);
+        }
+        aux.add(valor);
+    }
 
     @Override
     public void cargarHashMap(Cliente clave, Reserva valor) { //preguntar
@@ -107,7 +118,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
     }
 
 
-    public boolean reservar(Cliente cliente, Alojamiento alojamiento){
+    public boolean reservar(Cliente cliente, Alojamiento alojamiento){ //probar / revisar
         boolean reservada=false, enFecha=false, contieneAlojamiento=true;
         Iterator<Reserva> reservaIterator;
         HashSet<Reserva> reservas;
@@ -142,24 +153,20 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
         }
 
         }
-        if(enFecha && !contieneAlojamiento){ //en el caso que ni el cliente ni el alojamiento tengan una reserva
-            Reserva nuevaReserva = new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar()*1.21);
+        if(enFecha && !contieneAlojamiento){ //en el caso que ni el cliente ni el alojamiento tengan una reserva o que si lo tengan esten en una fecha que no interceda con otra reserva
+            Reserva nuevaReserva = new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar()*1.21); //precio del alojamiento +21% nuestro
             cargarHashMap(cliente, nuevaReserva);
             //en este punto antes de entrar a esta funcion en el menu hay que evaluar si el cliente y el alojamiento existen
             //asi de ultima los guardamos en los hashSet antes :)
-
-
-
-
+            cargarHashMapAlojamiento(alojamiento, nuevaReserva);
+            reservaHashSet.add(nuevaReserva);
             reservada=true;
+
         }
 
 
-        return reservada;
+        return reservada; //este boolean se puede cambiar por strings para despues ver porque no se puede reservar y devolver un mensaje
     }
-
-
-
 
 }
 
