@@ -9,6 +9,6 @@ public interface IOperaciones<E,W>{
     void listarHashMap(); // muestra un hashmap
 
     void cargarHashSet(W valor); // carga un hashset
-    String listarHashSet(); // muestra un hashset
+    String listarHashSets(int opcion); // muestra un hashset
 
 }

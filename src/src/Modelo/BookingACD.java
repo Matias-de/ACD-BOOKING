@@ -82,7 +82,8 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
     }
 
     @Override
-    public String listarHashSet() {
+    public String listarHashSets(int opcion) {
+       
         return reservaHashSet.toString();
     }
 
