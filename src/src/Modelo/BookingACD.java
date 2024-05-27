@@ -83,9 +83,13 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
     @Override
     public void listarHashMap(){
+
         for (Cliente cliente : hashMapCliente.keySet()) { //preguntar si hay que sacar interfaz o como implementar
             System.out.println("Cliente: " + cliente + " - Reservas: " + hashMapCliente.get(cliente));
         }
+
+
+
     }
 
     @Override
@@ -94,7 +98,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
     }
 
     @Override
-    public String listarHashSets(int opcion) {
+    public String listarHashSets(int opcion){
        String rta="";
         switch (opcion){
             case 1:
@@ -167,6 +171,25 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
         return reservada; //este boolean se puede cambiar por strings para despues ver porque no se puede reservar y devolver un mensaje
     }
+
+    public String devolverAlojamientosDisponibles(){ //utiliza el hashSet de alojamientos, porque si esta reservado no esta disponible..
+        String rta="";
+        if(alojamientoHashSet!=null){
+            Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator();
+            while(alojamientoIterator.hasNext()){
+                Alojamiento aux=alojamientoIterator.next();
+                if(aux.isDisponibilidad()){
+                    rta+=aux.toString()+"\n";
+                }
+            }
+
+        }
+
+
+
+        return rta;
+    }
+
 
 }
 
