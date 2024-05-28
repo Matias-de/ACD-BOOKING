@@ -1,26 +1,27 @@
 package Modelo;
 
-import Interfaces.IOperaciones;
+import ClasesGenericas.GHashMap;
+import Interfaces.IOperacionesMap;
 
 import java.util.*;
 
-public class BookingACD implements IOperaciones<Cliente, Reserva> {
+public class BookingACD {
 
     //no tendriamos que estar usando object, es lo que hay que revisar
     //encima claro al tener dos de cada una no podemos tirar de 2 veces el mismo metodo
     //porque sino ya no seria generico
     //atributos
 
-    HashMap<Cliente, HashSet<Reserva>> hashMapCliente; //Estos dos en archivos
-    HashMap<Alojamiento, HashSet<Reserva>> hashMapAlojamiento;
+    GHashMap<Cliente, HashSet<Reserva>> hashMapCliente; //Estos dos en archivos
+    GHashMap<Alojamiento, HashSet<Reserva>> hashMapAlojamiento;
     HashSet<Cliente> clienteHashSet; //Guardariamos un JSON
     HashSet<Alojamiento> alojamientoHashSet; //guardariamos un JSON
     HashSet<Reserva> reservaHashSet; //guardariamos en Archivo // no, tambien JSON
 
     //constructor
     public BookingACD() {
-        hashMapCliente = new HashMap<Cliente, HashSet<Reserva>>();
-        hashMapAlojamiento = new HashMap<Alojamiento, HashSet<Reserva>>();
+        hashMapCliente = new GHashMap<Cliente, HashSet<Reserva>>();
+        hashMapAlojamiento = new GHashMap<Alojamiento, HashSet<Reserva>>();
         clienteHashSet = new HashSet<Cliente>();
         alojamientoHashSet = new HashSet<Alojamiento>();
         reservaHashSet = new HashSet<Reserva>();
