@@ -57,6 +57,10 @@ public class BookingACD {
     {
         hashMapCliente.agregar(nuevoCliente, nuevaReserva);
     }
+    public void agregarAlojamiento(Alojamiento nuevoAlojamiento, Reserva nuevaReserva)
+    {
+        hashMapAlojamiento.agregar(nuevoAlojamiento,nuevaReserva);
+    }
 
     @Override
     public void cargarHashSet(Reserva valor) {
