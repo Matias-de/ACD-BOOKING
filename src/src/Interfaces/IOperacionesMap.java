@@ -1,10 +1,12 @@
 package Interfaces;
 
-public interface IOperacionesMap<E,W>{
+import Modelo.Reserva;
 
-    void agregar(E clave, W valor); // carga un hashmap
+public interface IOperacionesMap<E>{
+
+    void agregar(E clave, Reserva valor); // carga un hashmap
     String listar(); // muestra un hashmap
-    void borrar(E clave, W valor); //borra un elemento
-    boolean buscarElemento (E clave, W valor); // confirma si existe dicho elemento en el mapa
+    void borrar(E clave); //borra un elemento
+    boolean buscarElemento (E clave); // confirma si existe dicho elemento en el mapa
 
 }

@@ -8,9 +8,9 @@ import Modelo.Reserva;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class GHashMap <E,S>implements IOperacionesMap<E,S> {
+public class GHashMap <E>implements IOperacionesMap<E> {
     //atributo
-    HashMap<E, S> nuevoHashMap; //Estos dos en archivos
+    HashMap<E, HashSet<Reserva>> nuevoHashMap;
     //constructor
     public GHashMap()
     {
@@ -18,23 +18,32 @@ public class GHashMap <E,S>implements IOperacionesMap<E,S> {
     }
     //metodos
     @Override
-    public void agregar(E clave, S valor) {
-        nuevoHashMap.put(clave,valor);
+    public void agregar(E clave, Reserva valor) {
+        HashSet<Reserva> aux ;
+
+        if (nuevoHashMap.containsKey(clave))
+        {
+            aux = nuevoHashMap.get(clave);
+        }
+        else {
+            aux = new HashSet<Reserva>();
+            nuevoHashMap.put(clave, aux);
+        }
+        aux.add(valor);
     }
     @Override
     public String listar() {
-        String rta = "";
-        rta += nuevoHashMap.toString();
-        return rta;
+        return nuevoHashMap.toString();
     }
 
     @Override
-    public void borrar(E clave, S valor) {
+    public void borrar(E clave) {
+        nuevoHashMap.remove(clave);
 
     }
 
     @Override
-    public boolean buscarElemento(E clave, S valor) {
-        return false;
+    public boolean buscarElemento(E clave) {
+        return nuevoHashMap.containsKey(clave);
     }
 }

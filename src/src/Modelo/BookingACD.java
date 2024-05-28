@@ -12,16 +12,16 @@ public class BookingACD {
     //porque sino ya no seria generico
     //atributos
 
-    GHashMap<Cliente, HashSet<Reserva>> hashMapCliente; //Estos dos en archivos
-    GHashMap<Alojamiento, HashSet<Reserva>> hashMapAlojamiento;
+    GHashMap<Cliente> hashMapCliente; //Estos dos en archivos
+    GHashMap<Alojamiento> hashMapAlojamiento;
     HashSet<Cliente> clienteHashSet; //Guardariamos un JSON
     HashSet<Alojamiento> alojamientoHashSet; //guardariamos un JSON
     HashSet<Reserva> reservaHashSet; //guardariamos en Archivo // no, tambien JSON
 
     //constructor
     public BookingACD() {
-        hashMapCliente = new GHashMap<Cliente, HashSet<Reserva>>();
-        hashMapAlojamiento = new GHashMap<Alojamiento, HashSet<Reserva>>();
+        hashMapCliente = new GHashMap<Cliente>();
+        hashMapAlojamiento = new GHashMap<Alojamiento>();
         clienteHashSet = new HashSet<Cliente>();
         alojamientoHashSet = new HashSet<Alojamiento>();
         reservaHashSet = new HashSet<Reserva>();
@@ -34,11 +34,11 @@ public class BookingACD {
 
     }
 
-    public HashMap<Alojamiento, HashSet<Reserva>> getHashMapAlojamiento() {
+    public GHashMap<Alojamiento> getHashMapAlojamiento() {
         return hashMapAlojamiento;
     }
 
-    public HashMap<Cliente, HashSet<Reserva>> getHashMapCliente() {
+    public GHashMap<Cliente> getHashMapCliente() {
         return hashMapCliente;
     }
 
@@ -53,42 +53,9 @@ public class BookingACD {
 
 
     //metodos
-    public void cargarHashMapAlojamiento(Alojamiento clave, Reserva valor){
-        HashSet<Reserva> aux;
-
-        if(hashMapAlojamiento.containsKey(clave)){
-            aux = hashMapAlojamiento.get(clave);
-        }else{
-            aux = new HashSet<>();
-            hashMapAlojamiento.put(clave, aux);
-        }
-        aux.add(valor);
-    }
-
-    @Override
-    public void cargarHashMap(Cliente clave, Reserva valor) { //preguntar
-        HashSet<Reserva> aux;
-
-        if(hashMapCliente.containsKey(clave)){
-           aux = hashMapCliente.get(clave);
-       }else{
-            aux = new HashSet<>();
-            hashMapCliente.put(clave, aux);
-       }
-        aux.add(valor);
-
-
-    }
-
-    @Override
-    public void listarHashMap(){
-
-        for (Cliente cliente : hashMapCliente.keySet()) { //preguntar si hay que sacar interfaz o como implementar
-            System.out.println("Cliente: " + cliente + " - Reservas: " + hashMapCliente.get(cliente));
-        }
-
-
-
+    public void agregarCliente(Cliente nuevoCliente, Reserva nuevaReserva)
+    {
+        hashMapCliente.agregar(nuevoCliente, nuevaReserva);
     }
 
     @Override
