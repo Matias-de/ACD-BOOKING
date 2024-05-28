@@ -1,12 +1,13 @@
 package ClasesGenericas;
 
 import Interfaces.IOperacionesMap;
-import Modelo.Alojamiento;
 import Modelo.Cliente;
 import Modelo.Reserva;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 
 public class GHashMap <E>implements IOperacionesMap<E> {
     //atributo
@@ -50,4 +51,10 @@ public class GHashMap <E>implements IOperacionesMap<E> {
     public boolean buscarElemento(E clave) {
         return nuevoHashMap.containsKey(clave);
     }
+
+    public Iterator<Map.Entry<Cliente, HashSet<Reserva>>> blabla(){
+        nuevoHashMap.entrySet().iterator();
+        return null;
+    }
+
 }

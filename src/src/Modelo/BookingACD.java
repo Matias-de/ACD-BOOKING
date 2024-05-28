@@ -62,34 +62,8 @@ public class BookingACD {
         hashMapAlojamiento.agregar(nuevoAlojamiento,nuevaReserva);
     }
 
-    @Override
-    public void cargarHashSet(Reserva valor) {
-        reservaHashSet.add(valor);
-    }
-
-    @Override
-    public String listarHashSets(int opcion){
-       String rta="";
-        switch (opcion){
-            case 1:
-                rta= clienteHashSet.toString();
-                break;
-            case 2:
-                rta= alojamientoHashSet.toString();
-                break;
-            case 3:
-                rta= reservaHashSet.toString();
-                break;
-            default:
-                rta="ERROR, OPCION INVALIDA.";
-                break;
 
 
-        }
-       
-
-        return rta;
-    }
 
 
     public boolean reservar(Cliente cliente, Alojamiento alojamiento){ //probar / revisar
@@ -161,8 +135,8 @@ public class BookingACD {
 
     public String mostrarReservasDeCliente(Cliente cliente){ //deberia mostrar las reservas de un cliente
        String rta="cliente no encontrado/sin reservas";
-        if(hashMapCliente.containsKey(cliente)){
-            rta+=hashMapCliente.get(cliente)+"\n";
+        if(hashMapCliente.buscarElemento(cliente)){
+            rta+=hashMapCliente.getReserva(cliente)+"\n";
         }
 
         return rta;
@@ -170,8 +144,8 @@ public class BookingACD {
 //preguntar como hacer para no repetir estas funciones
     public String mostrarReservasEnAlojamiento(Alojamiento alojamiento){
         String rta="Alojamiento no encontrado/sin reservas";
-        if(hashMapAlojamiento.containsKey(alojamiento)){
-            rta+=hashMapAlojamiento.get(alojamiento)+"\n";
+        if(hashMapAlojamiento.buscarElemento(alojamiento)){
+            rta+=hashMapAlojamiento.getReserva(alojamiento)+"\n";
         }
 
         return rta;
@@ -182,7 +156,7 @@ public class BookingACD {
         String rta="";
         Date fechaActualDelSistema= new Date();
 
-        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.entrySet().iterator();
+        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.blabla();
         while(entryIterator.hasNext()){
             Map.Entry<Cliente,HashSet<Reserva>> reservaMapa = entryIterator.next();
             HashSet<Reserva> reservas = reservaMapa.getValue();
@@ -207,7 +181,7 @@ public class BookingACD {
         String rta="Reservas terminadas: ";
         Date fechaActualDelSistema= new Date();
 
-        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.entrySet().iterator();
+        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.blabla();
         while(entryIterator.hasNext()){
             Map.Entry<Cliente,HashSet<Reserva>> reservaMapa = entryIterator.next();
             HashSet<Reserva> reservas = reservaMapa.getValue();
