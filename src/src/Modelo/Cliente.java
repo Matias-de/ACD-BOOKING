@@ -9,7 +9,6 @@ public class Cliente {
     private String apellido;
     private String correoElectronico;
     private String medioDePago;
-    private String contraseña;
     private int cantPersonas;
     private Date fechaInicio;
     private Date fechaFinal;
@@ -17,13 +16,12 @@ public class Cliente {
 
     //constructores
 
-    public Cliente(String nombre, String apellido, String correoElectronico, String medioDePago, String contraseña, int cantPersonas){
+    public Cliente(String nombre, String apellido, String correoElectronico, String medioDePago, int cantPersonas){
         this.nombre = nombre;
         this.apellido = apellido;
         this.correoElectronico = correoElectronico;
         this.medioDePago = medioDePago;
         this.cantPersonas = cantPersonas;
-        this.contraseña=contraseña;
         fechaInicio= new Date();
         fechaFinal= new Date(); // las fechas que elija el usuario aparte en otra funcion
 
