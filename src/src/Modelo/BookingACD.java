@@ -1,7 +1,6 @@
 package Modelo;
 
 import ClasesGenericas.GHashMap;
-import Interfaces.IOperacionesMap;
 
 import java.util.*;
 
@@ -156,7 +155,7 @@ public class BookingACD {
         String rta="";
         Date fechaActualDelSistema= new Date();
 
-        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.blabla();
+        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.entrySetIterator();
         while(entryIterator.hasNext()){
             Map.Entry<Cliente,HashSet<Reserva>> reservaMapa = entryIterator.next();
             HashSet<Reserva> reservas = reservaMapa.getValue();
@@ -181,7 +180,7 @@ public class BookingACD {
         String rta="Reservas terminadas: ";
         Date fechaActualDelSistema= new Date();
 
-        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.blabla();
+        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.entrySetIterator();
         while(entryIterator.hasNext()){
             Map.Entry<Cliente,HashSet<Reserva>> reservaMapa = entryIterator.next();
             HashSet<Reserva> reservas = reservaMapa.getValue();

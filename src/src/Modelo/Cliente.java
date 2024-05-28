@@ -32,7 +32,6 @@ public class Cliente {
         apellido = "";
         correoElectronico = "";
         medioDePago = "";
-        contraseña="";
         cantPersonas = 0;
         fechaInicio= new Date();
         fechaFinal= new Date();
@@ -69,9 +68,7 @@ public class Cliente {
     public String getCorreoElectronico() {
         return correoElectronico;
     }
-    public String getContraseña() {
-        return contraseña;
-    }
+
 
     //setters
 
@@ -156,8 +153,8 @@ public class Cliente {
         if(obj!=null){
             if(obj instanceof Cliente){
                 Cliente aux= (Cliente)obj;
-                if(aux.correoElectronico.equalsIgnoreCase(correoElectronico)&& aux.contraseña.equalsIgnoreCase(contraseña)){
-                    rta=true; //si el email y la contraseña son iguales, devuelve true
+                if(aux.correoElectronico.equalsIgnoreCase(correoElectronico)){
+                    rta=true; 
                 }
             }
         }

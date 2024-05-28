@@ -21,19 +21,19 @@ public class Main {
         opc = scan.nextInt(); // cargamos la opcion elegida por el administrador
         switch (opc)
         {
-            case 1: // me gustaria que la opcion 1 te deje cargar clientes, la 2 alojamientos y asi...
+            case 1: // me gustaria que la opcion 1 te deje cargar clientes, la 2 alojamientos y asi... //para eso estan los hashSet.
 
-                Cliente nuevoCliente = cargaCliente();
-                Alojamiento nuevoAlojamiento = cargarAlojamiento();
-                Reserva nuevaReserva = nuevoBooking.reservar(nuevoCliente,nuevoAlojamiento); //necesito q esta funcion retorne null o la reserva si se pudo realizar
-
-                nuevoBooking.agregarCliente(nuevoCliente,nuevaReserva); //necesito la reserva para mandarla a esta funcion
-                nuevoBooking.agregarAlojamiento(nuevoAlojamiento,nuevaReserva);// necesito la reserva para mandarla a esta funcion
+//                Cliente nuevoCliente = cargaCliente();
+//                Alojamiento nuevoAlojamiento = cargarAlojamiento();
+//                //Reserva nuevaReserva = nuevoBooking.reservar(nuevoCliente,nuevoAlojamiento); //necesito q esta funcion retorne null o la reserva si se pudo realizar //para eso esta el booleano, no podes retornar una reserva que nunca se creo
+//
+//                nuevoBooking.agregarCliente(nuevoCliente,nuevaReserva); //necesito la reserva para mandarla a esta funcion //lo hace reservar
+//                nuevoBooking.agregarAlojamiento(nuevoAlojamiento,nuevaReserva);// necesito la reserva para mandarla a esta funcion //lo hace reservar
 
 
         }
     }
-    public static Alojamiento cargarAlojamiento() //soy andru me falta terminar a la noche lo termino
+    public static Alojamiento cargarAlojamiento() //soy andru me falta terminar a la noche lo termino //tranqui amigo pero acordate que se cargan en el hashset
     {
         System.out.println("Ingrese nombre");
     }

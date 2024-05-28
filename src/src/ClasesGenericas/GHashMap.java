@@ -1,7 +1,6 @@
 package ClasesGenericas;
 
 import Interfaces.IOperacionesMap;
-import Modelo.Cliente;
 import Modelo.Reserva;
 
 import java.util.HashMap;
@@ -52,7 +51,7 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         return nuevoHashMap.containsKey(clave);
     }
 
-    public Iterator<Map.Entry<Cliente, HashSet<Reserva>>> blabla(){
+    public Iterator<Map.Entry<E, HashSet<Reserva>>> entrySetIterator(){
         nuevoHashMap.entrySet().iterator();
         return null;
     }
