@@ -2,6 +2,7 @@ package Modelo;
 
 import Interfaces.IOperaciones;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -162,7 +163,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
             cargarHashMap(cliente, nuevaReserva);
             //en este punto antes de entrar a esta funcion en el menu hay que evaluar si el cliente y el alojamiento existen
             //asi de ultima los guardamos en los hashSet antes :)
-            alojamiento.setDisponibilidad(false);
+            alojamiento.setDisponibilidad(false); //habra que utilizar enums
             cargarHashMapAlojamiento(alojamiento, nuevaReserva);
             reservaHashSet.add(nuevaReserva);
             reservada=true;
@@ -186,10 +187,18 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
         }
 
-
-
         return rta;
     }
+
+    public String mostrarReservasDeCliente(Cliente cliente){ //deberia mostrar las reservas de un cliente
+       String rta="cliente no encontrado/sin reservas";
+        if(hashMapCliente.containsKey(cliente)){
+            rta+=hashMapCliente.get(cliente)+"\n";
+        }
+        
+        return rta;
+    }
+
 
 
 }
