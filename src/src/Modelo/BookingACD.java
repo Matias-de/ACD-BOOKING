@@ -2,10 +2,7 @@ package Modelo;
 
 import Interfaces.IOperaciones;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
@@ -208,6 +205,31 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
         return rta;
     }
 
+    public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
+    {
+        String rta="";
+        Date fechaActualDelSistema= new Date();
+
+        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.entrySet().iterator();
+        while(entryIterator.hasNext()){
+            Map.Entry<Cliente,HashSet<Reserva>> reservaMapa = entryIterator.next();
+            HashSet<Reserva> reservas = reservaMapa.getValue();
+            Iterator<Reserva> reservaIterator = reservas.iterator();
+            while(reservaIterator.hasNext()){
+                Reserva reservaAux = reservaIterator.next();
+                if(fechaActualDelSistema.getDay()==reservaAux.getCliente().getFechaFinal().getDay() && fechaActualDelSistema.getMonth()==reservaAux.getCliente().getFechaFinal().getMonth() && (fechaActualDelSistema.getYear()+1900)==(reservaAux.getCliente().getFechaFinal().getYear()+1900)){
+                    rta+=reservaAux.toString()+"\n";
+                }
+            }
+        }
+        if(rta.equalsIgnoreCase("")){
+            rta="No hay reservas que concluyan el dia de hoy..";
+        }else{
+            rta+="Recuerda agregar la valoracion de su estadia!";
+        }
+
+        return rta;
+    }
 
 
 
