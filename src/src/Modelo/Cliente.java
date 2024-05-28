@@ -154,7 +154,7 @@ public class Cliente {
             if(obj instanceof Cliente){
                 Cliente aux= (Cliente)obj;
                 if(aux.correoElectronico.equalsIgnoreCase(correoElectronico)){
-                    rta=true; 
+                    rta=true;
                 }
             }
         }
