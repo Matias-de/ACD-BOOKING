@@ -97,8 +97,8 @@ public class BookingACD {
         Iterator<Reserva> reservaIterator;
         HashSet<Reserva> reservas;
         Reserva reservaAux;
-        if(hashMapCliente.containsKey(cliente)){
-            reservas= hashMapCliente.get(cliente);
+        if(hashMapCliente.buscarElemento(cliente)){
+            reservas= hashMapCliente.getReserva(cliente);
             reservaIterator= reservas.iterator();
             while(reservaIterator.hasNext()){
                 reservaAux= reservaIterator.next(); //en teoria esta parte revisa si el cliente no tiene otra reserva en esa fecha
@@ -109,8 +109,8 @@ public class BookingACD {
         }
 
         if(enFecha){
-        if(hashMapAlojamiento.containsKey(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado o si tiene alguna reserva
-            reservas = hashMapAlojamiento.get(alojamiento);
+        if(hashMapAlojamiento.buscarElemento(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado o si tiene alguna reserva
+            reservas = hashMapAlojamiento.getReserva(alojamiento);
             reservaIterator = reservas.iterator();
 
                 while (reservaIterator.hasNext()) {
@@ -129,11 +129,11 @@ public class BookingACD {
         }
         if(enFecha && !contieneAlojamiento){ //en el caso que ni el cliente ni el alojamiento tengan una reserva o que si lo tengan esten en una fecha que no interceda con otra reserva
             Reserva nuevaReserva = new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar()*1.21); //precio del alojamiento +21% nuestro
-            cargarHashMap(cliente, nuevaReserva);
+            hashMapCliente.agregar(cliente, nuevaReserva);
             //en este punto antes de entrar a esta funcion en el menu hay que evaluar si el cliente y el alojamiento existen
             //asi de ultima los guardamos en los hashSet antes :)
             alojamiento.setDisponibilidad(false); //habra que utilizar enums
-            cargarHashMapAlojamiento(alojamiento, nuevaReserva);
+            hashMapAlojamiento.agregar(alojamiento, nuevaReserva);
             reservaHashSet.add(nuevaReserva);
             reservada=true;
 
