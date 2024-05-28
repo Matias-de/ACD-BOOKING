@@ -162,6 +162,7 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
             cargarHashMap(cliente, nuevaReserva);
             //en este punto antes de entrar a esta funcion en el menu hay que evaluar si el cliente y el alojamiento existen
             //asi de ultima los guardamos en los hashSet antes :)
+            alojamiento.setDisponibilidad(false);
             cargarHashMapAlojamiento(alojamiento, nuevaReserva);
             reservaHashSet.add(nuevaReserva);
             reservada=true;
