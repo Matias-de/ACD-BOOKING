@@ -200,13 +200,16 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
     }
 //preguntar como hacer para no repetir estas funciones
     public String mostrarReservasEnAlojamiento(Alojamiento alojamiento){
-        String rta="cliente no encontrado/sin reservas";
+        String rta="Alojamiento no encontrado/sin reservas";
         if(hashMapAlojamiento.containsKey(alojamiento)){
             rta+=hashMapAlojamiento.get(alojamiento)+"\n";
         }
 
         return rta;
     }
+
+
+
 
 
 
