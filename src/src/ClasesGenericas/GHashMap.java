@@ -41,7 +41,11 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         nuevoHashMap.remove(clave);
 
     }
-
+    public HashSet<Reserva> getReserva(E nuevoGenerico)
+    {
+        HashSet<Reserva> aux =  nuevoHashMap.get(nuevoGenerico);
+        return aux;
+    }
     @Override
     public boolean buscarElemento(E clave) {
         return nuevoHashMap.containsKey(clave);
