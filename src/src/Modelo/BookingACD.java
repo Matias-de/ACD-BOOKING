@@ -1,26 +1,27 @@
 package Modelo;
 
-import Interfaces.IOperaciones;
+import ClasesGenericas.GHashMap;
+import Interfaces.IOperacionesMap;
 
 import java.util.*;
 
-public class BookingACD implements IOperaciones<Cliente, Reserva> {
+public class BookingACD {
 
     //no tendriamos que estar usando object, es lo que hay que revisar
     //encima claro al tener dos de cada una no podemos tirar de 2 veces el mismo metodo
     //porque sino ya no seria generico
     //atributos
 
-    HashMap<Cliente, HashSet<Reserva>> hashMapCliente; //Estos dos en archivos
-    HashMap<Alojamiento, HashSet<Reserva>> hashMapAlojamiento;
+    GHashMap<Cliente> hashMapCliente; //Estos dos en archivos
+    GHashMap<Alojamiento> hashMapAlojamiento;
     HashSet<Cliente> clienteHashSet; //Guardariamos un JSON
     HashSet<Alojamiento> alojamientoHashSet; //guardariamos un JSON
     HashSet<Reserva> reservaHashSet; //guardariamos en Archivo // no, tambien JSON
 
     //constructor
     public BookingACD() {
-        hashMapCliente = new HashMap<Cliente, HashSet<Reserva>>();
-        hashMapAlojamiento = new HashMap<Alojamiento, HashSet<Reserva>>();
+        hashMapCliente = new GHashMap<Cliente>();
+        hashMapAlojamiento = new GHashMap<Alojamiento>();
         clienteHashSet = new HashSet<Cliente>();
         alojamientoHashSet = new HashSet<Alojamiento>();
         reservaHashSet = new HashSet<Reserva>();
@@ -33,11 +34,11 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
     }
 
-    public HashMap<Alojamiento, HashSet<Reserva>> getHashMapAlojamiento() {
+    public GHashMap<Alojamiento> getHashMapAlojamiento() {
         return hashMapAlojamiento;
     }
 
-    public HashMap<Cliente, HashSet<Reserva>> getHashMapCliente() {
+    public GHashMap<Cliente> getHashMapCliente() {
         return hashMapCliente;
     }
 
@@ -52,42 +53,13 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
 
 
     //metodos
-    public void cargarHashMapAlojamiento(Alojamiento clave, Reserva valor){
-        HashSet<Reserva> aux;
-
-        if(hashMapAlojamiento.containsKey(clave)){
-            aux = hashMapAlojamiento.get(clave);
-        }else{
-            aux = new HashSet<>();
-            hashMapAlojamiento.put(clave, aux);
-        }
-        aux.add(valor);
+    public void agregarCliente(Cliente nuevoCliente, Reserva nuevaReserva)
+    {
+        hashMapCliente.agregar(nuevoCliente, nuevaReserva);
     }
-
-    @Override
-    public void cargarHashMap(Cliente clave, Reserva valor) { //preguntar
-        HashSet<Reserva> aux;
-
-        if(hashMapCliente.containsKey(clave)){
-           aux = hashMapCliente.get(clave);
-       }else{
-            aux = new HashSet<>();
-            hashMapCliente.put(clave, aux);
-       }
-        aux.add(valor);
-
-
-    }
-
-    @Override
-    public void listarHashMap(){
-
-        for (Cliente cliente : hashMapCliente.keySet()) { //preguntar si hay que sacar interfaz o como implementar
-            System.out.println("Cliente: " + cliente + " - Reservas: " + hashMapCliente.get(cliente));
-        }
-
-
-
+    public void agregarAlojamiento(Alojamiento nuevoAlojamiento, Reserva nuevaReserva)
+    {
+        hashMapAlojamiento.agregar(nuevoAlojamiento,nuevaReserva);
     }
 
     @Override
@@ -125,8 +97,8 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
         Iterator<Reserva> reservaIterator;
         HashSet<Reserva> reservas;
         Reserva reservaAux;
-        if(hashMapCliente.containsKey(cliente)){
-            reservas= hashMapCliente.get(cliente);
+        if(hashMapCliente.buscarElemento(cliente)){
+            reservas= hashMapCliente.getReserva(cliente);
             reservaIterator= reservas.iterator();
             while(reservaIterator.hasNext()){
                 reservaAux= reservaIterator.next(); //en teoria esta parte revisa si el cliente no tiene otra reserva en esa fecha
@@ -137,8 +109,8 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
         }
 
         if(enFecha){
-        if(hashMapAlojamiento.containsKey(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado o si tiene alguna reserva
-            reservas = hashMapAlojamiento.get(alojamiento);
+        if(hashMapAlojamiento.buscarElemento(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado o si tiene alguna reserva
+            reservas = hashMapAlojamiento.getReserva(alojamiento);
             reservaIterator = reservas.iterator();
 
                 while (reservaIterator.hasNext()) {
@@ -157,11 +129,11 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
         }
         if(enFecha && !contieneAlojamiento){ //en el caso que ni el cliente ni el alojamiento tengan una reserva o que si lo tengan esten en una fecha que no interceda con otra reserva
             Reserva nuevaReserva = new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar()*1.21); //precio del alojamiento +21% nuestro
-            cargarHashMap(cliente, nuevaReserva);
+            hashMapCliente.agregar(cliente, nuevaReserva);
             //en este punto antes de entrar a esta funcion en el menu hay que evaluar si el cliente y el alojamiento existen
             //asi de ultima los guardamos en los hashSet antes :)
             alojamiento.setDisponibilidad(false); //habra que utilizar enums
-            cargarHashMapAlojamiento(alojamiento, nuevaReserva);
+            hashMapAlojamiento.agregar(alojamiento, nuevaReserva);
             reservaHashSet.add(nuevaReserva);
             reservada=true;
 
