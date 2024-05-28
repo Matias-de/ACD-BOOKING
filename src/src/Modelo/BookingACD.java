@@ -225,13 +225,32 @@ public class BookingACD implements IOperaciones<Cliente, Reserva> {
         if(rta.equalsIgnoreCase("")){
             rta="No hay reservas que concluyan el dia de hoy..";
         }else{
-            rta+="Recuerda agregar la valoracion de su estadia!";
+            rta+="Recuerda agregar la valoracion de la estadia!";
         }
 
         return rta;
     }
 
+    public void mostrarReservasYaTerminadas(){ //muestra las reservas que terminaron para que el admin diga uy hay que modificar esto loco y lo haga con la funcion de abajo
+        String rta="Reservas terminadas: ";
+        Date fechaActualDelSistema= new Date();
 
+        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.entrySet().iterator();
+        while(entryIterator.hasNext()){
+            Map.Entry<Cliente,HashSet<Reserva>> reservaMapa = entryIterator.next();
+            HashSet<Reserva> reservas = reservaMapa.getValue();
+            Iterator<Reserva> reservaIterator = reservas.iterator();
+            while(reservaIterator.hasNext()){
+                Reserva reservaAux = reservaIterator.next();
+                if(fechaActualDelSistema.after(reservaAux.getCliente().getFechaFinal())){
+                    rta+=reservaAux.toString()+"\n";
+                }else{
+                    rta+="Ninguna";
+                }
+            }
+        }
+    }
+    
 
 
 
