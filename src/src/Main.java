@@ -1,7 +1,4 @@
-import Modelo.Alojamiento;
-import Modelo.BookingACD;
-import Modelo.Cliente;
-import Modelo.Reserva;
+import Modelo.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,24 +15,32 @@ public class Main {
         System.out.println("BIENVENIDO!");
         System.out.println("Ingrese la opcion que desee realizar:");
         System.out.println("1)Cargar un nuevo cliente.");
+        System.out.println("2)Cargar un alojamiento.");
+        System.out.println("3)Realizar una reserva.");
         opc = scan.nextInt(); // cargamos la opcion elegida por el administrador
         switch (opc)
         {
-            case 1: // me gustaria que la opcion 1 te deje cargar clientes, la 2 alojamientos y asi... //para eso estan los hashSet.
+            case 1:
+                Cliente nuevoCliente = cargaCliente();
+                nuevoBooking.agregarCliente(nuevoCliente);
+                break;
+            case 2:
+                Alojamiento nuevoAlojamiento = cargarAlojamiento();
+                nuevoBooking.agregarAlojamiento(nuevoAlojamiento);
+                break;
+            case 3:
+                Alojamiento nuevoAlojamiento1 = cargarAlojamiento();
+                Cliente nuevoCliente2 = cargaCliente();
 
-//                Cliente nuevoCliente = cargaCliente();
-//                Alojamiento nuevoAlojamiento = cargarAlojamiento();
-//                //Reserva nuevaReserva = nuevoBooking.reservar(nuevoCliente,nuevoAlojamiento); //necesito q esta funcion retorne null o la reserva si se pudo realizar //para eso esta el booleano, no podes retornar una reserva que nunca se creo
-//
-//                nuevoBooking.agregarCliente(nuevoCliente,nuevaReserva); //necesito la reserva para mandarla a esta funcion //lo hace reservar
-//                nuevoBooking.agregarAlojamiento(nuevoAlojamiento,nuevaReserva);// necesito la reserva para mandarla a esta funcion //lo hace reservar
-
-
+                nuevoBooking.reservar(nuevoCliente2,nuevoAlojamiento1);
+                break;
         }
     }
-    public static Alojamiento cargarAlojamiento() //soy andru me falta terminar a la noche lo termino //tranqui amigo pero acordate que se cargan en el hashset
+    public static Alojamiento cargarAlojamiento()
     {
         System.out.println("Ingrese nombre");
+        Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada",true,2,2,12,"no");
+        return nuevo;
     }
     public static Cliente cargaCliente()
     {
