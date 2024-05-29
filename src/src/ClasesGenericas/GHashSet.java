@@ -12,6 +12,13 @@ public class GHashSet<E> implements IOperacionesSet<E> {
     }
 
     @Override
+    public String toString() {
+        return "GHashSet{" +
+                "nuevoHashSet=" + nuevoHashSet +
+                '}';
+    }
+
+    @Override
     public void agregar(E nuevoGenerico) {
         nuevoHashSet.add(nuevoGenerico);
     }
