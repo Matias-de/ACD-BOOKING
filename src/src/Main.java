@@ -9,32 +9,43 @@ public class Main {
     public static void main(String[] args) {
         //declaracion de variables
         int opc = 0;
+        char inicio = 's';
         BookingACD nuevoBooking = new BookingACD();
         scan = new Scanner(System.in);
         //texto en pantalla
-        System.out.println("BIENVENIDO!");
-        System.out.println("Ingrese la opcion que desee realizar:");
-        System.out.println("1)Cargar un nuevo cliente.");
-        System.out.println("2)Cargar un alojamiento.");
-        System.out.println("3)Realizar una reserva.");
-        opc = scan.nextInt(); // cargamos la opcion elegida por el administrador
-        switch (opc)
+        while ( inicio == 's')
         {
-            case 1:
-                Cliente nuevoCliente = cargaCliente();
-                nuevoBooking.agregarCliente(nuevoCliente);
-                break;
-            case 2:
-                Alojamiento nuevoAlojamiento = cargarAlojamiento();
-                nuevoBooking.agregarAlojamiento(nuevoAlojamiento);
-                break;
-            case 3:
-                Alojamiento nuevoAlojamiento1 = cargarAlojamiento();
-                Cliente nuevoCliente2 = cargaCliente();
+            System.out.println("BIENVENIDO!");
+            System.out.println("Ingrese la opcion que desee realizar:");
+            System.out.println("1)Cargar un nuevo cliente.");
+            System.out.println("2)Cargar un alojamiento.");
+            System.out.println("3)Realizar una reserva.");
+            System.out.println("4)Mostrar Set de reservas.");
+            opc = scan.nextInt(); // cargamos la opcion elegida por el administrador
+            switch (opc)
+            {
+                case 1:
+                    Cliente nuevoCliente = cargaCliente();
+                    nuevoBooking.agregarCliente(nuevoCliente);
+                    break;
+                case 2:
+                    Alojamiento nuevoAlojamiento = cargarAlojamiento();
+                    nuevoBooking.agregarAlojamiento(nuevoAlojamiento);
+                    break;
+                case 3:
+                    Alojamiento nuevoAlojamiento1 = cargarAlojamiento();
+                    Cliente nuevoCliente2 = cargaCliente();
 
-                nuevoBooking.reservar(nuevoCliente2,nuevoAlojamiento1);
-                break;
+                    System.out.println(nuevoBooking.reservar(nuevoCliente2,nuevoAlojamiento1));
+
+                    break;
+                case 4:
+                    System.out.println(nuevoBooking.mostrarSetReserva());
+            }
+            System.out.println("Desea volver al menu?");
+            inicio = scan.next().charAt(0);
         }
+
     }
     public static Alojamiento cargarAlojamiento()
     {
