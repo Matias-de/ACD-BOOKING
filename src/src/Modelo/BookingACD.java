@@ -1,5 +1,5 @@
 package Modelo;
-
+import ClasesGenericas.GHashSet;
 import ClasesGenericas.GHashMap;
 
 import java.util.*;
@@ -13,26 +13,25 @@ public class BookingACD {
 
     GHashMap<Cliente> hashMapCliente; //Estos dos en archivos
     GHashMap<Alojamiento> hashMapAlojamiento;
-    HashSet<Cliente> clienteHashSet; //Guardariamos un JSON
-    HashSet<Alojamiento> alojamientoHashSet; //guardariamos un JSON
-    HashSet<Reserva> reservaHashSet; //guardariamos en Archivo // no, tambien JSON
+    GHashSet<Cliente> clienteHashSet; //Guardariamos un JSON
+    GHashSet<Alojamiento> alojamientoHashSet; //guardariamos un JSON
+    GHashSet<Reserva> reservaHashSet; //guardariamos en Archivo // no, tambien JSON
 
     //constructor
     public BookingACD() {
         hashMapCliente = new GHashMap<Cliente>();
         hashMapAlojamiento = new GHashMap<Alojamiento>();
-        clienteHashSet = new HashSet<Cliente>();
-        alojamientoHashSet = new HashSet<Alojamiento>();
-        reservaHashSet = new HashSet<Reserva>();
+        clienteHashSet = new GHashSet<Cliente>();
+        alojamientoHashSet = new GHashSet<Alojamiento>();
+        reservaHashSet = new GHashSet<Reserva>();
     }
 
-    //getters
-    public HashSet<Cliente> getClienteHashSet() {
-
+    //getters sett
+    public GHashSet<Cliente> getClienteHashSet() {
         return clienteHashSet;
 
     }
-
+    //getters map
     public GHashMap<Alojamiento> getHashMapAlojamiento() {
         return hashMapAlojamiento;
     }
@@ -41,28 +40,29 @@ public class BookingACD {
         return hashMapCliente;
     }
 
-    public HashSet<Alojamiento> getAlojamientoHashSet() {
+    public GHashSet<Alojamiento> getAlojamientoHashSet() {
         return alojamientoHashSet;
     }
 
-    public HashSet<Reserva> getReservaHashSet() {
+    public GHashSet<Reserva> getReservaHashSet() {
         return reservaHashSet;
     }
 
 
 
     //metodos
-    public void agregarCliente(Cliente nuevoCliente, Reserva nuevaReserva)
+    public void agregarCliente(Cliente nuevoCliente)
     {
-        hashMapCliente.agregar(nuevoCliente, nuevaReserva);
+        clienteHashSet.agregar(nuevoCliente);
     }
-    public void agregarAlojamiento(Alojamiento nuevoAlojamiento, Reserva nuevaReserva)
+    public void agregarAlojamiento(Alojamiento nuevoAlojamiento)
     {
-        hashMapAlojamiento.agregar(nuevoAlojamiento,nuevaReserva);
+        alojamientoHashSet.agregar(nuevoAlojamiento);
     }
-
-
-
+    public void agregarReserva(Reserva nuevaReserva)
+    {
+        reservaHashSet.agregar(nuevaReserva);
+    }
 
 
     public boolean reservar(Cliente cliente, Alojamiento alojamiento){ //probar / revisar
@@ -107,7 +107,7 @@ public class BookingACD {
             //asi de ultima los guardamos en los hashSet antes :)
             alojamiento.setDisponibilidad(false); //habra que utilizar enums
             hashMapAlojamiento.agregar(alojamiento, nuevaReserva);
-            reservaHashSet.add(nuevaReserva);
+            agregarReserva(nuevaReserva);
             reservada=true;
 
         }
