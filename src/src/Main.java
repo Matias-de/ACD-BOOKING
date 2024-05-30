@@ -72,10 +72,16 @@ public class Main {
         apellido = scan.nextLine();
         System.out.println("Ingrese mail:");
         email = scan.nextLine();
-        System.out.println("Ingrese medio de pago (Tarjeta o efectivo):");
-        medioDePago = scan.nextLine();
-        System.out.println("Ingrese la cantidad de personas:");//deberiamos de saber si hay niños
-       cantDePersonas = scan.nextInt();
+        do{
+            System.out.println("Ingrese medio de pago (Tarjeta / efectivo / transferencia):");
+            medioDePago = scan.nextLine();
+        }while(!medioDePago.equalsIgnoreCase("tarjeta") && !medioDePago.equalsIgnoreCase("efectivo") && !medioDePago.equalsIgnoreCase("transferencia"));
+
+
+            System.out.println("Ingrese la cantidad de personas:");//deberiamos de saber si hay niños
+            cantDePersonas= scan.nextInt();
+
+
         Cliente nuevoCliente = new Cliente(nombre,apellido,email,medioDePago,cantDePersonas);
        // nuevoCliente.asignarFecha(diaInicio,diaFin,mesInicio,mesFin,añoInicio,añoFin); //su uso es para cuando se reserva
         return nuevoCliente;
