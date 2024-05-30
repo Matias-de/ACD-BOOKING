@@ -22,4 +22,13 @@ public class GHashSet<E> implements IOperacionesSet<E> {
     public void agregar(E nuevoGenerico) {
         nuevoHashSet.add(nuevoGenerico);
     }
+
+
+    @Override
+    public boolean buscarPorNombre(String nombre){
+        boolean rta= false;
+
+
+        return rta;
+    }
 }

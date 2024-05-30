@@ -44,6 +44,13 @@ public class Main {
                     nuevoBooking.agregarAlojamiento(nuevoAlojamiento);
                     break;
                 case 3:
+                    System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
+                    int auxInt= scan.nextInt();
+                    if(auxInt==1){ //falta terminar se termino la clase juajua
+                        System.out.println("Clientes ya cargados: ");
+                        System.out.println(nuevoBooking.getClienteHashSet().toString());
+                        //aca iria buscarPorCliente
+                    }
                     Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
                     Cliente nuevoCliente2 = cargaCliente();
                     preguntarEstadia(nuevoCliente2);
