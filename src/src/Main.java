@@ -115,26 +115,42 @@ public class Main {
             }
         }while(anioAux!=1 && anioAux!=2);
     }
-    public static void preguntarEstadia(Cliente cliente){
-       int diaInicio=0,diaFin=0,mesInicio=0,mesFin=0,anioAux=0;
-        boolean añoInicio=false, añoFin=false;
+
+    public static boolean verificarFechas(int diaInicio, int diaFin, int mesInicio, int mesFin){
+        boolean rta=true;
+        Date auxInicio= new Date(LocalDate.now().getYear(), mesInicio, diaInicio);
+        Date auxFin = new Date(LocalDate.now().getYear(), mesFin, diaFin);
+        if((auxInicio.after(auxFin))){
+            System.out.println("ERROR, la fecha de inicio es despues de la fecha final");
+            rta=false;
+        }
+
+        return rta;
+    }
+    public static void preguntarEstadia(Cliente cliente) {
+        int diaInicio = 0, diaFin = 0, mesInicio = 0, mesFin = 0, anioAux = 0;
+        boolean añoInicio = false, añoFin = false;
+
         do{
+        do {
             System.out.println("Ingrese el dia de inicio de la estadia: ");
             diaInicio = scan.nextInt();//el valor del booleano que nos dice si el año es el actual o el siguiente
             System.out.println("Ingrese el mes de inicio de la estadia: ");
             mesInicio = scan.nextInt();
             ingresarAnioValidado(anioAux, añoInicio);
 
-        }while(!validarIngresoFecha(diaInicio, mesInicio)); //este do-while va a realizarse siempre que el user ponga mal los datos, cuando los ponga bien lo dejara avanzar
-        do{
+        } while (!validarIngresoFecha(diaInicio, mesInicio)); //este do-while va a realizarse siempre que el user ponga mal los datos, cuando los ponga bien lo dejara avanzar
+        do {
             System.out.println("Ingrese el dia cuando se va a retirar de la propiedad:");
             diaFin = scan.nextInt();
             System.out.println("Ingrese el mes final de la estadia: ");
             mesFin = scan.nextInt();
-            ingresarAnioValidado(anioAux,añoFin);
-        }while(!validarIngresoFecha(diaFin, mesFin)); //lo mismo aca
+            ingresarAnioValidado(anioAux, añoFin);
+        } while (!validarIngresoFecha(diaFin, mesFin)); //lo mismo aca
+
+        }while(!verificarFechas(diaInicio,diaFin,mesInicio,mesFin));
         //si logra pasar todos los filtros, le asigna la fecha :)
-       cliente.asignarFecha(diaInicio, diaFin, mesInicio, mesFin, añoInicio, añoFin);
+        cliente.asignarFecha(diaInicio, diaFin, mesInicio, mesFin, añoInicio, añoFin);
 
     }
     public static void opcionesMenu(){ //aca pongan las opciones del menu
