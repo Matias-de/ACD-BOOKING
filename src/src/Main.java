@@ -17,12 +17,7 @@ public class Main {
         //texto en pantalla
         while ( inicio == 's')
         {
-            System.out.println("BIENVENIDO!");
-            System.out.println("Ingrese la opcion que desee realizar:");
-            System.out.println("1)Cargar un nuevo cliente.");
-            System.out.println("2)Cargar un alojamiento.");
-            System.out.println("3)Realizar una reserva.");
-            System.out.println("4)Mostrar Set de reservas.");
+            opcionesMenu();
             opc = scan.nextInt(); // cargamos la opcion elegida por el administrador
             switch (opc)
             {
@@ -44,7 +39,9 @@ public class Main {
                 case 4:
                     System.out.println(nuevoBooking.mostrarSetReserva());
                     break;
-                    //agregar default al final
+                default:
+                    System.out.println("ERROR, OPCION INVALIDA");
+                    break;
             }
             System.out.println("Desea volver al menu? (si/no)");
             inicio = scan.next().charAt(0);
@@ -92,5 +89,13 @@ public class Main {
         añoFin = scan.nextBoolean();
        cliente.asignarFecha(diaInicio, diaFin, mesInicio, mesFin, añoInicio, añoFin);
 
+    }
+    public static void opcionesMenu(){ //aca pongan las opciones del menu
+        System.out.println("BIENVENIDO!");
+        System.out.println("Ingrese la opcion que desee realizar:");
+        System.out.println("1)Cargar un nuevo cliente.");
+        System.out.println("2)Cargar un alojamiento.");
+        System.out.println("3)Realizar una reserva.");
+        System.out.println("4)Mostrar Set de reservas.");
     }
 }
