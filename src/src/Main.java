@@ -9,10 +9,16 @@ public class Main {
     static Scanner scan;
 
     public static void main(String[] args) {
+        BookingACD nuevoBooking = new BookingACD();
+        menu(nuevoBooking);
+
+    }
+
+    public static void menu(BookingACD nuevoBooking){
         //declaracion de variables
         int opc = 0;
         char inicio = 's';
-        BookingACD nuevoBooking = new BookingACD();
+
         scan = new Scanner(System.in);
         //texto en pantalla
         while ( inicio == 's')
@@ -48,7 +54,6 @@ public class Main {
             System.out.println("Desea volver al menu? (si/no)");
             inicio = scan.next().charAt(0);
         }
-
     }
     public static Alojamiento cargarAlojamiento()
     {
