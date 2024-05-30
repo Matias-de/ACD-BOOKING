@@ -116,10 +116,20 @@ public class Main {
         }while(anioAux!=1 && anioAux!=2);
     }
 
-    public static boolean verificarFechas(int diaInicio, int diaFin, int mesInicio, int mesFin){
+    public static boolean verificarFechas(int diaInicio, int diaFin, int mesInicio, int mesFin, boolean anioInicio, boolean aniofin){
         boolean rta=true;
-        Date auxInicio= new Date(LocalDate.now().getYear(), mesInicio, diaInicio);
-        Date auxFin = new Date(LocalDate.now().getYear(), mesFin, diaFin);
+        Date auxInicio =null, auxFin=null;
+        if(anioInicio){
+            auxInicio= new Date(LocalDate.now().getYear()+1, mesInicio, diaInicio);
+        }else{
+            auxInicio= new Date(LocalDate.now().getYear(), mesInicio, diaInicio);
+        }
+        if(aniofin){
+             auxFin = new Date(LocalDate.now().getYear()+1, mesFin, diaFin);
+        }else{
+            auxFin = new Date(LocalDate.now().getYear(), mesFin, diaFin);
+        }
+
         if((auxInicio.after(auxFin))){
             System.out.println("ERROR, la fecha de inicio es despues de la fecha final");
             rta=false;
@@ -132,6 +142,7 @@ public class Main {
         boolean añoInicio = false, añoFin = false;
 
         do{
+
         do {
             System.out.println("Ingrese el dia de inicio de la estadia: ");
             diaInicio = scan.nextInt();//el valor del booleano que nos dice si el año es el actual o el siguiente
@@ -148,7 +159,7 @@ public class Main {
             ingresarAnioValidado(anioAux, añoFin);
         } while (!validarIngresoFecha(diaFin, mesFin)); //lo mismo aca
 
-        }while(!verificarFechas(diaInicio,diaFin,mesInicio,mesFin));
+        }while(!verificarFechas(diaInicio,diaFin,mesInicio,mesFin, añoInicio, añoFin));
         //si logra pasar todos los filtros, le asigna la fecha :)
         cliente.asignarFecha(diaInicio, diaFin, mesInicio, mesFin, añoInicio, añoFin);
 

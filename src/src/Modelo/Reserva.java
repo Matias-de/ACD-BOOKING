@@ -49,7 +49,7 @@ public class Reserva{
     public String toString() {
         return "Reserva{" +
                 "alojamiento=" + alojamiento +
-               // ", cliente=" + cliente +
+                ", cliente=" + cliente +
                 ", precioTotal=" + precioTotal +
                // ", pin=" + pin +
                 '}';
