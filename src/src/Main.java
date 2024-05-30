@@ -64,9 +64,10 @@ public class Main {
     public static Cliente cargaCliente()
     {
         String nombre,apellido,email,medioDePago;
-        int cantDePersonas=0;
 
+        int cantDePersonas=0;
         System.out.println("Ingrese nombre: ");
+        scan.next(); //para que no se pisen los datos
         nombre = scan.nextLine();
         System.out.println("Ingrese apellido:");
         apellido = scan.nextLine();
@@ -100,13 +101,24 @@ public class Main {
     }
 
     public static void preguntarEstadia(Cliente cliente){
-       int diaInicio=0,diaFin=0,mesInicio=0,mesFin=0;
+       int diaInicio=0,diaFin=0,mesInicio=0,mesFin=0,anioAux=0;
         boolean añoInicio, añoFin;
         do{
-            System.out.println("Ingrese cuando va a ingresar a la propiedad en orden de DIA, MES, Y AÑO(maximo 1 año):"); //como nosotros vamos a ser los que cargan clientes y demas vamos a asignar
+            System.out.println("Ingrese el dia de inicio de la estadia: ");
             diaInicio = scan.nextInt();//el valor del booleano que nos dice si el año es el actual o el siguiente
+            System.out.println("Ingrese el mes de inicio de la estadia: ");
             mesInicio = scan.nextInt();
-            añoInicio = scan.nextBoolean();
+           do{
+               System.out.println("si La reserva es para este año, ingrese 1, sino, ingrese 2");
+               anioAux= scan.nextInt();
+               if(anioAux==1){
+
+                   añoInicio = false;
+               }else{
+                   añoInicio=true;
+               }
+           }while(anioAux!=1 && anioAux!=2);
+
         }while(!validarIngresoFecha(diaInicio, mesInicio)); //este do-while va a realizarse siempre que el user ponga mal los datos, cuando los ponga bien lo dejara avanzar
         do{
             System.out.println("Ingrese cuando se va a retirar de la propiedad:");
