@@ -1,5 +1,7 @@
 package Modelo;
 
+import enumeraciones.EstadoAlojamiento;
+
 public class Departamento extends Alojamiento {
 
     //atributos
@@ -10,7 +12,7 @@ public class Departamento extends Alojamiento {
     //constructores
 
 
-    public Departamento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad, int cantReservas,int numeroPiso, int tamañoDepartamento, String servicioExtra)
+    public Departamento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios, EstadoAlojamiento disponibilidad, int cantReservas, int numeroPiso, int tamañoDepartamento, String servicioExtra)
     {
         super(precioXAlojar,descripcion, nombre, direccion,zona,comentarios,disponibilidad,cantReservas);
         this.numeroPiso = numeroPiso;
