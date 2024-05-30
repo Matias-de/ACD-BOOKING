@@ -1,8 +1,5 @@
 package Modelo;
 
-import enumeraciones.EstadoAlojamiento;
-
-import java.util.Date;
 import java.util.UUID;
 
 public class Reserva{
@@ -44,16 +41,6 @@ public class Reserva{
 
     public UUID getPin() {
         return pin;
-    }
-    ///VERIFICA DISPONIBILDIAD DEL MOMENTO
-    public void verificarDisp(){
-        Date fechaActual  = new Date();
-
-        if(cliente.getFechaInicio().before(fechaActual) && cliente.getFechaFinal().after(fechaActual))
-        {
-            alojamiento.setEstado(EstadoAlojamiento.RESERVADO);
-        }
-        alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
     }
 
     //Metodos

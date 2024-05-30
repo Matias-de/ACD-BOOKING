@@ -1,7 +1,5 @@
 package Modelo;
 
-import enumeraciones.EstadoAlojamiento;
-
 import java.util.Date;
 
 public abstract class Alojamiento{
@@ -16,12 +14,12 @@ public abstract class Alojamiento{
     private final String zona;
     private String comentarios;
 
-    private EstadoAlojamiento estado;
+    private boolean disponibilidad;
 
     //constructores
 
 
-    public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  EstadoAlojamiento estado, int cantReservas) {
+    public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad, int cantReservas) {
         this.precioXAlojar = precioXAlojar;
         //valoracion se saca porcentaje entre las que se pongan despues de una reserva
         valoracion = 0;
@@ -32,7 +30,7 @@ public abstract class Alojamiento{
         this.zona = zona;
         this.comentarios = comentarios;
 
-        this.estado = estado;
+        this.disponibilidad = disponibilidad;
     }
 
     public Alojamiento() {
@@ -44,7 +42,8 @@ public abstract class Alojamiento{
         direccion="";
         zona="";
         comentarios="";
-        estado = EstadoAlojamiento.DISPONIBLE;
+
+        disponibilidad = true;
 
     }
 
@@ -79,19 +78,11 @@ public abstract class Alojamiento{
     }
 
     public boolean isDisponibilidad() {
-        return this.estado == EstadoAlojamiento.DISPONIBLE;
+        return disponibilidad;
     }
 
     public int getCantReservas() {
         return cantReservas;
-    }
-
-    public EstadoAlojamiento getEstado() {
-        return estado;
-    }
-
-    public void setEstado(EstadoAlojamiento estado) {
-        this.estado = estado;
     }
     //setters
 
@@ -103,6 +94,11 @@ public abstract class Alojamiento{
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
     }
+
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
     public void setPrecioXAlojar(double precioXAlojar) {
         this.precioXAlojar = precioXAlojar;
     }
@@ -126,7 +122,7 @@ public abstract class Alojamiento{
                 ", zona='" + zona + '\'' +
                 ", comentarios='" + comentarios + '\'' +
 
-                ", estado=" + estado +
+                ", disponibilidad=" + disponibilidad +
 
 
                 '}';

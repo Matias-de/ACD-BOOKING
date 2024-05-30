@@ -1,5 +1,4 @@
 import Modelo.*;
-import enumeraciones.EstadoAlojamiento;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +50,7 @@ public class Main {
     public static Alojamiento cargarAlojamiento()
     {
         System.out.println("Ingrese nombre");
-        Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada", EstadoAlojamiento.DISPONIBLE,2,2,12,"no");
+        Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada",true,2,2,12,"no");
         return nuevo;
     }
     public static Cliente cargaCliente()

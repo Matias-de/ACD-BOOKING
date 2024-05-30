@@ -1,7 +1,6 @@
 package Modelo;
 import ClasesGenericas.GHashSet;
 import ClasesGenericas.GHashMap;
-import enumeraciones.EstadoAlojamiento;
 
 import java.util.*;
 
@@ -129,7 +128,7 @@ public class BookingACD {
             hashMapCliente.agregar(cliente, nuevaReserva);
             //en este punto antes de entrar a esta funcion en el menu hay que evaluar si el cliente y el alojamiento existen
             //asi de ultima los guardamos en los hashSet antes :)
-            alojamiento.setEstado(EstadoAlojamiento.RESERVADO); //utilizamos enums con Estado. Antes era disponibilidad
+            alojamiento.setDisponibilidad(false); //habra que utilizar enums
             hashMapAlojamiento.agregar(alojamiento, nuevaReserva);
             agregarReserva(nuevaReserva);
             reservada=true;
