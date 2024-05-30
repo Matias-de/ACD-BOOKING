@@ -12,7 +12,16 @@ public class Main {
         menu(nuevoBooking);
 
     }
-
+    public static void opcionesMenu(){ //aca pongan las opciones del menu
+        System.out.println("BIENVENIDO!");
+        System.out.println("Ingrese la opcion que desee realizar:");
+        System.out.println("1)Cargar un nuevo cliente.");
+        System.out.println("2)Cargar un alojamiento.");
+        System.out.println("3)Realizar una reserva.");
+        System.out.println("4)Mostrar Las reservas del Sistema.");
+        System.out.println("(5)Mostrar los Clientes del Sistema.");
+        System.out.println("(6)Mostrar los Alojamientos del Sistema.");
+    }
     public static void menu(BookingACD nuevoBooking){
         //declaracion de variables
         int opc = 0;
@@ -44,7 +53,12 @@ public class Main {
                 case 4:
                     System.out.println(nuevoBooking.mostrarSetReserva());
                     break;
-
+                case 5:
+                    System.out.println(nuevoBooking.getClienteHashSet().toString());
+                    break;
+                case 6:
+                    System.out.println(nuevoBooking.getAlojamientoHashSet().toString());
+                    break;
 
                 default:
                     System.out.println("ERROR, OPCION INVALIDA");
@@ -75,6 +89,7 @@ public class Main {
         do{
             System.out.println("Ingrese medio de pago (Tarjeta / efectivo / transferencia):");
             medioDePago = scan.nextLine();
+            //se va a ejecutar hasta que medio de pago sea uno de los que se pide
         }while(!medioDePago.equalsIgnoreCase("tarjeta") && !medioDePago.equalsIgnoreCase("efectivo") && !medioDePago.equalsIgnoreCase("transferencia"));
 
 
@@ -170,12 +185,5 @@ public class Main {
         cliente.asignarFecha(diaInicio, diaFin, mesInicio, mesFin, añoInicio, añoFin);
 
     }
-    public static void opcionesMenu(){ //aca pongan las opciones del menu
-        System.out.println("BIENVENIDO!");
-        System.out.println("Ingrese la opcion que desee realizar:");
-        System.out.println("1)Cargar un nuevo cliente.");
-        System.out.println("2)Cargar un alojamiento.");
-        System.out.println("3)Realizar una reserva.");
-        System.out.println("4)Mostrar Set de reservas.");
-    }
+
 }
