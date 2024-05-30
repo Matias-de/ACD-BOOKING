@@ -43,8 +43,10 @@ public class Main {
                     break;
                 case 4:
                     System.out.println(nuevoBooking.mostrarSetReserva());
+                    break;
+                    //agregar default al final
             }
-            System.out.println("Desea volver al menu?");
+            System.out.println("Desea volver al menu? (si/no)");
             inicio = scan.next().charAt(0);
         }
 
