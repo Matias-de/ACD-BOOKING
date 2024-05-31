@@ -42,7 +42,6 @@ public abstract class Alojamiento{
         direccion="";
         zona="";
         comentarios="";
-
         estado = EstadoAlojamiento.DISPONIBLE;
 
     }

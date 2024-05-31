@@ -57,7 +57,7 @@ public class HabitacionHotel extends Alojamiento{
 
     @Override
     public String toString() {
-        return "Habitacion de hotel: " +
+        return super.toString()+"Habitacion de hotel: " +
                 "servicios='" + servicios + '\'' +
                 ", tipoHabitacion='" + tipoHabitacion + '\'' +
                 ", numeroHabitacion=" + numeroHabitacion +

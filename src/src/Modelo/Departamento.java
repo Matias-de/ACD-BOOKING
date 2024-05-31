@@ -42,7 +42,7 @@ public class Departamento extends Alojamiento {
 
     @Override
     public String toString() {
-        return "Departamento{" +
+        return super.toString()+"Departamento{" +
                 "numeroPiso=" + numeroPiso +
                 ", tamañoDepartamento=" + tamañoDepartamento +
                 ", servicioExtra='" + servicioExtra + '\'' +

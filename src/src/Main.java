@@ -1,3 +1,4 @@
+import Enumeraciones.EstadoAlojamiento;
 import Modelo.*;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public class Main {
         int opc = 0, auxInt=0;
         char inicio = 's';
         Cliente clienteAux= new Cliente();
+        Alojamiento alojamientoAux;
         String stringAux="";
         scan = new Scanner(System.in);
         //texto en pantalla
@@ -43,8 +45,9 @@ public class Main {
                     nuevoBooking.agregarCliente(nuevoCliente);
                     break;
                 case 2:
-                    Alojamiento nuevoAlojamiento = cargarAlojamiento();
-                    nuevoBooking.agregarAlojamiento(nuevoAlojamiento);
+                    alojamientoAux = cargarAlojamiento();
+                    nuevoBooking.agregarAlojamiento(alojamientoAux);
+
                     break;
                 case 3:
                     do{
@@ -115,6 +118,7 @@ public class Main {
                     break;
             }
             System.out.println("Desea volver al menu? (si/no)");
+            scan.nextLine();
             inicio = scan.next().charAt(0);
         }
     }
@@ -140,7 +144,7 @@ public class Main {
         do {
             System.out.println("Desea ingresar un Departamento o una Habitacion de Hotel? Ingrese alguna de esas dos palabras segun corresponda: ");
             tipoAux=scan.next();
-        }while(!tipoAux.equalsIgnoreCase("departamento") && !tipoAux.equalsIgnoreCase("Habitacion de Hotel")); //tiene que elegir si o si uno de los dos
+        }while(!tipoAux.equalsIgnoreCase("departamento") && !tipoAux.equalsIgnoreCase("Habitacion")); //tiene que elegir si o si uno de los dos
         if(tipoAux.equalsIgnoreCase("departamento")){
             System.out.println("Ingrese el tamaño del Departamento: ");
             tamaño= scan.nextInt();
@@ -148,7 +152,7 @@ public class Main {
             numeroPiso= scan.nextInt();
             System.out.println("Ingrese (si tiene) servicios Extras: ");
             serviciosExtras= scan.next();
-            nuevo = new Departamento(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, true, numeroPiso, tamaño, serviciosExtras);
+            nuevo = new Departamento(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, EstadoAlojamiento.DISPONIBLE, numeroPiso, tamaño, serviciosExtras);
         }else{
             System.out.println("Ingrese el numero de Habitacion: ");
             numeroHabitacion=scan.nextInt();
@@ -156,7 +160,7 @@ public class Main {
             tipoHabitacion=scan.next();
             System.out.println("Ingrese los servicios extras:  ");
             serviciosExtras=scan.next();
-            nuevo = new HabitacionHotel(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, true, serviciosExtras, tipoHabitacion, numeroHabitacion);
+            nuevo = new HabitacionHotel(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, EstadoAlojamiento.DISPONIBLE, serviciosExtras, tipoHabitacion, numeroHabitacion);
         }
 
         //Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada",true,2,2,12,"no");
