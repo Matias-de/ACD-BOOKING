@@ -1,7 +1,5 @@
 package Modelo;
 
-import java.util.Date;
-
 public abstract class Alojamiento{
 
     //atributos
@@ -19,11 +17,11 @@ public abstract class Alojamiento{
     //constructores
 
 
-    public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad, int cantReservas) {
+    public Alojamiento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad) {
         this.precioXAlojar = precioXAlojar;
         //valoracion se saca porcentaje entre las que se pongan despues de una reserva
         valoracion = 0;
-        this.cantReservas = cantReservas;
+        cantReservas=0;
         this.descripcion = descripcion;
         this.nombre = nombre;
         this.direccion = direccion;

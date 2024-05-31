@@ -10,9 +10,9 @@ public class Departamento extends Alojamiento {
     //constructores
 
 
-    public Departamento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad, int cantReservas,int numeroPiso, int tamañoDepartamento, String servicioExtra)
+    public Departamento(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios,  boolean disponibilidad,int numeroPiso, int tamañoDepartamento, String servicioExtra)
     {
-        super(precioXAlojar,descripcion, nombre, direccion,zona,comentarios,disponibilidad,cantReservas);
+        super(precioXAlojar,descripcion, nombre, direccion,zona,comentarios,disponibilidad);
         this.numeroPiso = numeroPiso;
         this.tamañoDepartamento = tamañoDepartamento;
         this.servicioExtra = servicioExtra;
