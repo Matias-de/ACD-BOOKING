@@ -1,12 +1,14 @@
 package Modelo;
 
+import Enumeraciones.EstadoAlojamiento;
+
 public class HabitacionHotel extends Alojamiento{
     private String servicios;
     private String tipoHabitacion;
     private int numeroHabitacion;
 
-    public HabitacionHotel(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios, boolean disponibilidad, String servicios, String tipoHabitacion, int numeroHabitacion) {
-        super(precioXAlojar, descripcion, nombre, direccion, zona, comentarios, disponibilidad);
+    public HabitacionHotel(double precioXAlojar, String descripcion, String nombre, String direccion, String zona, String comentarios, EstadoAlojamiento estado, String servicios, String tipoHabitacion, int numeroHabitacion) {
+        super(precioXAlojar, descripcion, nombre, direccion, zona, comentarios, estado);
         this.servicios = servicios;
         this.tipoHabitacion = tipoHabitacion;
         this.numeroHabitacion = numeroHabitacion;
