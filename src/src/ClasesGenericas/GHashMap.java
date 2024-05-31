@@ -5,6 +5,7 @@ import Modelo.Alojamiento;
 import Modelo.Cliente;
 import Modelo.Reserva;
 
+import java.io.*;
 import java.util.*;
 
 public class GHashMap <E>implements IOperacionesMap<E> {
@@ -15,7 +16,43 @@ public class GHashMap <E>implements IOperacionesMap<E> {
     {
         nuevoHashMap = new HashMap<>();
     }
+    //metodo para guardar mapa en archivo
+    public void pasarMapaAArchivo(String nombreArchi)
+    {
+        ObjectOutputStream objectOutputStream = null;
+        Iterator<Map.Entry<E,HashSet<Reserva>>> nuevoIteratorMap = nuevoHashMap.entrySet().iterator();
+        try {
+                FileOutputStream fileOutputStream = new FileOutputStream(nombreArchi);
+                objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            while (nuevoIteratorMap.hasNext())
+            {
+                HashSet<Reserva> nuevoHashAux = nuevoIteratorMap.next().getValue();
+                for (Reserva hashAux : nuevoHashAux) {
+                    objectOutputStream.writeObject(hashAux);
+                }
+            }
+            }
+            catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+
+            }
+            catch (IOException e2)
+            {
+                e2.printStackTrace();
+            }
+            finally
+            {
+                try {
+                    objectOutputStream.close();
+                }
+                catch (IOException var12) {
+                }
+            }
+    }
+
     //metodos
+
     @Override
     public void agregar(E clave, Reserva valor) {
         HashSet<Reserva> aux ;

@@ -1,3 +1,4 @@
+import Enumeraciones.EstadoAlojamiento;
 import Modelo.*;
 
 import java.time.LocalDate;
@@ -10,8 +11,11 @@ public class Main {
     public static void main(String[] args) {
 
         BookingACD nuevoBooking = new BookingACD();
-
+        //nuevoBooking.pasarArchiAMapa("Clientes");
+        //nuevoBooking.pasarArchiAMapa("Alojamientos");
         menu(nuevoBooking);
+        nuevoBooking.pasarArchiAMapa("Clientes");
+        nuevoBooking.pasarArchiAMapa("Alojamientos");
 
 
     }
@@ -25,16 +29,15 @@ public class Main {
         System.out.println("5)Mostrar los Clientes del Sistema.");
         System.out.println("6)Mostrar los Alojamientos del Sistema.");
     }
-    public static void menu(BookingACD nuevoBooking){
+    public static void menu(BookingACD nuevoBooking) {
         //declaracion de variables
-        int opc = 0, auxInt=0;
+        int opc = 0, auxInt = 0;
         char inicio = 's';
-        Cliente clienteAux= new Cliente();
-        String stringAux="";
+        Cliente clienteAux = new Cliente();
+        String stringAux = "";
         scan = new Scanner(System.in);
         //texto en pantalla
-        while ( inicio == 's')
-        {
+        while (inicio == 's') {
             opcionesMenu();
             opc = scan.nextInt(); // cargamos la opcion elegida por el administrador
             switch (opc) {
@@ -47,8 +50,8 @@ public class Main {
                     nuevoBooking.agregarAlojamiento(nuevoAlojamiento);
                     break;
                 case 3:
-                    do{
-                        System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
+                     do {
+                       System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
                          auxInt=scan.nextInt();
                         if (auxInt == 1) {
                             if(!nuevoBooking.getClienteHashSet().isEmpty()){
@@ -73,51 +76,51 @@ public class Main {
                             preguntarEstadia(clienteAux);
                         }
 
-                    }while(auxInt!=1 && auxInt!=2);
-                    //falta hacer lo mismo pero con alojamientos, asique hay que meter ya los estados
+                    }while(auxInt!=1 && auxInt!=2);*/
+                        //falta hacer lo mismo pero con alojamientos, asique hay que meter ya los estados
+                        Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
+                        Cliente nuevoCliente2 = cargaCliente(); //mañana veremos como modificar esto
 
-                   /* Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
-                    Cliente nuevoCliente2 = cargaCliente(); //mañana veremos como modificar esto
+                        System.out.println(nuevoBooking.reservar(nuevoCliente2, nuevoAlojamiento1));
 
-                    System.out.println(nuevoBooking.reservar(nuevoCliente2,nuevoAlojamiento1));
-*/
-                    break;
-                case 4:
-                    if(nuevoBooking.getReservaHashSet().isEmpty()){
-                        System.out.println("no hay reservas en el sistema");
-                    }else{
+                        break;
+                        case 4:
+                            if (nuevoBooking.getReservaHashSet().isEmpty()) {
+                                System.out.println("no hay reservas en el sistema");
+                            } else {
 
-                        System.out.println(nuevoBooking.mostrarSetReserva());
+                                System.out.println(nuevoBooking.mostrarSetReserva());
+                            }
+                            break;
+                        case 5:
+
+                            if (nuevoBooking.getClienteHashSet().isEmpty()) {
+                                System.out.println("No hay clientes cargados en el sitema");
+                            } else {
+
+                                System.out.println(nuevoBooking.getClienteHashSet().toString());
+                            }
+                            break;
+                        case 6:
+
+                            if (nuevoBooking.getAlojamientoHashSet().isEmpty()) {
+                                System.out.println("No hay alojamientos cargados en el sistema");
+                            } else {
+
+                                System.out.println(nuevoBooking.getAlojamientoHashSet().toString());
+                            }
+
+                            break;
+
+                        default:
+                            System.out.println("ERROR, OPCION INVALIDA");
+                            break;
                     }
-                    break;
-                case 5:
-
-                    if(nuevoBooking.getClienteHashSet().isEmpty()){
-                        System.out.println("No hay clientes cargados en el sitema");
-                    }else{
-
-                        System.out.println(nuevoBooking.getClienteHashSet().toString());
-                    }
-                    break;
-                case 6:
-
-                    if(nuevoBooking.getAlojamientoHashSet().isEmpty()){
-                        System.out.println("No hay alojamientos cargados en el sistema");
-                    }else{
-
-                        System.out.println(nuevoBooking.getAlojamientoHashSet().toString());
-                    }
-
-                    break;
-
-                default:
-                    System.out.println("ERROR, OPCION INVALIDA");
-                    break;
+                    System.out.println("Desea volver al menu? (si/no)");
+                    inicio = scan.next().charAt(0);
             }
-            System.out.println("Desea volver al menu? (si/no)");
-            inicio = scan.next().charAt(0);
         }
-    }
+
     public static Alojamiento cargarAlojamiento()
     {
         Alojamiento nuevo= null;
@@ -148,7 +151,7 @@ public class Main {
             numeroPiso= scan.nextInt();
             System.out.println("Ingrese (si tiene) servicios Extras: ");
             serviciosExtras= scan.next();
-            nuevo = new Departamento(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, true, numeroPiso, tamaño, serviciosExtras);
+            nuevo = new Departamento(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, EstadoAlojamiento.DISPONIBLE, numeroPiso, tamaño, serviciosExtras);
         }else{
             System.out.println("Ingrese el numero de Habitacion: ");
             numeroHabitacion=scan.nextInt();
@@ -156,10 +159,10 @@ public class Main {
             tipoHabitacion=scan.next();
             System.out.println("Ingrese los servicios extras:  ");
             serviciosExtras=scan.next();
-            nuevo = new HabitacionHotel(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, true, serviciosExtras, tipoHabitacion, numeroHabitacion);
+            nuevo = new HabitacionHotel(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, EstadoAlojamiento.DISPONIBLE, serviciosExtras, tipoHabitacion, numeroHabitacion);
         }
 
-        //Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada",true,2,2,12,"no");
+        Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada",true,2,2,12,"no");
         return nuevo;
     }
     public static Cliente cargaCliente()
