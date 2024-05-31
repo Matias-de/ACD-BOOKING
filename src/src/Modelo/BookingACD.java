@@ -219,9 +219,16 @@ public class BookingACD {
     }
     
 
-    public buscarClientePorNombre(String nombre){
-        Iterator<Cliente> iterator = clienteHashSet
-
+    public Cliente buscarClientePorNombre(String nombre){
+        Iterator<Cliente> iterator = clienteHashSet.iterator();
+        Cliente cliente=null;
+        while(iterator.hasNext()){
+            Cliente aux = iterator.next();
+            if(aux.getNombre().equals(nombre)){
+                cliente=aux;
+            }
+        }
+        return cliente;
     }
 
 }
