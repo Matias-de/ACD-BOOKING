@@ -138,7 +138,7 @@ public class BookingACD {
         return reservada; //este boolean se puede cambiar por strings para despues ver porque no se puede reservar y devolver un mensaje
     }
 
-    /*public String devolverAlojamientosDisponibles(){ //utiliza el hashSet de alojamientos, porque si esta reservado no esta disponible..
+    public String devolverAlojamientosDisponibles(){ //utiliza el hashSet de alojamientos, porque si esta reservado no esta disponible..
         String rta="";
         if(alojamientoHashSet!=null){
             Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator();
@@ -152,7 +152,7 @@ public class BookingACD {
         }
 
         return rta;
-    }*/
+    }
 
     public String mostrarReservasDeCliente(Cliente cliente){ //deberia mostrar las reservas de un cliente
        String rta="cliente no encontrado/sin reservas";

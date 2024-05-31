@@ -71,7 +71,7 @@ public class Main {
                         }
 
                     }while(auxInt!=1 && auxInt!=2);
-                    //falta hacer lo mismo pero con alojamientos, me agarro noni
+                    //falta hacer lo mismo pero con alojamientos, asique hay que meter ya los estados
 
                    /* Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
                     Cliente nuevoCliente2 = cargaCliente(); //mañana veremos como modificar esto
