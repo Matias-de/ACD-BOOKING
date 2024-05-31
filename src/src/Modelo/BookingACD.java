@@ -3,6 +3,7 @@ import ClasesGenericas.GHashSet;
 import ClasesGenericas.GHashMap;
 import Enumeraciones.EstadoAlojamiento;
 
+import java.io.*;
 import java.util.*;
 
 public class BookingACD {
@@ -48,7 +49,54 @@ public class BookingACD {
     public GHashSet<Reserva> getReservaHashSet() {
         return reservaHashSet;
     }
+    //metodos para conservacion de archivos
+    public void guardarDatosEnArchi(String nombreArchiCliente, String nombreArchiAlojamiento)
+    {
+        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiCliente);
+        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiAlojamiento);
+    }
+    public void pasarArchiAMapa(String nombreArchi)
+    {
+        ObjectInputStream objectInputStream = null;
+        try {
+            FileInputStream fileInputStream = new FileInputStream(nombreArchi);
+            objectInputStream = new ObjectInputStream(fileInputStream);
+            while (true)
+            {
+                Reserva nuevaReserva = (Reserva) objectInputStream.readObject();
+                hashMapAlojamiento.agregar(nuevaReserva.getAlojamiento(),nuevaReserva);
+                hashMapCliente.agregar(nuevaReserva.getCliente(),nuevaReserva);
+            }
+        }
+        catch (EOFException e)
+        {
+            System.out.println("Fin del archivo.");
+        }
+        catch (FileNotFoundException e2)
+        {
+            e2.printStackTrace();
+        }
+        catch (IOException e3)
+        {
+            e3.printStackTrace();
+        }
+        catch (ClassNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
+        finally
+        {
+            try {
+                objectInputStream.close();
+            } catch (IOException e4) {
+                e4.printStackTrace();
+            }
+        }
 
+
+
+
+    }
 
 
     //metodos
