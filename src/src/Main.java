@@ -48,16 +48,20 @@ public class Main {
                         System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
                          auxInt=scan.nextInt();
                         if (auxInt == 1) {
-                            System.out.println("Clientes ya cargados: ");
-                            System.out.println(nuevoBooking.getClienteHashSet().toString());
-                            System.out.println("Ingrese el nombre del cliente elegido: ");
-                            stringAux= scan.next();
-                            clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
-                            if (clienteAux == null) {
-                                System.out.println("El nombre del cliente no corresponde a ninguno ingresado, tendra que reintentar..");
-                            } else {
-                                System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
-                                preguntarEstadia(clienteAux);
+                            if(!nuevoBooking.getClienteHashSet().isEmpty()){
+                                System.out.println("Clientes ya cargados: ");
+                                System.out.println(nuevoBooking.getClienteHashSet().toString());
+                                System.out.println("Ingrese el nombre del cliente elegido: ");
+                                stringAux= scan.next();
+                                clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
+                                if (clienteAux == null) {
+                                    System.out.println("El nombre del cliente no corresponde a ninguno ingresado, tendra que reintentar..");
+                                } else {
+                                    System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
+                                    preguntarEstadia(clienteAux);
+                                }
+                            }else{
+                                System.out.println("No habia ningun cliente cargado, tendra que acceder a la opcion 1 y cargar uno nuevo..");
                             }
                         } else if(auxInt==2){
                             clienteAux=cargaCliente();
@@ -137,8 +141,7 @@ public class Main {
             System.out.println("ERROR, el dia no corresponde al mes..");
             rta=false;
         }else{
-
-            LocalDate fecha= LocalDate.of(LocalDate.now().getYear(), mes, LocalDate.now().getDayOfMonth()); //guardo una fecha para revisar la longitud del mes
+            LocalDate fecha= LocalDate.of(LocalDate.now().getYear(), mes, LocalDate.now().getDayOfMonth()-1); //guardo una fecha para revisar la longitud del mes
             int diaMaximoDelMes = fecha.lengthOfMonth(); //guardo esa longitud en una variable
             if(dia<0 || dia>diaMaximoDelMes){ //si el dia es negativo o si supera el limite del mes
                 System.out.println("ERROR, el dia no corresponde al mes o queres reservar un dia negativo(?");
@@ -149,17 +152,17 @@ public class Main {
         return rta;
     }
 
-    public static void ingresarAnioValidado(int anioAux, boolean añoInicio){ //revisa que el usuario ingrese 1 o 2
+    public static boolean ingresarAnioValidado(int anioAux){ //revisa que el usuario ingrese 1 o 2
+        boolean año=true;
         do{
             System.out.println("si La reserva es para este año, ingrese 1, sino, ingrese 2");
             anioAux= scan.nextInt();
             if(anioAux==1){
 
-                añoInicio = false;
-            }else{
-                añoInicio=true;
+                año = false;
             }
         }while(anioAux!=1 && anioAux!=2);
+        return año;
     }
 
     public static boolean verificarFechas(int diaInicio, int diaFin, int mesInicio, int mesFin, boolean anioInicio, boolean aniofin){ //revisa que la fecha de inicio no sea mayor a la de egreso
@@ -194,7 +197,7 @@ public class Main {
             diaInicio = scan.nextInt();//el valor del booleano que nos dice si el año es el actual o el siguiente
             System.out.println("Ingrese el mes de inicio de la estadia: ");
             mesInicio = scan.nextInt();
-            ingresarAnioValidado(anioAux, añoInicio); //asigna a los booleanos si la reserva es de este año o no
+            añoInicio=ingresarAnioValidado(anioAux); //asigna a los booleanos si la reserva es de este año o no
 
         } while (!validarIngresoFecha(diaInicio, mesInicio)); //este do-while va a realizarse siempre que el user ponga mal los datos, cuando los ponga bien lo dejara avanzar
         do {
@@ -202,7 +205,7 @@ public class Main {
             diaFin = scan.nextInt();
             System.out.println("Ingrese el mes final de la estadia: ");
             mesFin = scan.nextInt();
-            ingresarAnioValidado(anioAux, añoFin);
+            añoFin=ingresarAnioValidado(anioAux);
         } while (!validarIngresoFecha(diaFin, mesFin)); //lo mismo aca
 
         }while(!verificarFechas(diaInicio,diaFin,mesInicio,mesFin, añoInicio, añoFin)); //revisa que la fecha de inicio no sea posterior a la final

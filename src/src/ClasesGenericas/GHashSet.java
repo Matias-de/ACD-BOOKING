@@ -19,14 +19,20 @@ public class GHashSet<E> implements IOperacionesSet<E> {
                 '}';
     }
 
+
     @Override
     public void agregar(E nuevoGenerico) {
         nuevoHashSet.add(nuevoGenerico);
     }
 
     public Iterator<E> iterator() {
+
         return nuevoHashSet.iterator();
     }
 
+    @Override
+    public boolean isEmpty(){
+        return nuevoHashSet.isEmpty();
+    }
 
 }
