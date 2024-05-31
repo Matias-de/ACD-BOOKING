@@ -80,13 +80,31 @@ public class Main {
 */
                     break;
                 case 4:
-                    System.out.println(nuevoBooking.mostrarSetReserva());
+                    if(nuevoBooking.getReservaHashSet().isEmpty()){
+                        System.out.println("no hay reservas en el sistema");
+                    }else{
+
+                        System.out.println(nuevoBooking.mostrarSetReserva());
+                    }
                     break;
                 case 5:
-                    System.out.println(nuevoBooking.getClienteHashSet().toString());
+
+                    if(nuevoBooking.getClienteHashSet().isEmpty()){
+                        System.out.println("No hay clientes cargados en el sitema");
+                    }else{
+
+                        System.out.println(nuevoBooking.getClienteHashSet().toString());
+                    }
                     break;
                 case 6:
-                    System.out.println(nuevoBooking.getAlojamientoHashSet().toString());
+
+                    if(nuevoBooking.getAlojamientoHashSet().isEmpty()){
+                        System.out.println("No hay alojamientos cargados en el sistema");
+                    }else{
+
+                        System.out.println(nuevoBooking.getAlojamientoHashSet().toString());
+                    }
+
                     break;
 
                 default:
@@ -142,6 +160,7 @@ public class Main {
             rta=false;
         }else{
             LocalDate fecha= LocalDate.of(LocalDate.now().getYear(), mes, LocalDate.now().getDayOfMonth()-1); //guardo una fecha para revisar la longitud del mes
+            //el -1 es para que tome hasta 30,porque si pone 31 tira excepcion
             int diaMaximoDelMes = fecha.lengthOfMonth(); //guardo esa longitud en una variable
             if(dia<0 || dia>diaMaximoDelMes){ //si el dia es negativo o si supera el limite del mes
                 System.out.println("ERROR, el dia no corresponde al mes o queres reservar un dia negativo(?");
