@@ -70,28 +70,14 @@ public class BookingACD {
 
     public boolean reservar(Cliente cliente, Alojamiento alojamiento){ //probar / revisar
         boolean  contieneAlojamiento=true,reservada=false, enFecha=true; //pongo que sea igual a true ya que si no existe todavia ninguna reserva la creara
-       /* Iterator<Reserva> reservaIterator;
-        HashSet<Reserva> reservas;
-        Reserva reservaAux;*/ //estas variables las cambie a la funcion que llamo a continuacion
-       // if(hashMapCliente.buscarElemento(cliente)){ //primero buscamos a ver si el cliente existe en el map? nunca va a existir
-                            //si la funcion es la que lo agrega
+
         if (hashMapCliente.buscarElemento(cliente)) // en el caso de que ya haya, ahi si comparo reservas
              {
                  enFecha = hashMapCliente.verificacionFechaCliente(cliente); //si recibe un false no continuara el programa de reservas
              }
             // y si no hay reservas a comparar que siga el programa para agregarla con la funcion de Agregar.
 
-            /*
-            reservas= hashMapCliente.getReserva(cliente);
-            reservaIterator= reservas.iterator();
-            while(reservaIterator.hasNext()){
-                reservaAux= reservaIterator.next(); //en teoria esta parte revisa si el cliente no tiene otra reserva en esa fecha
-                if(!cliente.getFechaInicio().equals(reservaAux.getCliente().getFechaInicio()) && !cliente.getFechaFinal().equals(reservaAux.getCliente().getFechaFinal())){
-                    enFecha=true;
-                }
-            }*/
-         // comento esto por que no estaria bueno borrarlo, yo estoy probando una funcion que modularice esto
-            //y ademas estoy cambiando el equals por el compare to que es el metodo que tiene el date para comparar
+
 
         if(enFecha) //si la fecha no es igual o no existe aun
         {
@@ -106,23 +92,7 @@ public class BookingACD {
         }
 
 
-            /*reservas = hashMapAlojamiento.getReserva(alojamiento);  //aca revisariamos si el alojamiento esta disponible o si no esta ocupado o si tiene alguna reserva
-            reservaIterator = reservas.iterator();
 
-                while (reservaIterator.hasNext())
-                {
-                    reservaAux = reservaIterator.next();
-
-                    if (alojamiento.isDisponibilidad() && reservaAux.getAlojamiento().isDisponibilidad() && (cliente.getFechaInicio().after(reservaAux.getCliente().getFechaFinal()) || !cliente.getFechaInicio().after(reservaAux.getCliente().getFechaInicio()) || !cliente.getFechaFinal().after(reservaAux.getCliente().getFechaInicio())))
-                    {
-                        enFecha = true;
-                    }
-                    else
-                    {
-                        enFecha=false;
-                    }
-
-                }*/
         if(enFecha && (!contieneAlojamiento)){ //en el caso que ni el cliente ni el alojamiento tengan una reserva o que si lo tengan esten en una fecha que no interceda con otra reserva
             Reserva nuevaReserva = new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar()*1.21); //precio del alojamiento +21% nuestro
             hashMapCliente.agregar(cliente, nuevaReserva);
@@ -136,6 +106,61 @@ public class BookingACD {
 
 
         return reservada; //este boolean se puede cambiar por strings para despues ver porque no se puede reservar y devolver un mensaje
+
+        /*
+        public boolean reservar(Cliente cliente, Alojamiento alojamiento){ //probar / revisar
+        boolean reservada=false, enFecha=false, contieneAlojamiento=true;
+        Iterator<Reserva> reservaIterator;
+        HashSet<Reserva> reservas;
+        Reserva reservaAux;
+        if(hashMapCliente.containsKey(cliente)){
+            reservas= hashMapCliente.get(cliente);
+            reservaIterator= reservas.iterator();
+            while(reservaIterator.hasNext()){
+                reservaAux= reservaIterator.next(); //en teoria esta parte revisa si el cliente no tiene otra reserva en esa fecha
+                if(!cliente.getFechaInicio().equals(reservaAux.getCliente().getFechaInicio()) && !cliente.getFechaFinal().equals(reservaAux.getCliente().getFechaFinal())){
+                    enFecha=true;
+                }
+            }
+        }
+
+        if(enFecha){
+        if(hashMapAlojamiento.containsKey(alojamiento)){ //aca revisariamos si el alojamiento esta disponible o si no esta ocupado o si tiene alguna reserva
+            reservas = hashMapAlojamiento.get(alojamiento);
+            reservaIterator = reservas.iterator();
+
+                while (reservaIterator.hasNext()) {
+                    reservaAux = reservaIterator.next();
+                    if (alojamiento.isDisponibilidad() && reservaAux.getAlojamiento().isDisponibilidad() && (cliente.getFechaInicio().after(reservaAux.getCliente().getFechaFinal()) || !cliente.getFechaInicio().after(reservaAux.getCliente().getFechaInicio()) || !cliente.getFechaFinal().after(reservaAux.getCliente().getFechaInicio()))) {
+                        enFecha = true;
+                    }else{
+                        enFecha=false;
+                    }
+
+                }
+            }else{
+            contieneAlojamiento=false;
+        }
+
+        }
+        if(enFecha && !contieneAlojamiento){ //en el caso que ni el cliente ni el alojamiento tengan una reserva o que si lo tengan esten en una fecha que no interceda con otra reserva
+            Reserva nuevaReserva = new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar()*1.21); //precio del alojamiento +21% nuestro
+            cargarHashMap(cliente, nuevaReserva);
+            //en este punto antes de entrar a esta funcion en el menu hay que evaluar si el cliente y el alojamiento existen
+            //asi de ultima los guardamos en los hashSet antes :)
+            cargarHashMapAlojamiento(alojamiento, nuevaReserva);
+            reservaHashSet.add(nuevaReserva);
+            reservada=true;
+
+        }
+
+
+        return reservada; //este boolean se puede cambiar por strings para despues ver porque no se puede reservar y devolver un mensaje
+    }
+
+}
+         */
+
     }
 
     public String devolverAlojamientosDisponibles(){ //utiliza el hashSet de alojamientos, porque si esta reservado no esta disponible..
