@@ -8,8 +8,11 @@ public class Main {
     static Scanner scan;
 
     public static void main(String[] args) {
+
         BookingACD nuevoBooking = new BookingACD();
+
         menu(nuevoBooking);
+
 
     }
     public static void opcionesMenu(){ //aca pongan las opciones del menu
@@ -117,9 +120,10 @@ public class Main {
     }
     public static Alojamiento cargarAlojamiento()
     {
+        Alojamiento nuevo= null;
         String tipoAux="";
-        int numeroPiso=0,numeroHabitacion=0;
-        double precioXalojar=0,tamaño=0;
+        int numeroPiso=0,numeroHabitacion=0, tamaño=0;
+        double precioXalojar=0;
         String nombreAlojamiento, descripcion, direccion, zona, comentarios, serviciosExtras, tipoHabitacion;
         System.out.println("Ingrese el nombre del alojamiento: ");
         nombreAlojamiento=scan.next();
@@ -139,11 +143,12 @@ public class Main {
         }while(!tipoAux.equalsIgnoreCase("departamento") && !tipoAux.equalsIgnoreCase("Habitacion de Hotel")); //tiene que elegir si o si uno de los dos
         if(tipoAux.equalsIgnoreCase("departamento")){
             System.out.println("Ingrese el tamaño del Departamento: ");
-            tamaño= scan.nextDouble();
+            tamaño= scan.nextInt();
             System.out.println("Ingrese el numero de piso: ");
             numeroPiso= scan.nextInt();
             System.out.println("Ingrese (si tiene) servicios Extras: ");
             serviciosExtras= scan.next();
+            nuevo = new Departamento(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, true, numeroPiso, tamaño, serviciosExtras);
         }else{
             System.out.println("Ingrese el numero de Habitacion: ");
             numeroHabitacion=scan.nextInt();
@@ -151,8 +156,9 @@ public class Main {
             tipoHabitacion=scan.next();
             System.out.println("Ingrese los servicios extras:  ");
             serviciosExtras=scan.next();
+            nuevo = new HabitacionHotel(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, true, serviciosExtras, tipoHabitacion, numeroHabitacion);
         }
-        
+
         //Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada",true,2,2,12,"no");
         return nuevo;
     }
@@ -223,16 +229,21 @@ public class Main {
         boolean rta=true;
         Date auxInicio =null, auxFin=null;
         if(anioInicio){
-            auxInicio= new Date(LocalDate.now().getYear()+1, mesInicio, diaInicio); //creo fechas con los datos que me dio el usuario
+            auxInicio= new Date(LocalDate.now().getYear()-1899, mesInicio-1, diaInicio); //creo fechas con los datos que me dio el usuario
         }else{
-            auxInicio= new Date(LocalDate.now().getYear(), mesInicio, diaInicio);
+            auxInicio= new Date(LocalDate.now().getYear()-1900, mesInicio-1, diaInicio);
         }
         if(aniofin){
-             auxFin = new Date(LocalDate.now().getYear()+1, mesFin, diaFin);
+             auxFin = new Date(LocalDate.now().getYear()-1899, mesFin-1, diaFin);
         }else{
-            auxFin = new Date(LocalDate.now().getYear(), mesFin, diaFin);
+            auxFin = new Date(LocalDate.now().getYear()-1900, mesFin-1, diaFin);
         }
+            Date fechaActual= new Date(LocalDate.now().getYear()-1900, LocalDate.now().getMonthValue()-1, LocalDate.now().getDayOfMonth());
 
+        if(auxInicio.before(fechaActual) && auxFin.before(fechaActual)){
+            System.out.println("ERROR, no se pueden hacer reservas de un dia que ya paso..");
+            rta=false;
+        }
         if((auxInicio.after(auxFin))){ //si la fecha de inicio es posterior(after) a la fecha final, tira error
             System.out.println("ERROR, la fecha de inicio es despues de la fecha final");
             rta=false;
