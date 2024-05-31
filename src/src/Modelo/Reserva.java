@@ -1,5 +1,8 @@
 package Modelo;
 
+import Enumeraciones.EstadoAlojamiento;
+
+import java.util.Date;
 import java.util.UUID;
 
 public class Reserva{
@@ -44,6 +47,16 @@ public class Reserva{
     }
 
     //Metodos
+
+    public void verificarDisp(){
+        Date fechaActual  = new Date();
+
+        if(cliente.getFechaInicio().before(fechaActual) && cliente.getFechaFinal().after(fechaActual))
+        {
+            alojamiento.setEstado(EstadoAlojamiento.RESERVADO);
+        }
+        alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
+    }
 
     @Override
     public String toString() {
