@@ -57,16 +57,21 @@ public class Main {
                                 System.out.println("El nombre del cliente no corresponde a ninguno ingresado, tendra que reintentar..");
                             } else {
                                 System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
+                                preguntarEstadia(clienteAux);
                             }
                         } else if(auxInt==2){
-                            nuevoBooking.agregarCliente(cargaCliente());
+                            clienteAux=cargaCliente();
+                            nuevoBooking.agregarCliente(clienteAux);
+                            System.out.println("Perfecto, se le asignara la reserva al cliente: "+clienteAux);
+                            preguntarEstadia(clienteAux);
                         }
+
                     }while(auxInt!=1 && auxInt!=2);
                     //falta hacer lo mismo pero con alojamientos, me agarro noni
 
                    /* Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
                     Cliente nuevoCliente2 = cargaCliente(); //mañana veremos como modificar esto
-                    preguntarEstadia(nuevoCliente2);
+
                     System.out.println(nuevoBooking.reservar(nuevoCliente2,nuevoAlojamiento1));
 */
                     break;
