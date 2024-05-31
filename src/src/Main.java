@@ -19,14 +19,15 @@ public class Main {
         System.out.println("2)Cargar un alojamiento.");
         System.out.println("3)Realizar una reserva.");
         System.out.println("4)Mostrar Las reservas del Sistema.");
-        System.out.println("(5)Mostrar los Clientes del Sistema.");
-        System.out.println("(6)Mostrar los Alojamientos del Sistema.");
+        System.out.println("5)Mostrar los Clientes del Sistema.");
+        System.out.println("6)Mostrar los Alojamientos del Sistema.");
     }
     public static void menu(BookingACD nuevoBooking){
         //declaracion de variables
         int opc = 0, auxInt=0;
         char inicio = 's';
         Cliente clienteAux= new Cliente();
+        String stringAux="";
         scan = new Scanner(System.in);
         //texto en pantalla
         while ( inicio == 's')
@@ -50,7 +51,8 @@ public class Main {
                             System.out.println("Clientes ya cargados: ");
                             System.out.println(nuevoBooking.getClienteHashSet().toString());
                             System.out.println("Ingrese el nombre del cliente elegido: ");
-                            clienteAux = nuevoBooking.buscarClientePorNombre(scan.next());
+                            stringAux= scan.next();
+                            clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
                             if (clienteAux == null) {
                                 System.out.println("El nombre del cliente no corresponde a ninguno ingresado, tendra que reintentar..");
                             } else {
@@ -62,11 +64,11 @@ public class Main {
                     }while(auxInt!=1 && auxInt!=2);
                     //falta hacer lo mismo pero con alojamientos, me agarro noni
 
-                    Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
+                   /* Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
                     Cliente nuevoCliente2 = cargaCliente(); //mañana veremos como modificar esto
                     preguntarEstadia(nuevoCliente2);
                     System.out.println(nuevoBooking.reservar(nuevoCliente2,nuevoAlojamiento1));
-
+*/
                     break;
                 case 4:
                     System.out.println(nuevoBooking.mostrarSetReserva());
@@ -97,8 +99,8 @@ public class Main {
         String nombre,apellido,email,medioDePago;
 
         int cantDePersonas=0;
+        scan.nextLine(); //para que no se pisen los datos
         System.out.println("Ingrese nombre: ");
-        scan.next(); //para que no se pisen los datos
         nombre = scan.nextLine();
         System.out.println("Ingrese apellido:");
         apellido = scan.nextLine();
