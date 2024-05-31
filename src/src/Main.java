@@ -24,17 +24,16 @@ public class Main {
     }
     public static void menu(BookingACD nuevoBooking){
         //declaracion de variables
-        int opc = 0;
+        int opc = 0, auxInt=0;
         char inicio = 's';
-
+        Cliente clienteAux= new Cliente();
         scan = new Scanner(System.in);
         //texto en pantalla
         while ( inicio == 's')
         {
             opcionesMenu();
             opc = scan.nextInt(); // cargamos la opcion elegida por el administrador
-            switch (opc)
-            {
+            switch (opc) {
                 case 1:
                     Cliente nuevoCliente = cargaCliente();
                     nuevoBooking.agregarCliente(nuevoCliente);
@@ -44,17 +43,27 @@ public class Main {
                     nuevoBooking.agregarAlojamiento(nuevoAlojamiento);
                     break;
                 case 3:
-                    System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
-                    int auxInt= scan.nextInt();
-                    if(auxInt==1){ //falta terminar se termino la clase juajua
-                        System.out.println("Clientes ya cargados: ");
-                        System.out.println(nuevoBooking.getClienteHashSet().toString());
-                        System.out.println("Ingrese el nombre del cliente elegido: ");
-                        nuevoBooking.getClienteHashSet().
-                        //aca iria buscarPorCliente
-                    }
+                    do{
+                        System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
+                         auxInt=scan.nextInt();
+                        if (auxInt == 1) {
+                            System.out.println("Clientes ya cargados: ");
+                            System.out.println(nuevoBooking.getClienteHashSet().toString());
+                            System.out.println("Ingrese el nombre del cliente elegido: ");
+                            clienteAux = nuevoBooking.buscarClientePorNombre(scan.next());
+                            if (clienteAux == null) {
+                                System.out.println("El nombre del cliente no corresponde a ninguno ingresado, tendra que reintentar..");
+                            } else {
+                                System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
+                            }
+                        } else if(auxInt==2){
+                            nuevoBooking.agregarCliente(cargaCliente());
+                        }
+                    }while(auxInt!=1 && auxInt!=2);
+                    //falta hacer lo mismo pero con alojamientos, me agarro noni
+
                     Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
-                    Cliente nuevoCliente2 = cargaCliente();
+                    Cliente nuevoCliente2 = cargaCliente(); //mañana veremos como modificar esto
                     preguntarEstadia(nuevoCliente2);
                     System.out.println(nuevoBooking.reservar(nuevoCliente2,nuevoAlojamiento1));
 
