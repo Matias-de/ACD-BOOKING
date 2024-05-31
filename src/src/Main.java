@@ -117,10 +117,42 @@ public class Main {
     }
     public static Alojamiento cargarAlojamiento()
     {
+        String tipoAux="";
         int numeroPiso=0,numeroHabitacion=0;
         double precioXalojar=0,tamaño=0;
         String nombreAlojamiento, descripcion, direccion, zona, comentarios, serviciosExtras, tipoHabitacion;
-        System.out.println("Ingrese nombre");
+        System.out.println("Ingrese el nombre del alojamiento: ");
+        nombreAlojamiento=scan.next();
+        System.out.println("Ingrese la direccion: ");
+        direccion=scan.next();
+        System.out.println("Ingrese la zona: ");
+        zona= scan.next();
+        System.out.println("Ingrese una breve descripcion: ");
+        descripcion= scan.next();
+        System.out.println("Ingrese algun comentario a agregar: ");
+        comentarios=scan.next();
+        System.out.println("Ingrese el precio por alojar: ");
+        precioXalojar=scan.nextDouble();
+        do {
+            System.out.println("Desea ingresar un Departamento o una Habitacion de Hotel? Ingrese alguna de esas dos palabras segun corresponda: ");
+            tipoAux=scan.next();
+        }while(!tipoAux.equalsIgnoreCase("departamento") && !tipoAux.equalsIgnoreCase("Habitacion de Hotel")); //tiene que elegir si o si uno de los dos
+        if(tipoAux.equalsIgnoreCase("departamento")){
+            System.out.println("Ingrese el tamaño del Departamento: ");
+            tamaño= scan.nextDouble();
+            System.out.println("Ingrese el numero de piso: ");
+            numeroPiso= scan.nextInt();
+            System.out.println("Ingrese (si tiene) servicios Extras: ");
+            serviciosExtras= scan.next();
+        }else{
+            System.out.println("Ingrese el numero de Habitacion: ");
+            numeroHabitacion=scan.nextInt();
+            System.out.println("Ingrese el tipo de habitacion: ");
+            tipoHabitacion=scan.next();
+            System.out.println("Ingrese los servicios extras:  ");
+            serviciosExtras=scan.next();
+        }
+        
         //Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada",true,2,2,12,"no");
         return nuevo;
     }
@@ -222,7 +254,7 @@ public class Main {
             añoInicio=ingresarAnioValidado(anioAux); //asigna a los booleanos si la reserva es de este año o no
 
         } while (!validarIngresoFecha(diaInicio, mesInicio)); //este do-while va a realizarse siempre que el user ponga mal los datos, cuando los ponga bien lo dejara avanzar
-        do {
+        do{
             System.out.println("Ingrese el dia cuando se va a retirar de la propiedad:");
             diaFin = scan.nextInt();
             System.out.println("Ingrese el mes final de la estadia: ");
