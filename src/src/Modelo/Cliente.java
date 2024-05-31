@@ -98,20 +98,20 @@ public class Cliente {
     public void asignarFecha(int diainicio, int diaFinal, int mesInicial, int mesFinal, boolean anioInicio, boolean anioFinal){ //
 
         fechaInicio.setDate(diainicio); //ya tendria que venir validado el año entre 1 y 31 o 30 segun el mes
-        fechaInicio.setMonth(mesInicial);
+        fechaInicio.setMonth(mesInicial-1);
         if(anioInicio){
-            fechaInicio.setYear(fechaInicio.getYear()+1901);// si es true quiere decir que el año elegido es el siguiente
+            fechaInicio.setYear(fechaInicio.getYear()+1);// si es true quiere decir que el año elegido es el siguiente
         }else {
-            fechaInicio.setYear(fechaInicio.getYear()+1900);
+            fechaInicio.setYear(fechaInicio.getYear());
         }
 
         fechaFinal.setDate(diaFinal);
-        fechaFinal.setMonth(mesFinal);
+        fechaFinal.setMonth(mesFinal-1);
         if(anioFinal){
-            fechaFinal.setYear(fechaFinal.getYear()+1901); // si es true quiere decir que el año elegido es el siguiente
+            fechaFinal.setYear(fechaFinal.getYear()+1); // si es true quiere decir que el año elegido es el siguiente
 
         }else{
-            fechaFinal.setYear(fechaFinal.getYear()+1900);
+            fechaFinal.setYear(fechaFinal.getYear());
         }
 
 
@@ -120,10 +120,12 @@ public class Cliente {
 
     public String mostrarFechaDeViaje(){
         String rta="no asignada";
-        Calendar calendar = Calendar.getInstance();
-        if(fechaInicio.getYear()!=calendar.get(Calendar.YEAR)-1900){ //si el año actual -1900 es distinto de lo que guarda el getYear de un Date(124 si es 2024 etc), significa que ya esta asignada una fecha, por lo que la muestra
-            rta= "fechaInicio= "+fechaInicio.getDate()+" / "+fechaInicio.getMonth()+" / "+fechaInicio.getYear() +
-                    " fechaFinal= "+fechaFinal.getDate()+" / "+fechaFinal.getMonth()+" / "+fechaFinal.getYear();
+        Date aux= new Date();
+        int mesinicioAux= fechaInicio.getMonth()+1, mesFinalAux = fechaFinal.getMonth()+1, anioInicio = fechaInicio.getYear()+1900, anioFin=fechaFinal.getYear()+1900;
+
+        if(fechaInicio.after(aux)){ //si el año actual -1900 es distinto de lo que guarda el getYear de un Date(124 si es 2024 etc), significa que ya esta asignada una fecha, por lo que la muestra
+            rta= "fechaInicio= "+fechaInicio.getDate()+" / "+mesinicioAux+" / "+anioInicio +
+                    " fechaFinal= "+fechaFinal.getDate()+" / "+mesFinalAux+" / "+anioFin;
         }
 
 
@@ -138,6 +140,8 @@ public class Cliente {
                 ", correoElectronico='" + correoElectronico + '\'' +
                 ", medioDePago='" + medioDePago + '\'' +
                 ", cantPersonas= " + cantPersonas + '\'' +
+                //", fecha inicio: " + fechaInicio + '\'' +
+               // ", fecha final: "  + fechaFinal+
                 mostrarFechaDeViaje()+
                  '}';
     }
