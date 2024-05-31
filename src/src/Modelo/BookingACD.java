@@ -219,8 +219,10 @@ public class BookingACD {
     }
     
 
+    public buscarClientePorNombre(String nombre){
+        Iterator<Cliente> iterator = clienteHashSet
 
-
+    }
 
 }
 

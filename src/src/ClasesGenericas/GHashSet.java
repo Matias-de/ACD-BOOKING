@@ -3,6 +3,7 @@ package ClasesGenericas;
 import Interfaces.IOperacionesSet;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class GHashSet<E> implements IOperacionesSet<E> {
     private HashSet<E> nuevoHashSet;
@@ -23,12 +24,9 @@ public class GHashSet<E> implements IOperacionesSet<E> {
         nuevoHashSet.add(nuevoGenerico);
     }
 
-
-    @Override
-    public boolean buscarPorNombre(String nombre){
-        boolean rta= false;
-
-
-        return rta;
+    public Iterator<E> iterator() {
+        return nuevoHashSet.iterator();
     }
+
+
 }

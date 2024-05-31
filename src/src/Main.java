@@ -49,6 +49,8 @@ public class Main {
                     if(auxInt==1){ //falta terminar se termino la clase juajua
                         System.out.println("Clientes ya cargados: ");
                         System.out.println(nuevoBooking.getClienteHashSet().toString());
+                        System.out.println("Ingrese el nombre del cliente elegido: ");
+                        nuevoBooking.getClienteHashSet().
                         //aca iria buscarPorCliente
                     }
                     Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
