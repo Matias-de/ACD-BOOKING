@@ -2,7 +2,9 @@ package Modelo;
 
 import Enumeraciones.EstadoAlojamiento;
 
-public abstract class Alojamiento{
+import java.io.Serializable;
+
+public abstract class Alojamiento implements Serializable  {
 
     //atributos
     private double precioXAlojar;
@@ -133,19 +135,16 @@ public abstract class Alojamiento{
 
     @Override
     public String toString() {
-        return "Alojamiento{" +
+        return "\nAlojamiento{" +
                 "precioXAlojar=" + precioXAlojar +
                 ", valoracion=" + valoracion +
-                ", descripcion='" + descripcion + '\'' +
-                ", nombre='" + nombre + '\'' +
+               // ", descripcion='" + descripcion + '\'' +
+                ", NOMBRE='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", zona='" + zona + '\'' +
-                ", comentarios='" + comentarios + '\'' +
-
+              //  ", zona='" + zona + '\'' +
+              //  ", comentarios='" + comentarios + '\'' +
                 ", estado ='"+ estado +'\'' +
-
-
-                '}';
+                "}\n";
     }
 
     @Override
@@ -162,6 +161,19 @@ public abstract class Alojamiento{
 
         return rta;
     }
+
+    public boolean equalsXNombre(String obj) {
+        boolean rta=false;
+        if(obj!=null)
+        {
+                if(obj.equalsIgnoreCase(nombre))
+                {
+                    rta=true;
+                }
+        }
+        return rta;
+    }
+
 
     @Override
     public int hashCode() {

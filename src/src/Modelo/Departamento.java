@@ -2,7 +2,9 @@ package Modelo;
 
 import Enumeraciones.EstadoAlojamiento;
 
-public class Departamento extends Alojamiento {
+import java.io.Serializable;
+
+public class Departamento extends Alojamiento  implements Serializable {
 
     //atributos
     private int numeroPiso;

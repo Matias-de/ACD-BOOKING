@@ -1,9 +1,10 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Cliente {
+public class Cliente implements Serializable {
     //atributos
     private String nombre;
     private String apellido;
@@ -142,7 +143,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "\nCliente{" +
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
@@ -151,7 +152,7 @@ public class Cliente {
                 //", fecha inicio: " + fechaInicio + '\'' +
                // ", fecha final: "  + fechaFinal+
                 mostrarFechaDeViaje()+
-                 '}';
+                 "}\n";
     }
 
     @Override
@@ -171,6 +172,17 @@ public class Cliente {
             }
         }
 
+        return rta;
+    }
+    public boolean equalsXNombre(String obj) {
+        boolean rta=false;
+        if(obj!=null)
+        {
+                if(obj.equalsIgnoreCase(nombre))
+                {
+                    rta=true;
+                }
+        }
         return rta;
     }
 

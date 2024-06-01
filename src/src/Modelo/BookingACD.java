@@ -10,11 +10,8 @@ import org.json.JSONObject;
 import java.io.*;
 import java.util.*;
 
-public class BookingACD {
+public class BookingACD  {
 
-    //no tendriamos que estar usando object, es lo que hay que revisar
-    //encima claro al tener dos de cada una no podemos tirar de 2 veces el mismo metodo
-    //porque sino ya no seria generico
     //atributos
 
     GHashMap<Cliente> hashMapCliente; //Estos dos en archivos
@@ -72,7 +69,7 @@ public class BookingACD {
                 hashMapCliente.agregar(nuevaReserva.getCliente(), nuevaReserva);
             }
         } catch (EOFException e) {
-            System.out.println("Fin del archivo.");
+            System.out.println("Cargando Map.");
         } catch (FileNotFoundException e2) {
             e2.printStackTrace();
         } catch (IOException e3) {
@@ -224,7 +221,7 @@ public class BookingACD {
         return rta;
     }
 
-    //preguntar como hacer para no repetir estas funciones
+    //preguntar como hacer para no repetir estas funciones // hay que hacerlo en el la clase map y usar el tipo de dato generico
     public String mostrarReservasEnAlojamiento(Alojamiento alojamiento) {
         String rta = "Alojamiento no encontrado/sin reservas";
         if (hashMapAlojamiento.buscarElemento(alojamiento)) {
@@ -233,6 +230,8 @@ public class BookingACD {
 
         return rta;
     }
+
+
 
     public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
     {
@@ -286,20 +285,21 @@ public class BookingACD {
         Cliente cliente = null;
         while (iterator.hasNext()) {
             Cliente aux = iterator.next();
-            if (aux.getNombre().equals(nombre)) {
+            if (aux.equalsXNombre(nombre))
+            {
                 cliente = aux;
             }
         }
         return cliente;
     }
-
     public Alojamiento buscarAlojamientoPorNombre(String nombre) {
         Iterator<Alojamiento> iterator = alojamientoHashSet.iterator();
         Alojamiento alojamiento = null;
         while (iterator.hasNext()) {
             Alojamiento aux = iterator.next();
-            if (aux.getNombre().equals(nombre)) {
+            if (aux.equalsXNombre(nombre)) {
                 alojamiento = aux;
+
             }
         }
         return alojamiento;
@@ -504,7 +504,7 @@ public void jsonCliente() {
             }
 
         }
-        System.out.println(clienteHashSet.toString());
+       // System.out.println(clienteHashSet.toString());
 
     }
     ///PASAR A JSON A JAVA ALOJAMIENTO
@@ -556,7 +556,7 @@ public void jsonCliente() {
             }
             //Añado a mi HashSet
 
-            System.out.println(alojamientoHashSet);
+          //  System.out.println(alojamientoHashSet);
 
         }
         for (int i = 0; i < jsonArrayHotel.length(); i++) {

@@ -15,8 +15,7 @@ public class GHashSet<E> implements IOperacionesSet<E> {
     @Override
     public String toString() {
         return "GHashSet{" +
-                "nuevoHashSet=" + nuevoHashSet +
-                '}';
+                "nuevoHashSet=" + nuevoHashSet +"";
     }
 
 
