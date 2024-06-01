@@ -1,9 +1,10 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Cliente {
+public class Cliente implements Serializable {
     //atributos
     private String nombre;
     private String apellido;

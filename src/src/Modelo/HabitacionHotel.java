@@ -2,7 +2,9 @@ package Modelo;
 
 import Enumeraciones.EstadoAlojamiento;
 
-public class HabitacionHotel extends Alojamiento{
+import java.io.Serializable;
+
+public class HabitacionHotel extends Alojamiento implements Serializable {
     private String servicios;
     private String tipoHabitacion;
     private int numeroHabitacion;

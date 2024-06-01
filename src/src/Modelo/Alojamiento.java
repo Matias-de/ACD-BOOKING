@@ -2,7 +2,9 @@ package Modelo;
 
 import Enumeraciones.EstadoAlojamiento;
 
-public abstract class Alojamiento{
+import java.io.Serializable;
+
+public abstract class Alojamiento implements Serializable  {
 
     //atributos
     private double precioXAlojar;
