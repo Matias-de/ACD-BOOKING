@@ -18,8 +18,8 @@ public class Main {
        // System.out.println(nuevoBooking.getAlojamientoHashSet());
 
         menu(nuevoBooking);
-//        nuevoBooking.pasarArchiAMapa("Clientes");
-//        nuevoBooking.pasarArchiAMapa("Alojamientos");
+        nuevoBooking.pasarArchiAMapa("ArchivoClientes");
+        nuevoBooking.pasarArchiAMapa("ArchivoAlojamientos");
 
     }
     public static void opcionesMenu(){ //aca pongan las opciones del menu
@@ -32,6 +32,7 @@ public class Main {
         System.out.println("5)Mostrar los Clientes del Sistema.");
         System.out.println("6)Mostrar los Alojamientos del Sistema.");
     }
+
     public static void menu(BookingACD nuevoBooking){
         //declaracion de variables
         int opc = 0, auxInt=0;
@@ -158,6 +159,34 @@ public class Main {
             inicio = scan.next().charAt(0);
         }
     }
+    public static void preguntarEstadia(Cliente cliente) { //pregunta la estadia al usuario, cuando se quiera reservar
+        int diaInicio = 0, diaFin = 0, mesInicio = 0, mesFin = 0, anioAux = 0;
+        boolean añoInicio = false, añoFin = false;
+
+        do{
+
+            do {
+                System.out.println("Ingrese el dia de inicio de la estadia: ");
+                diaInicio = scan.nextInt();//el valor del booleano que nos dice si el año es el actual o el siguiente
+                System.out.println("Ingrese el mes de inicio de la estadia: ");
+                mesInicio = scan.nextInt();
+                añoInicio=ingresarAnioValidado(anioAux); //asigna a los booleanos si la reserva es de este año o no
+                System.out.println("PROBANDo");
+
+            } while (!validarIngresoFecha(diaInicio, mesInicio)); //este do-while va a realizarse siempre que el user ponga mal los datos, cuando los ponga bien lo dejara avanzar
+            do{
+                System.out.println("Ingrese el dia cuando se va a retirar de la propiedad:");
+                diaFin = scan.nextInt();
+                System.out.println("Ingrese el mes final de la estadia: ");
+                mesFin = scan.nextInt();
+                añoFin=ingresarAnioValidado(anioAux);
+            } while (!validarIngresoFecha(diaFin, mesFin)); //lo mismo aca
+
+        }while(!verificarFechas(diaInicio,diaFin,mesInicio,mesFin, añoInicio, añoFin)); //revisa que la fecha de inicio no sea posterior a la final
+        //si logra pasar todos los filtros, le asigna la fecha :)
+        cliente.asignarFecha(diaInicio, diaFin, mesInicio, mesFin, añoInicio, añoFin);
+
+    }
     public static Alojamiento cargarAlojamiento()
     {
         Alojamiento nuevo= null;
@@ -233,22 +262,30 @@ public class Main {
     }
     public static boolean validarIngresoFecha(int dia, int mes){ //valida que el dia y el mes sean reales y correspondan a una fecha que exista
         boolean rta=true; //bandera
+        int diaMaximoDelMes = 0;
         if(dia>31){
-            System.out.println("ERROR, no existen dias mayores a 31..");
+            System.out.println("ERROR, no existen meses mayores a 31 dias..");
             rta = false; //false= rebota y pide denuevo los datos
         }else if(mes<1 || mes>12){ //verifica que los meses sean validos
             System.out.println("ERROR, el dia no corresponde al mes..");
             rta=false;
         }else{
-            LocalDate fecha= LocalDate.of(LocalDate.now().getYear(), mes, LocalDate.now().getDayOfMonth()-1); //guardo una fecha para revisar la longitud del mes
-            //el -1 es para que tome hasta 30,porque si pone 31 tira excepcion
-            int diaMaximoDelMes = fecha.lengthOfMonth(); //guardo esa longitud en una variable
+            if(mes==1||mes==3||mes==5||mes==7||mes==8||mes==10||mes==12)
+            {
+                diaMaximoDelMes = 31;
+            }
+            else if(mes ==4||mes==6||mes==9||mes==11)
+            {
+                diaMaximoDelMes = 30;
+            }
+            else {
+                diaMaximoDelMes = 28;
+            }
             if(dia<0 || dia>diaMaximoDelMes){ //si el dia es negativo o si supera el limite del mes
                 System.out.println("ERROR, el dia no corresponde al mes o queres reservar un dia negativo(?");
                 rta=false;
-                 }
+            }
         }
-
         return rta;
     }
 
@@ -291,32 +328,6 @@ public class Main {
 
         return rta;
     }
-    public static void preguntarEstadia(Cliente cliente) { //pregunta la estadia al usuario, cuando se quiera reservar
-        int diaInicio = 0, diaFin = 0, mesInicio = 0, mesFin = 0, anioAux = 0;
-        boolean añoInicio = false, añoFin = false;
 
-        do{
-
-        do {
-            System.out.println("Ingrese el dia de inicio de la estadia: ");
-            diaInicio = scan.nextInt();//el valor del booleano que nos dice si el año es el actual o el siguiente
-            System.out.println("Ingrese el mes de inicio de la estadia: ");
-            mesInicio = scan.nextInt();
-            añoInicio=ingresarAnioValidado(anioAux); //asigna a los booleanos si la reserva es de este año o no
-
-        } while (!validarIngresoFecha(diaInicio, mesInicio)); //este do-while va a realizarse siempre que el user ponga mal los datos, cuando los ponga bien lo dejara avanzar
-        do{
-            System.out.println("Ingrese el dia cuando se va a retirar de la propiedad:");
-            diaFin = scan.nextInt();
-            System.out.println("Ingrese el mes final de la estadia: ");
-            mesFin = scan.nextInt();
-            añoFin=ingresarAnioValidado(anioAux);
-        } while (!validarIngresoFecha(diaFin, mesFin)); //lo mismo aca
-
-        }while(!verificarFechas(diaInicio,diaFin,mesInicio,mesFin, añoInicio, añoFin)); //revisa que la fecha de inicio no sea posterior a la final
-        //si logra pasar todos los filtros, le asigna la fecha :)
-        cliente.asignarFecha(diaInicio, diaFin, mesInicio, mesFin, añoInicio, añoFin);
-
-    }
 
 }
