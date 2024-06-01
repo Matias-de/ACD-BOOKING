@@ -14,10 +14,6 @@ public class Main {
         BookingACD nuevoBooking = new BookingACD();
        nuevoBooking.pasarArchiAMapa("ArchivoCliente");
        nuevoBooking.pasarArchiAMapa("ArchivoAlojamiento");
-        System.out.println("HashMapAlojamiento:");
-        System.out.println(nuevoBooking.getHashMapAlojamiento().toString());
-        System.out.println("HashMapClientes:");
-        System.out.println(nuevoBooking.getHashMapCliente().toString());
        nuevoBooking.jsonAJavaClientes();
        nuevoBooking.jsonAJavaAlojamiento();
        // System.out.println(nuevoBooking.getAlojamientoHashSet());
@@ -102,10 +98,10 @@ public class Main {
                     if(!nuevoBooking.getAlojamientoHashSet().isEmpty())
                     {
                         do {
-                            System.out.println("Desea usar los alojamientos ya cargados o cargar uno nuevo? (1 usar ya cargado, 2 cargar nuevo): ");
+                            System.out.println("Desea usar los alojamientos disponibles o cargar uno nuevo? (1 usar ya cargado, 2 cargar nuevo): ");
                             auxInt = scan.nextInt();
                             if (auxInt == 1) {
-                                System.out.println("Alojamientos ya cargados: ");
+                                System.out.println("Alojamientos Disponibles: ");
                                 System.out.println(nuevoBooking.devolverAlojamientosDisponibles());
                                 System.out.println("Ingrese el nombre del Alojamiento elegido: ");
                                 scan.nextLine();
@@ -212,6 +208,7 @@ public class Main {
         System.out.println("Ingrese el nombre del alojamiento: ");
         nombreAlojamiento=scan.next();
         System.out.println("Ingrese la direccion: ");
+        scan.nextLine();
         direccion=scan.next();
         System.out.println("Ingrese la zona: ");
         zona= scan.next();

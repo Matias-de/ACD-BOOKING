@@ -65,7 +65,7 @@ public class Departamento extends Alojamiento  implements Serializable {
     }
     @Override
     public int hashCode() {
-        return 2;
+        return 1;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class Departamento extends Alojamiento  implements Serializable {
         if ( obj != null && obj instanceof Departamento)
         {
             Departamento aux = (Departamento) obj;
-            if( aux.getNumeroPiso() != numeroPiso )
+            if( aux.getNumeroPiso() != numeroPiso && tamañoDepartamento!= aux.tamañoDepartamento )
             {
                 rta = false;
             }

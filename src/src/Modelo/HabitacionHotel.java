@@ -74,7 +74,7 @@ public class HabitacionHotel extends Alojamiento implements Serializable {
             if(obj instanceof HabitacionHotel)
             {
                 HabitacionHotel aux=(HabitacionHotel) obj;
-                if(aux.numeroHabitacion!=numeroHabitacion)
+                if(aux.numeroHabitacion!=numeroHabitacion && !aux.tipoHabitacion.equalsIgnoreCase(tipoHabitacion))
                 {
                     rta=false;
                 }

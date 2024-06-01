@@ -454,7 +454,7 @@ public void jsonCliente() {
                     throw new RuntimeException(e);
                 }
             }
-            //A MIO JSON ARRAY LE ASIGNO MI JSONOBJECT DE RESERVA
+            //A MI JSON ARRAY LE ASIGNO MI JSONOBJECT DE RESERVA
             jaReservas.put(joReserva);
         }
         JSONObject joReserva = new JSONObject();
