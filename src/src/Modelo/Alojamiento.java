@@ -135,19 +135,16 @@ public abstract class Alojamiento implements Serializable  {
 
     @Override
     public String toString() {
-        return "Alojamiento{" +
+        return "\nAlojamiento{" +
                 "precioXAlojar=" + precioXAlojar +
                 ", valoracion=" + valoracion +
-                ", descripcion='" + descripcion + '\'' +
-                ", nombre='" + nombre + '\'' +
+               // ", descripcion='" + descripcion + '\'' +
+                ", NOMBRE='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", zona='" + zona + '\'' +
-                ", comentarios='" + comentarios + '\'' +
-
+              //  ", zona='" + zona + '\'' +
+              //  ", comentarios='" + comentarios + '\'' +
                 ", estado ='"+ estado +'\'' +
-
-
-                '}';
+                "}\n";
     }
 
     @Override
@@ -165,17 +162,15 @@ public abstract class Alojamiento implements Serializable  {
         return rta;
     }
 
-    public boolean equalsXNombre(Object obj) {
+    public boolean equalsXNombre(String obj) {
         boolean rta=false;
-        if(obj!=null){
-            if(obj instanceof Alojamiento alojamiento){
-                if(alojamiento.getNombre().equalsIgnoreCase(nombre)){
+        if(obj!=null)
+        {
+                if(obj.equalsIgnoreCase(nombre))
+                {
                     rta=true;
                 }
-            }
         }
-
-
         return rta;
     }
 

@@ -10,16 +10,20 @@ public class Main {
 
     public static void main(String[] args) {
 
- //nuevoBooking.pasarArchiAMapa("Clientes");
-        //nuevoBooking.pasarArchiAMapa("Alojamientos");
+
         BookingACD nuevoBooking = new BookingACD();
+       nuevoBooking.pasarArchiAMapa("ArchivoCliente");
+       nuevoBooking.pasarArchiAMapa("ArchivoAlojamiento");
+        System.out.println("HashMapAlojamiento:");
+        System.out.println(nuevoBooking.getHashMapAlojamiento().toString());
+        System.out.println("HashMapClientes:");
+        System.out.println(nuevoBooking.getHashMapCliente().toString());
        nuevoBooking.jsonAJavaClientes();
        nuevoBooking.jsonAJavaAlojamiento();
        // System.out.println(nuevoBooking.getAlojamientoHashSet());
 
         menu(nuevoBooking);
-        nuevoBooking.pasarArchiAMapa("ArchivoClientes");
-        nuevoBooking.pasarArchiAMapa("ArchivoAlojamientos");
+        //nuevoBooking.guardarDatosEnArchi("ArchivoCliente","ArchivoAlojamiento");
 
     }
     public static void opcionesMenu(){ //aca pongan las opciones del menu
@@ -69,10 +73,12 @@ public class Main {
                               while (nuevoBooking.buscarClientePorNombre(stringAux) == null) {
                                   System.out.println(nuevoBooking.getClienteHashSet().toString());
                                   System.out.println("Nombre de cliente incorecto, Favor de elegir un nombre valido:");
+                                  System.out.println(stringAux);
                                   stringAux = scan.next();
                               }
+                              clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
                               System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
-                              preguntarEstadia(clienteAux):
+                              preguntarEstadia(clienteAux);
                           }
                           else if (auxInt == 2) {
                               System.out.println("Carga de cliente nuevo:");
@@ -102,12 +108,15 @@ public class Main {
                                 System.out.println("Alojamientos ya cargados: ");
                                 System.out.println(nuevoBooking.devolverAlojamientosDisponibles());
                                 System.out.println("Ingrese el nombre del Alojamiento elegido: ");
-                                stringAux = scan.next();
-                                while (nuevoBooking.buscarAlojamientoPorNombre(stringAux) == null) {
+                                scan.nextLine();
+                                stringAux = scan.nextLine();
+                                while (nuevoBooking.buscarAlojamientoPorNombre(stringAux) == null)
+                                {
                                     System.out.println(nuevoBooking.getAlojamientoHashSet().toString());
                                     System.out.println("Nombre de alojamiento incorrecto, Favor de elegir un nombre valido:");
-                                    stringAux = scan.next();
+                                    stringAux = scan.nextLine();
                                 }
+                                alojamientoAux = nuevoBooking.buscarAlojamientoPorNombre(stringAux);
                                 System.out.println("Alojamiento encontrado!");
                             } else if (auxInt == 2) {
                                 System.out.println("Cargar alojamiento nuevo:");
@@ -127,7 +136,7 @@ public class Main {
                         Alojamiento auxAlojamiento = cargarAlojamiento();
                         nuevoBooking.agregarAlojamiento(auxAlojamiento);
                     }
-                    System.out.println("True exitoso false no se pudo reservar.--->"+nuevoBooking.reservar(clienteAux,alojamientoAux));
+                    System.out.println("(True=exitoso)/(False=no se pudo reservar)--->Rta:"+nuevoBooking.reservar(clienteAux,alojamientoAux));
                     break;
                 case 4:
                     if(nuevoBooking.getReservaHashSet().isEmpty()){

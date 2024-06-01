@@ -27,7 +27,8 @@ public class GHashMap <E>implements IOperacionesMap<E> {
                 objectOutputStream = new ObjectOutputStream(fileOutputStream);
             while (nuevoIteratorMap.hasNext())
             {
-                HashSet<Reserva> nuevoHashAux = nuevoIteratorMap.next().getValue();
+                Map.Entry<E,HashSet<Reserva>> mapaAux = nuevoIteratorMap.next();
+                HashSet<Reserva> nuevoHashAux = mapaAux.getValue();
                 for (Reserva hashAux : nuevoHashAux) {
                     objectOutputStream.writeObject(hashAux);
                 }
@@ -53,6 +54,13 @@ public class GHashMap <E>implements IOperacionesMap<E> {
     }
 
     //metodos
+
+    @Override
+    public String toString() {
+        return "GHashMap{" +
+                "nuevoHashMap=" + nuevoHashMap +
+                '}';
+    }
 
     @Override
     public void agregar(E clave, Reserva valor) {

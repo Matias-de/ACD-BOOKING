@@ -69,7 +69,7 @@ public class BookingACD  {
                 hashMapCliente.agregar(nuevaReserva.getCliente(), nuevaReserva);
             }
         } catch (EOFException e) {
-            System.out.println("Fin del archivo.");
+            System.out.println("Cargando Map.");
         } catch (FileNotFoundException e2) {
             e2.printStackTrace();
         } catch (IOException e3) {
@@ -231,6 +231,8 @@ public class BookingACD  {
         return rta;
     }
 
+
+
     public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
     {
         String rta = "";
@@ -283,13 +285,13 @@ public class BookingACD  {
         Cliente cliente = null;
         while (iterator.hasNext()) {
             Cliente aux = iterator.next();
-            if (aux.equalsXNombre(nombre)) {
+            if (aux.equalsXNombre(nombre))
+            {
                 cliente = aux;
             }
         }
         return cliente;
     }
-
     public Alojamiento buscarAlojamientoPorNombre(String nombre) {
         Iterator<Alojamiento> iterator = alojamientoHashSet.iterator();
         Alojamiento alojamiento = null;
@@ -502,7 +504,7 @@ public void jsonCliente() {
             }
 
         }
-        System.out.println(clienteHashSet.toString());
+       // System.out.println(clienteHashSet.toString());
 
     }
     ///PASAR A JSON A JAVA ALOJAMIENTO
@@ -554,7 +556,7 @@ public void jsonCliente() {
             }
             //Añado a mi HashSet
 
-            System.out.println(alojamientoHashSet);
+          //  System.out.println(alojamientoHashSet);
 
         }
         for (int i = 0; i < jsonArrayHotel.length(); i++) {
