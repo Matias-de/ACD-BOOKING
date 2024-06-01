@@ -9,9 +9,9 @@ public abstract class Alojamiento{
     private double valoracion; //0 a 5
     private int cantReservas;
     private String descripcion;
-    private final String nombre;
-    private final String direccion;
-    private final String zona;
+    private String nombre;
+    private String direccion;
+    private String zona;
     private String comentarios;
 
     private EstadoAlojamiento estado;
@@ -87,6 +87,27 @@ public abstract class Alojamiento{
     }
     //setters
 
+
+    public void setValoracion(double valoracion) {
+        this.valoracion = valoracion;
+    }
+
+    public void setCantReservas(int cantReservas) {
+        this.cantReservas = cantReservas;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setZona(String zona) {
+        this.zona = zona;
+    }
+
     public void setEstado(EstadoAlojamiento estado) {
         this.estado = estado;}
 
@@ -104,6 +125,7 @@ public abstract class Alojamiento{
     public void setValoracion(int valoracion) {
         this.valoracion = valoracion;
     }
+
 
 
     //metodos

@@ -26,6 +26,19 @@ public class Departamento extends Alojamiento {
         this.tamañoDepartamento = 0;
         this.servicioExtra = "";
     }
+    ///setters
+
+    public void setServicioExtra(String servicioExtra) {
+        this.servicioExtra = servicioExtra;
+    }
+
+    public void setNumeroPiso(int numeroPiso) {
+        this.numeroPiso = numeroPiso;
+    }
+
+    public void setTamañoDepartamento(int tamañoDepartamento) {
+        this.tamañoDepartamento = tamañoDepartamento;
+    }
 
     //getters
     public String getServicioExtra() {
