@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class Reserva   {
+public class Reserva implements Serializable  {
     //atributos
     private Alojamiento alojamiento;
     private Cliente cliente;
