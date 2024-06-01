@@ -9,11 +9,12 @@ public class Main {
     static Scanner scan;
 
     public static void main(String[] args) {
-
+        //nuevoBooking.pasarArchiAMapa("Clientes");
+        //nuevoBooking.pasarArchiAMapa("Alojamientos");
         BookingACD nuevoBooking = new BookingACD();
-
         menu(nuevoBooking);
-
+//        nuevoBooking.pasarArchiAMapa("Clientes");
+//        nuevoBooking.pasarArchiAMapa("Alojamientos");
 
     }
     public static void opcionesMenu(){ //aca pongan las opciones del menu
@@ -31,7 +32,7 @@ public class Main {
         int opc = 0, auxInt=0;
         char inicio = 's';
         Cliente clienteAux= new Cliente();
-        Alojamiento alojamientoAux;
+        Alojamiento alojamientoAux = null;
         String stringAux="";
         scan = new Scanner(System.in);
         //texto en pantalla
@@ -77,14 +78,44 @@ public class Main {
                         }
 
                     }while(auxInt!=1 && auxInt!=2);
-                    //falta hacer lo mismo pero con alojamientos, asique hay que meter ya los estados
 
-                   /* Alojamiento nuevoAlojamiento1 = cargarAlojamiento(); //aca habria que buscar la forma para que busque entre los clientes y alojamientos ya cargados
-                    Cliente nuevoCliente2 = cargaCliente(); //mañana veremos como modificar esto
+                    do{
+                        System.out.println("Desea usar los alojamientos ya cargados o cargar uno nuevo? (1 usar nuevo, 2 cargar): ");
+                        auxInt=scan.nextInt();
+                        if(auxInt==1){
+                            if(!nuevoBooking.getAlojamientoHashSet().isEmpty()){
+                                System.out.println("Alojamientos ya cargados: ");
+                                System.out.println(nuevoBooking.devolverAlojamientosDisponibles());
+                                System.out.println("Ingrese el nombre del Alojamiento elegido: ");
+                                stringAux= scan.next();
+                                alojamientoAux= nuevoBooking.buscarAlojamientoPorNombre(stringAux);
+                                if (alojamientoAux == null) {
+                                    System.out.println("El nombre del alojamiento no corresponde a ninguno ingresado, tendra que reintentar..");
 
-                    System.out.println(nuevoBooking.reservar(nuevoCliente2,nuevoAlojamiento1));
-*/
+                                }else{
+                                    System.out.println("Alojamiento encontrado!. Se le asignara la reserva al alojamiento: " + alojamientoAux);
+                                    
+                                }
+                            }else{
+                                System.out.println("No hay ningun alojamiento cargado en el sistema, ingreselos con la opcion 2..");
+                                
+                            }
+                        } else if(auxInt==2) {
+                            alojamientoAux = cargarAlojamiento();
+                            nuevoBooking.agregarAlojamiento(alojamientoAux);
+                            System.out.println("Perfecto, se le asignara la reserva al alojamiento: " + alojamientoAux);
+                        }
+
+
+                    }while(auxInt!=1 && auxInt!=2);
+                    
+                    if(clienteAux!=null && alojamientoAux!=null){
+
+                        System.out.println(nuevoBooking.reservar(clienteAux,alojamientoAux));
+                    }
+
                     break;
+
                 case 4:
                     if(nuevoBooking.getReservaHashSet().isEmpty()){
                         System.out.println("no hay reservas en el sistema");
@@ -142,7 +173,7 @@ public class Main {
         System.out.println("Ingrese el precio por alojar: ");
         precioXalojar=scan.nextDouble();
         do {
-            System.out.println("Desea ingresar un Departamento o una Habitacion de Hotel? Ingrese alguna de esas dos palabras segun corresponda: ");
+            System.out.println("Desea ingresar un Departamento o una Habitacion de Hotel? Ingrese alguna de esas dos palabras segun corresponda: (departamento/habitacion) ");
             tipoAux=scan.next();
         }while(!tipoAux.equalsIgnoreCase("departamento") && !tipoAux.equalsIgnoreCase("Habitacion")); //tiene que elegir si o si uno de los dos
         if(tipoAux.equalsIgnoreCase("departamento")){

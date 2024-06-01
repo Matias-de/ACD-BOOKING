@@ -218,7 +218,7 @@ public class BookingACD {
             Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator();
             while(alojamientoIterator.hasNext()){
                 Alojamiento aux=alojamientoIterator.next();
-                if(aux.isDisponibilidad()){
+                if(aux.getEstado().equals(EstadoAlojamiento.DISPONIBLE)){
                     rta+=aux.toString()+"\n";
                 }
             }
@@ -303,6 +303,18 @@ public class BookingACD {
             }
         }
         return cliente;
+    }
+
+    public Alojamiento buscarAlojamientoPorNombre(String nombre){
+        Iterator<Alojamiento> iterator = alojamientoHashSet.iterator();
+        Alojamiento alojamiento=null;
+        while(iterator.hasNext()){
+            Alojamiento aux = iterator.next();
+            if(aux.getNombre().equals(nombre)){
+                alojamiento=aux;
+            }
+        }
+        return alojamiento;
     }
 
 }
