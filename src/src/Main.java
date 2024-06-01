@@ -13,8 +13,8 @@ public class Main {
  //nuevoBooking.pasarArchiAMapa("Clientes");
         //nuevoBooking.pasarArchiAMapa("Alojamientos");
         BookingACD nuevoBooking = new BookingACD();
-       //nuevoBooking.jsonAJavaClientes();
-       //nuevoBooking.jsonAJavaAlojamiento();
+       nuevoBooking.jsonAJavaClientes();
+       nuevoBooking.jsonAJavaAlojamiento();
        // System.out.println(nuevoBooking.getAlojamientoHashSet());
 
         menu(nuevoBooking);
