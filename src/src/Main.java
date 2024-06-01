@@ -57,43 +57,45 @@ public class Main {
 
                     break;
                 case 3:
-                    do{
+                    if (!nuevoBooking.getClienteHashSet().isEmpty()) {
                         System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
-                         auxInt=scan.nextInt();
+                        auxInt = scan.nextInt();
                         if (auxInt == 1) {
-                            if(!nuevoBooking.getClienteHashSet().isEmpty()){
-                                System.out.println("Clientes ya cargados: ");
+                            System.out.println("Clientes ya cargados: ");
+                            System.out.println(nuevoBooking.getClienteHashSet().toString());
+                            System.out.println("Ingrese el nombre del cliente que quiere elegir: ");
+                            stringAux = scan.next();
+                            while (nuevoBooking.buscarClientePorNombre(stringAux) == null) {
                                 System.out.println(nuevoBooking.getClienteHashSet().toString());
-                                System.out.println("Ingrese el nombre del cliente elegido: ");
-                                stringAux= scan.next();
-                                clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
-                                if (clienteAux == null) {
-                                    System.out.println("El nombre del cliente no corresponde a ninguno ingresado, tendra que reintentar..");
-                                } else {
-                                    System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
-                                    preguntarEstadia(clienteAux);
-                                }
-                            }else{
-                                System.out.println("No habia ningun cliente cargado, tendra que acceder a la opcion 1 y cargar uno nuevo..");
+                                System.out.println("Nombre incorecto, Favor de elegir un nombre valido:");
+                                stringAux = scan.next();
                             }
-                        } else if(auxInt==2){
-                            clienteAux=cargaCliente();
-                            nuevoBooking.agregarCliente(clienteAux);
-                            System.out.println("Perfecto, se le asignara la reserva al cliente: "+clienteAux);
-                            preguntarEstadia(clienteAux);
+                            System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
+                            preguntarEstadia(clienteAux):
                         }
 
-                    }while(auxInt!=1 && auxInt!=2);
+                    } else {
+                        System.out.println("No hay clientes cargados, cargue uno para poder continuar.");
+                        Cliente auxCliente = cargaCliente();
+                        nuevoBooking.agregarCliente(auxCliente);
+                        preguntarEstadia(auxCliente);
+                    }
+
+
+                           
+
+
+
 
                     do{
-                        System.out.println("Desea usar los alojamientos ya cargados o cargar uno nuevo? (1 usar nuevo, 2 cargar): ");
+                        System.out.println("Desea usar los alojamientos ya cargados o cargar uno nuevo? (1 usar ya cargado, 2 cargar nuevo): ");
                         auxInt=scan.nextInt();
                         if(auxInt==1){
                             if(!nuevoBooking.getAlojamientoHashSet().isEmpty()){
                                 System.out.println("Alojamientos ya cargados: ");
                                 System.out.println(nuevoBooking.devolverAlojamientosDisponibles());
                                 System.out.println("Ingrese el nombre del Alojamiento elegido: ");
-                                stringAux= scan.next();
+                                stringAux= scan.nextLine();
                                 alojamientoAux= nuevoBooking.buscarAlojamientoPorNombre(stringAux);
                                 if (alojamientoAux == null) {
                                     System.out.println("El nombre del alojamiento no corresponde a ninguno ingresado, tendra que reintentar..");
@@ -171,7 +173,6 @@ public class Main {
                 System.out.println("Ingrese el mes de inicio de la estadia: ");
                 mesInicio = scan.nextInt();
                 añoInicio=ingresarAnioValidado(anioAux); //asigna a los booleanos si la reserva es de este año o no
-                System.out.println("PROBANDo");
 
             } while (!validarIngresoFecha(diaInicio, mesInicio)); //este do-while va a realizarse siempre que el user ponga mal los datos, cuando los ponga bien lo dejara avanzar
             do{
