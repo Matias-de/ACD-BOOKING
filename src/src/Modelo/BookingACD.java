@@ -283,7 +283,7 @@ public class BookingACD  {
         Cliente cliente = null;
         while (iterator.hasNext()) {
             Cliente aux = iterator.next();
-            if (aux.getNombre().equals(nombre)) {
+            if (aux.equalsXNombre(nombre)) {
                 cliente = aux;
             }
         }
@@ -295,8 +295,9 @@ public class BookingACD  {
         Alojamiento alojamiento = null;
         while (iterator.hasNext()) {
             Alojamiento aux = iterator.next();
-            if (aux.getNombre().equals(nombre)) {
+            if (aux.equalsXNombre(nombre)) {
                 alojamiento = aux;
+
             }
         }
         return alojamiento;

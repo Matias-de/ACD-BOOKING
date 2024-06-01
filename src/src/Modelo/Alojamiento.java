@@ -165,6 +165,21 @@ public abstract class Alojamiento implements Serializable  {
         return rta;
     }
 
+    public boolean equalsXNombre(Object obj) {
+        boolean rta=false;
+        if(obj!=null){
+            if(obj instanceof Alojamiento alojamiento){
+                if(alojamiento.getNombre().equalsIgnoreCase(nombre)){
+                    rta=true;
+                }
+            }
+        }
+
+
+        return rta;
+    }
+
+
     @Override
     public int hashCode() {
         return 1;

@@ -174,6 +174,19 @@ public class Cliente implements Serializable {
 
         return rta;
     }
+    public boolean equalsXNombre(Object obj) {
+        boolean rta=false;
+        if(obj!=null){
+            if(obj instanceof Alojamiento alojamiento){
+                if(alojamiento.getNombre().equalsIgnoreCase(nombre)){
+                    rta=true;
+                }
+            }
+        }
+
+
+        return rta;
+    }
 
 
 
