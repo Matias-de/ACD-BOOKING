@@ -143,7 +143,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "\nCliente{" +
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
@@ -152,7 +152,7 @@ public class Cliente implements Serializable {
                 //", fecha inicio: " + fechaInicio + '\'' +
                // ", fecha final: "  + fechaFinal+
                 mostrarFechaDeViaje()+
-                 '}';
+                 "}\n";
     }
 
     @Override
@@ -174,17 +174,15 @@ public class Cliente implements Serializable {
 
         return rta;
     }
-    public boolean equalsXNombre(Object obj) {
+    public boolean equalsXNombre(String obj) {
         boolean rta=false;
-        if(obj!=null){
-            if(obj instanceof Alojamiento alojamiento){
-                if(alojamiento.getNombre().equalsIgnoreCase(nombre)){
+        if(obj!=null)
+        {
+                if(obj.equalsIgnoreCase(nombre))
+                {
                     rta=true;
                 }
-            }
         }
-
-
         return rta;
     }
 
