@@ -9,9 +9,14 @@ public class Main {
     static Scanner scan;
 
     public static void main(String[] args) {
-        //nuevoBooking.pasarArchiAMapa("Clientes");
+
+ //nuevoBooking.pasarArchiAMapa("Clientes");
         //nuevoBooking.pasarArchiAMapa("Alojamientos");
         BookingACD nuevoBooking = new BookingACD();
+       //nuevoBooking.jsonAJavaClientes();
+       //nuevoBooking.jsonAJavaAlojamiento();
+       // System.out.println(nuevoBooking.getAlojamientoHashSet());
+
         menu(nuevoBooking);
 //        nuevoBooking.pasarArchiAMapa("Clientes");
 //        nuevoBooking.pasarArchiAMapa("Alojamientos");
@@ -94,11 +99,11 @@ public class Main {
 
                                 }else{
                                     System.out.println("Alojamiento encontrado!. Se le asignara la reserva al alojamiento: " + alojamientoAux);
-                                    
+
                                 }
                             }else{
                                 System.out.println("No hay ningun alojamiento cargado en el sistema, ingreselos con la opcion 2..");
-                                
+
                             }
                         } else if(auxInt==2) {
                             alojamientoAux = cargarAlojamiento();
@@ -108,7 +113,7 @@ public class Main {
 
 
                     }while(auxInt!=1 && auxInt!=2);
-                    
+
                     if(clienteAux!=null && alojamientoAux!=null){
 
                         System.out.println(nuevoBooking.reservar(clienteAux,alojamientoAux));
