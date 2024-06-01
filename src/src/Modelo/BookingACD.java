@@ -2,6 +2,10 @@ package Modelo;
 import ClasesGenericas.GHashSet;
 import ClasesGenericas.GHashMap;
 import Enumeraciones.EstadoAlojamiento;
+import Utils.JsonUtiles;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.*;
@@ -301,6 +305,36 @@ public class BookingACD {
         return alojamiento;
     }
 ///JSON
+//CREACION DEL JSON DE CLIENTE A PARTIR DE UN HASHSET
+public void jsonCliente() {
+
+
+    JSONArray ja= new JSONArray();
+    Iterator<Cliente> iterator = clienteHashSet.iterator();//iterator de hashSetcliente
+
+    while (iterator.hasNext()) {//recorremos hashset
+        JSONObject jo = new JSONObject();
+        Cliente cliente = iterator.next();
+
+        ///clave valor de cliente y hacemos el put en jo atributo x atributo
+
+        try {
+            jo.put("nombre",cliente.getNombre());
+            jo.put("apellido",cliente.getApellido());
+            jo.put("correoElectronico",cliente.getCorreoElectronico());
+            jo.put("medioDePago",cliente.getMedioDePago());
+            jo.put("cantPersonas",cliente.getCantPersonas());
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        ja.put(jo);
+    }
+    ///guardamos el jsonobject en un json Array para recorrerlo despuescon el nombre de "clientes"
+    JsonUtiles.grabar(ja, "clientes");///
+    System.out.println(ja.toString());
+
+}
+
 
 }
 
