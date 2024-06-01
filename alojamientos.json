@@ -1,0 +1,104 @@
+{
+  "Departamento": [
+    {
+      "descripcion": "Vista al Mar. 2 Habitaciones. Muy comodo y espacioso",
+      "PrecioXAlojar": 3000,
+      "zona": "Luro",
+      "estado": "DISPONIBLE",
+      "numeroPiso": 2332,
+      "direccion": "Av. Independencia y Luro 2332",
+      "valoracion": 0,
+      "tamañoDepartamento": 40,
+      "cantReservas": 0,
+      "servicioExtra": "Parrilla y Piscina",
+      "nombre": "Chalet de Pedro",
+      "comentarios": ""
+    },
+    {
+      "descripcion": "Comodo y Economico. Balcon",
+      "PrecioXAlojar": 2500,
+      "zona": "Olazabal",
+      "estado": "DISPONIBLE",
+      "numeroPiso": 1345,
+      "direccion": "Olazabal 1345",
+      "valoracion": 0,
+      "tamañoDepartamento": 25,
+      "cantReservas": 0,
+      "servicioExtra": "Internet",
+      "nombre": "MonoAmbiente Economico",
+      "comentarios": ""
+    },
+    {
+      "descripcion": "3 Habitaciones. Gran Espacio. Zona Centrica. Patio y Pileta",
+      "PrecioXAlojar": 5000,
+      "zona": "Guemes",
+      "estado": "DISPONIBLE",
+      "numeroPiso": 122,
+      "direccion": "Guemes y Olavarria 122",
+      "valoracion": 0,
+      "tamañoDepartamento": 30,
+      "cantReservas": 0,
+      "servicioExtra": "Pileta. Parrila. Internet. Parquero Incluido",
+      "nombre": "Departamento Lujoso Zona Centrica",
+      "comentarios": ""
+    }
+  ],
+  "HabitacionesHotel": [
+    {
+      "descripcion": "Gran Balcon. Vista al Lago. 2 habitaciones",
+      "servicios": "Desayuno y Merienda incluidas. Parrila 24hs",
+      "PrecioXAlojar": 1500,
+      "zona": "Guemes",
+      "estado": "DISPONIBLE",
+      "numeroHabitacion": 375,
+      "direccion": "Guemes 1374",
+      "valoracion": 0,
+      "tipoHabitacion": "doble",
+      "cantReservas": 0,
+      "nombre": "Hotel Dodo",
+      "comentarios": ""
+    },
+    {
+      "descripcion": "Hotel Lujoso con patio grande, piscina y quincho. 4 habitaciones. 3 baños. Garage. Cancha de Futbol",
+      "servicios": "Cancha de Futbol. Servicio a la Habitacion. Internet. Sala de juegos. Gimnasio",
+      "PrecioXAlojar": 6000,
+      "zona": "Costanera",
+      "estado": "DISPONIBLE",
+      "numeroHabitacion": 343,
+      "direccion": "Av. Patricio Peralta Ramos 576",
+      "valoracion": 0,
+      "tipoHabitacion": "premium",
+      "cantReservas": 0,
+      "nombre": "Hotel Costa Galana",
+      "comentarios": ""
+    },
+    {
+      "descripcion": "Balcon.Comodo.Monoambiente.Economico",
+      "servicios": "Desayuno incluido.",
+      "PrecioXAlojar": 1000,
+      "zona": "Guemes",
+      "estado": "DISPONIBLE",
+      "numeroHabitacion": 377,
+      "direccion": "Guemes 1374",
+      "valoracion": 0,
+      "tipoHabitacion": "economica",
+      "cantReservas": 0,
+      "nombre": "Hotel Dodo",
+      "comentarios": ""
+    },
+    {
+      "descripcion": "Balcon.Piscina.3 Habitaciones. Pequeño patio",
+      "servicios": "Parrila. Internet. Piscina. Limpieza",
+      "PrecioXAlojar": 2500,
+      "zona": "Costanera y Colon",
+      "estado": "DISPONIBLE",
+      "numeroHabitacion": 60,
+      "direccion": "Av. Colon 2434",
+      "valoracion": 0,
+      "tipoHabitacion": "triple",
+      "cantReservas": 0,
+      "nombre": "Hotel Artico",
+      "comentarios": ""
+    }
+  ]
+}

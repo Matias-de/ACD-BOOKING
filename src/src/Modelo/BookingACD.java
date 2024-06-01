@@ -305,6 +305,7 @@ public class BookingACD {
         return alojamiento;
     }
 ///JSON
+
 //CREACION DEL JSON DE CLIENTE A PARTIR DE UN HASHSET
 public void jsonCliente() {
 
@@ -334,7 +335,60 @@ public void jsonCliente() {
     System.out.println(ja.toString());
 
 }
+    ///CREACION DEL JSON ALOJAMIENTO A PARTIR DE UN HASH SET
+    public void jsonAlojamiento() {
+        //creacion de mi array para luego guardar los jsonobject
+        JSONArray jaDepto = new JSONArray();
+        JSONArray jaHabHotel = new JSONArray();
+        Iterator<Alojamiento> iterator = alojamientoHashSet.iterator();//iterator de mi hashset de alojamiento
+        alojamientoHashSet.toString();
+        while (iterator.hasNext()) {
+            Alojamiento alojamiento = iterator.next();
+            alojamiento.toString();
+            JSONObject jo = new JSONObject();///creacion de mi json object
+            try {
+                jo.put("PrecioXAlojar", alojamiento.getPrecioXAlojar());
+                jo.put("valoracion", alojamiento.getValoracion());
+                jo.put("cantReservas", alojamiento.getCantReservas());
+                jo.put("descripcion", alojamiento.getDescripcion());
+                jo.put("nombre", alojamiento.getNombre());
+                jo.put("direccion", alojamiento.getDireccion());
+                jo.put("zona", alojamiento.getZona());
+                jo.put("comentarios", alojamiento.getComentarios());
+                jo.put("estado", alojamiento.getEstado());
+                ///COMO COMPARTEN ATRIBUTOS, EL INSTANCE OF LO HAGO DESPUES DE TERMINAR LOS ATRIBUTOS QUE COMPARTEN ASI MODULARIZAR Y NO GASTAR CODIGO.
+                ///DEBO HGACER EL INSTANCE OF PORQUE HAY METODOS PROPIOS DE DEPARTAMENTO Y HOTEL
+                if (alojamiento instanceof Departamento) {
+                    jo.put("numeroPiso", ((Departamento) alojamiento).getNumeroPiso());
+                    jo.put("tamañoDepartamento", ((Departamento) alojamiento).getTamañoDepartamento());
+                    jo.put("servicioExtra", ((Departamento) alojamiento).getServicioExtra());
+                    jaDepto.put(jo);
 
+                }
+                else if (alojamiento instanceof HabitacionHotel)
+                {
+                    jo.put("servicios", ((HabitacionHotel) alojamiento).getServicios());
+                    jo.put("tipoHabitacion", ((HabitacionHotel) alojamiento).getTipoHabitacion());
+                    jo.put("numeroHabitacion", ((HabitacionHotel) alojamiento).getNumeroHabitacion());
+                    jaHabHotel.put(jo);
+                }
+
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        JSONObject joAlojamientos = new JSONObject();//creo este jsonobject para guardarles mis jsonarray y asi tener un objeto que contenga arreglos de objetos
+        try {
+            joAlojamientos.put("Departamento", jaDepto);
+            joAlojamientos.put("HabitacionesHotel",jaHabHotel);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        JsonUtiles.grabar(joAlojamientos, "alojamientos");//lo grabo.
+
+        // System.out.println(joAlojamientos);
+        System.out.println((JsonUtiles.leer("alojamientos")));
+    }
 
 }
 
