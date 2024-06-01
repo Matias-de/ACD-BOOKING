@@ -389,6 +389,87 @@ public void jsonCliente() {
         // System.out.println(joAlojamientos);
         System.out.println((JsonUtiles.leer("alojamientos")));
     }
+    ///CREACION DEL JSON DE RESERVAS A PARTIR DE UN HASH SET
+    public void jsonReservas(){
+
+
+        JSONArray jaReservas = new JSONArray();//ESTE SERA MIJSON ARRAY DE RESERVAS
+        Iterator <Reserva> iterator = reservaHashSet.iterator();///MI ITERATOR DE HASHSET RESERVA
+        while(iterator.hasNext())
+        {
+            ///CREAMOS T VARIABLES DE CLIENTE Y ALOJAMIENTO CON SU RSPECTIVO CONTENIDO BASADO EN SU RESERVA HACIENDO EL GET, PARA MODULARIZAR
+            Reserva reserva = iterator.next();
+            Cliente cliente = reserva.getCliente();
+            Alojamiento alojamiento=reserva.getAlojamiento();
+            ////CREAMOS UN JSON OBJECT POR CADA HASHSET PARA QUE APAREZCA UN STRING ANTES DEL OBJETO EN JSON Y QUE QUEDE MAS MODULARIZADO Y MASORGANIZADO
+            JSONObject joReserva= new JSONObject();
+            JSONObject joCliente= new JSONObject();
+            JSONObject joAloj = new JSONObject();
+            {
+                try {
+                    //PRIMERO HAGO EL PUT DE LOS ATRIBUTOS DE RESERVA PARA QUE SEA LO PRIMERO QUE SE VEA EN EL JSON
+                    joReserva.put("preciototal",reserva.getPrecioTotal());
+                    joReserva.put("pin",reserva.getPin());
+
+                    ///ATRIBUTOS DE ALOJAMIENTO
+                    joAloj.put("PrecioXAlojar", alojamiento.getPrecioXAlojar());
+                    joAloj.put("valoracion", alojamiento.getValoracion());
+                    joAloj.put("cantReservas", alojamiento.getCantReservas());
+                    joAloj.put("descripcion", alojamiento.getDescripcion());
+                    joAloj.put("nombre", alojamiento.getNombre());
+                    joAloj.put("direccion", alojamiento.getDireccion());
+                    joAloj.put("zona", alojamiento.getZona());
+                    joAloj.put("comentarios", alojamiento.getComentarios());
+                    joAloj.put("estado", alojamiento.getEstado());
+
+                    if (alojamiento instanceof Departamento) {
+                        joAloj.put("tipo","Departamento");
+                        joAloj.put("numeroPiso", ((Departamento) alojamiento).getNumeroPiso());
+                        joAloj.put("tamañoDepartamento", ((Departamento) alojamiento).getTamañoDepartamento());
+                        joAloj.put("servicioExtra", ((Departamento) alojamiento).getServicioExtra());
+
+                    }
+                    else if (alojamiento instanceof HabitacionHotel)
+                    {
+                        joAloj.put("tipo","HabitacionHotel");
+                        joAloj.put("servicios", ((HabitacionHotel) alojamiento).getServicios());
+                        joAloj.put("tipoHabitacion", ((HabitacionHotel) alojamiento).getTipoHabitacion());
+                        joAloj.put("numeroHabitacion", ((HabitacionHotel) alojamiento).getNumeroHabitacion());
+
+                    }
+
+                    ///REALIZO EL PUT DE ALOJAMIENTO EN MI JSON OBJECT DE RESERVA
+                    joReserva.put("alojamiento",joAloj);
+                    ///ATRIBUTOS DE CLIENTE
+                    joCliente.put("nombre",cliente.getNombre());
+                    joCliente.put("apellido",cliente.getApellido());
+                    joCliente.put("correoElectronico",cliente.getCorreoElectronico());
+                    joCliente.put("medioDePago",cliente.getMedioDePago());
+                    joCliente.put("cantPersonas",cliente.getCantPersonas());
+                    ///REALIZO EL PUT DE MIJSONOBJECT DE CLIENTE
+                    joReserva.put("cliente",joCliente);
+
+
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            //A MIO JSON ARRAY LE ASIGNO MI JSONOBJECT DE RESERVA
+            jaReservas.put(joReserva);
+        }
+        JSONObject joReserva = new JSONObject();
+        ///CREO UN NUEVOJSON OBJECT QUE VA ATENER MI JSONARRAY
+        try {
+            joReserva.put("reserva",jaReservas);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        ///GRABO
+        JsonUtiles.grabar(joReserva,"reserva");
+        System.out.println((JsonUtiles.leer("reserva")));
+
+
+    }
 
 }
 
