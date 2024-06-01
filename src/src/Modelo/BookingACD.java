@@ -542,6 +542,8 @@ public void jsonCliente() {
                 Depto.setPrecioXAlojar(joDepto.getDouble("PrecioXAlojar"));
                 Depto.setValoracion(joDepto.getDouble("valoracion"));
                 Depto.setDescripcion(joDepto.getString("descripcion"));
+                Depto.setNombre(joDepto.getString("nombre"));
+
                 Depto.setDireccion(joDepto.getString("direccion"));
                 Depto.setZona(joDepto.getString("zona"));
                 Depto.setComentarios(joDepto.getString("comentarios"));
@@ -588,4 +590,3 @@ public void jsonCliente() {
     }
 
 }
-
