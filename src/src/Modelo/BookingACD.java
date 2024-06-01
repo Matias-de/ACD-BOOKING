@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.*;
 
 public class BookingACD {
-    
+
     //atributos
 
     GHashMap<Cliente> hashMapCliente; //Estos dos en archivos
@@ -221,7 +221,7 @@ public class BookingACD {
         return rta;
     }
 
-    //preguntar como hacer para no repetir estas funciones
+    //preguntar como hacer para no repetir estas funciones // hay que hacerlo en el la clase map y usar el tipo de dato generico
     public String mostrarReservasEnAlojamiento(Alojamiento alojamiento) {
         String rta = "Alojamiento no encontrado/sin reservas";
         if (hashMapAlojamiento.buscarElemento(alojamiento)) {

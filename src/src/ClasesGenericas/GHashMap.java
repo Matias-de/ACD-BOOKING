@@ -19,10 +19,11 @@ public class GHashMap <E>implements IOperacionesMap<E> {
     //metodo para guardar mapa en archivo
     public void pasarMapaAArchivo(String nombreArchi)
     {
+        FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
         Iterator<Map.Entry<E,HashSet<Reserva>>> nuevoIteratorMap = nuevoHashMap.entrySet().iterator();
         try {
-                FileOutputStream fileOutputStream = new FileOutputStream(nombreArchi);
+                fileOutputStream = new FileOutputStream(nombreArchi);
                 objectOutputStream = new ObjectOutputStream(fileOutputStream);
             while (nuevoIteratorMap.hasNext())
             {
