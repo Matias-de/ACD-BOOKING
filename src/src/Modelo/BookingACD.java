@@ -508,7 +508,7 @@ public void jsonCliente() {
 
     }
     ///PASAR A JSON A JAVA ALOJAMIENTO
-    public void jsonAJavaAlojamiento(){
+    public void jsonAJavaAlojamiento() {
 
         //Leo mi archivo que contiene el json.
         String rta = JsonUtiles.leer("alojamientos");
@@ -532,51 +532,48 @@ public void jsonCliente() {
         //Instancio mi objeto
 
 
-
         //Recorro mi array
         for (int i = 0; i < jsonArrayDepto.length(); i++) {
             try {
                 //Mi Json object Tendra cada objeto de mi arreglo
                 Departamento Depto = new Departamento();
-                jo = jsonArrayDepto.getJSONObject(i);
+                JSONObject joDepto = jsonArrayDepto.getJSONObject(i);
 
-                Depto.setPrecioXAlojar(jo.getDouble("PrecioXAlojar"));
-                Depto.setValoracion(jo.getDouble("valoracion"));
-                Depto.setDescripcion(jo.getString("descripcion"));
-                Depto.setDireccion(jo.getString("direccion"));
-                Depto.setZona(jo.getString("zona"));
-                Depto.setComentarios(jo.getString("comentarios"));
-                Depto.setEstado(EstadoAlojamiento.valueOf(jo.getString("estado")));
-                Depto.setNumeroPiso(jo.getInt("numeroPiso"));
-                Depto.setTamañoDepartamento(jo.getInt("tamañoDepartamento"));
-                Depto.setServicioExtra(jo.getString("servicioExtra"));
+                Depto.setPrecioXAlojar(joDepto.getDouble("PrecioXAlojar"));
+                Depto.setValoracion(joDepto.getDouble("valoracion"));
+                Depto.setDescripcion(joDepto.getString("descripcion"));
+                Depto.setDireccion(joDepto.getString("direccion"));
+                Depto.setZona(joDepto.getString("zona"));
+                Depto.setComentarios(joDepto.getString("comentarios"));
+                Depto.setEstado(EstadoAlojamiento.valueOf(joDepto.getString("estado")));
+                Depto.setNumeroPiso(joDepto.getInt("numeroPiso"));
+                Depto.setTamañoDepartamento(joDepto.getInt("tamañoDepartamento"));
+                Depto.setServicioExtra(joDepto.getString("servicioExtra"));
                 agregarAlojamiento(Depto);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
             //Añado a mi HashSet
 
-          //  System.out.println(alojamientoHashSet);
-
         }
         for (int i = 0; i < jsonArrayHotel.length(); i++) {
             try {
                 HabitacionHotel Hotel = new HabitacionHotel();
                 //Mi Json object Tendra cada objeto de mi arreglo
-                jo = jsonArrayHotel.getJSONObject(i);
+                JSONObject joHotel = jsonArrayHotel.getJSONObject(i);
 
-                Hotel.setPrecioXAlojar(jo.getDouble("PrecioXAlojar"));
-                Hotel.setValoracion(jo.getDouble("valoracion"));
-                Hotel.setCantReservas(jo.getInt("cantReservas"));
-                Hotel.setDescripcion(jo.getString("descripcion"));
-                Hotel.setNombre(jo.getString("nombre"));
-                Hotel.setDireccion(jo.getString("direccion"));
-                Hotel.setZona(jo.getString("zona"));
-                Hotel.setComentarios(jo.getString("comentarios"));
-                Hotel.setEstado(EstadoAlojamiento.valueOf(jo.getString("estado")));
-                Hotel.setServicios(jo.getString("servicios"));
-                Hotel.setTipoHabitacion(jo.getString("tipoHabitacion"));
-                Hotel.setNumeroHabitacion(jo.getInt("numeroHabitacion"));
+                Hotel.setPrecioXAlojar(joHotel .getDouble("PrecioXAlojar"));
+                Hotel.setValoracion(joHotel .getDouble("valoracion"));
+                Hotel.setCantReservas(joHotel .getInt("cantReservas"));
+                Hotel.setDescripcion(joHotel .getString("descripcion"));
+                Hotel.setNombre(joHotel .getString("nombre"));
+                Hotel.setDireccion(joHotel .getString("direccion"));
+                Hotel.setZona(joHotel .getString("zona"));
+                Hotel.setComentarios(joHotel .getString("comentarios"));
+                Hotel.setEstado(EstadoAlojamiento.valueOf(joHotel .getString("estado")));
+                Hotel.setServicios(joHotel .getString("servicios"));
+                Hotel.setTipoHabitacion(joHotel .getString("tipoHabitacion"));
+                Hotel.setNumeroHabitacion(joHotel .getInt("numeroHabitacion"));
                 agregarAlojamiento(Hotel);
 
             } catch (JSONException e) {
@@ -584,7 +581,7 @@ public void jsonCliente() {
             }
             //Añado a mi HashSet
 
-           // System.out.println(alojamientoHashSet);
+            //System.out.println(alojamientoHashSet);
         }
 
 
