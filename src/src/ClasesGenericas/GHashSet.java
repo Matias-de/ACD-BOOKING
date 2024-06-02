@@ -1,12 +1,16 @@
 package ClasesGenericas;
 
 import Interfaces.IOperacionesSet;
+import Modelo.Reserva;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 public class GHashSet<E> implements IOperacionesSet<E> {
+
     private HashSet<E> nuevoHashSet;
+
     public GHashSet()
     {
         nuevoHashSet = new HashSet<>();
@@ -38,5 +42,6 @@ public class GHashSet<E> implements IOperacionesSet<E> {
     public boolean isEmpty(){
         return nuevoHashSet.isEmpty();
     }
+
 
 }

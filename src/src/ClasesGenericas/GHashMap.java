@@ -99,13 +99,13 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         nuevoHashMap.remove(clave);
 
     }
-    public HashSet<Reserva> getReserva(E nuevoGenerico)
-    {
-        HashSet<Reserva> aux =  nuevoHashMap.get(nuevoGenerico);
-        return aux;
+
+    public HashSet<Reserva> getReserva(E nuevoGenerico) {
+        return nuevoHashMap.get(nuevoGenerico);
     }
+
     @Override
-    public boolean buscarElemento(E clave) {
+    public boolean buscarElemento(E clave){
         return nuevoHashMap.containsKey(clave);
     }
 
@@ -113,47 +113,9 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         nuevoHashMap.entrySet().iterator();
         return null;
     }
-    public boolean verificacionFechaCliente(Cliente clienteAAnalizar)
-    {
-        boolean flag = true;
-        HashSet<Reserva> aux = nuevoHashMap.get(clienteAAnalizar);
-        Reserva reservaAux = null;
-        Iterator <Reserva> nuevoIterator = aux.iterator();
-        while (nuevoIterator.hasNext())
-        {
-            reservaAux = nuevoIterator.next();
-            /*if((clienteAAnalizar.getFechaInicio()).compareTo((reservaAux.getCliente()).getFechaInicio())!=0 &&
-                    (clienteAAnalizar.getFechaFinal()).compareTo((reservaAux.getCliente().getFechaFinal()))!=0)*/
-            Date fechaInicioAux = clienteAAnalizar.getFechaInicio();
-            if( fechaInicioAux.getDay() == (reservaAux.getCliente()).getFechaInicio().getDay() &&//comparo los dias
-                fechaInicioAux.getDay() == (reservaAux.getCliente()).getFechaInicio().getMonth() && //comparo mes
-                fechaInicioAux.getYear() == (reservaAux.getCliente()).getFechaInicio().getYear())
-            {
-                flag = false; //retornara false si las variables date son iguales
-            }
-        }
-        return flag;
-    }
-    public boolean verificarFechaAlojamiento(Alojamiento alojamientoAAnalizar, Date fechaInicioCliente, Date fechaFinCliente)
-    {
-        boolean flag = true;
-        HashSet<Reserva> auxSet = nuevoHashMap.get(alojamientoAAnalizar);
-        Reserva auxReserva;
-        Iterator<Reserva> nuevoIterator = auxSet.iterator();
-        while (nuevoIterator.hasNext())
-        {
-            auxReserva = nuevoIterator.next();
-           
-             if(alojamientoAAnalizar.isDisponibilidad() && (auxReserva.getAlojamiento()).isDisponibilidad() && (fechaInicioCliente.after((auxReserva.getCliente()).getFechaFinal())) || !fechaInicioCliente.after((auxReserva.getCliente().getFechaInicio())) || !fechaFinCliente.after(auxReserva.getCliente().getFechaInicio()))
-             {
-                 flag = true;
-             }
-             else {
-                 flag = false;
-             }
-        }
-        return flag;
-    }
+
+
+
 
 
 }
