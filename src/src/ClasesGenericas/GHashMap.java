@@ -77,7 +77,9 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         aux.add(valor);
     }
     @Override
-    public String listar() {
+    public String listar()
+    {
+        String rta = "";
         return nuevoHashMap.toString();
     }
 

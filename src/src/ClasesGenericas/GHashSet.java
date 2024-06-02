@@ -28,7 +28,12 @@ public class GHashSet<E> implements IOperacionesSet<E> {
 
         return nuevoHashSet.iterator();
     }
-
+    public String listar()
+    {
+        String rta = "";
+        rta += nuevoHashSet.toString();
+        return rta;
+    }
     @Override
     public boolean isEmpty(){
         return nuevoHashSet.isEmpty();

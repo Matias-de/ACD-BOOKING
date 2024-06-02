@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.util.*;
 
-public class BookingACD  {
+public class BookingACD {
 
     //atributos
 
@@ -230,9 +230,22 @@ public class BookingACD  {
 
         return rta;
     }
-
-
-
+    public String mostrarSetCliente()
+    {
+        return clienteHashSet.listar();
+    }
+    public String mostrarMapAlojamiento()
+    {
+        String rta = "";
+        rta = hashMapAlojamiento.listar();
+        return rta;
+    }
+    public String mostrarMapCliente()
+    {
+        String rta = "";
+        rta = hashMapCliente.listar();
+        return rta;
+    }
     public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
     {
         String rta = "";

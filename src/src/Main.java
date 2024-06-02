@@ -15,7 +15,10 @@ public class Main {
        nuevoBooking.pasarArchiAMapa("ArchivoCliente");
        nuevoBooking.pasarArchiAMapa("ArchivoAlojamiento");
        nuevoBooking.jsonAJavaClientes();
-       nuevoBooking.jsonAJavaAlojamiento();
+     //  nuevoBooking.jsonAJavaAlojamiento();
+        System.out.println(nuevoBooking.mostrarMapCliente());
+        System.out.println("-----------------------------------------------------------------------------");
+        System.out.println(nuevoBooking.mostrarSetCliente());
        // System.out.println(nuevoBooking.getAlojamientoHashSet());
 
         menu(nuevoBooking);
