@@ -60,17 +60,28 @@ public class Reserva implements Serializable  {
     }
 
     @Override
-    public String toString() {
-        Date auxDateInicio = cliente.getFechaInicio();
-        Date auxDateFin = cliente.getFechaFinal();
-        return "\nReserva{" +
-                "alojamiento=" + alojamiento.getNombre() +
-                ", cliente=" + cliente.getNombre() +" "+ cliente.getApellido() +
-                ", precioTotal=" + precioTotal +
-                "Fecha inicio= "+ auxDateInicio.getDay()+"/"+auxDateInicio.getMonth()+"/"+(auxDateInicio.getYear()+1900)+
-                "Fecha fin= "+ auxDateFin.getDay()+"/"+auxDateFin.getMonth()+"/"+(auxDateFin.getYear()+1900)+
+    public String toString()
+    {
+
+//        Date auxDateInicio = cliente.getFechaInicio();
+//        Date auxDateFin = cliente.getFechaFinal();
+        String rta= "\nReserva{" +
+                "Cliente=" + cliente.getNombre() +" "+ cliente.getApellido() +
+                ", PrecioTotal=" + precioTotal + " "+
+                cliente.mostrarFechaDeViaje() +
+                ", Alojamiento= " +" "+ alojamiento.getNombre()+" ";
+        if(alojamiento instanceof HabitacionHotel){
+            HabitacionHotel aux = (HabitacionHotel)alojamiento;
+            rta+=", Numero de Habitacion= " + aux.getNumeroHabitacion() +
+                    ", Tipo de Habitacion= "+ aux.getTipoHabitacion() +
+                    '}';
+        }
+                //"Fecha inicio= "+ auxDateInicio.getDay()+"/"+auxDateInicio.getMonth()+"/"+(auxDateInicio.getYear()+1900)+
+                //"Fecha fin= "+ auxDateFin.getDay()+"/"+auxDateFin.getMonth()+"/"+(auxDateFin.getYear()+1900)+
                // ", pin=" + pin +
-                '}';
+                //'}';
+
+        return rta;
     }
 
     @Override
