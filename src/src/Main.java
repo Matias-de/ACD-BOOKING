@@ -132,7 +132,7 @@ public class Main {
                     if (nuevoBooking.getReservaHashSet().isEmpty()) {
                         System.out.println("no hay reservas en el sistema");
                     } else {
-
+                        System.out.println("Reservas realizadas:");
                         System.out.println(nuevoBooking.mostrarSetReserva());
                     }
                     break;
