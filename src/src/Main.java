@@ -12,14 +12,11 @@ public class Main {
 
 
         BookingACD nuevoBooking = new BookingACD();
-       nuevoBooking.pasarArchiAMapa("ArchivoCliente"); // esta funcion se debe usar de manera unica con cualquier archivo ya sea cliente o alojamiento.
-
-       nuevoBooking.jsonAJavaClientes();
-         nuevoBooking.jsonAJavaAlojamiento();
-    
-
+       nuevoBooking.pasarArchiAMapa("ArchivoCliente"); // (se carga mapas)esta funcion se debe usar de manera unica con cualquier archivo ya sea cliente o alojamiento.
+       nuevoBooking.jsonAJavaClientes(); //se carga set cliente
+       nuevoBooking.jsonAJavaAlojamiento();//se carga set alojamiento
         menu(nuevoBooking);
-        //nuevoBooking.guardarDatosEnArchi("ArchivoCliente","ArchivoAlojamiento");
+        nuevoBooking.guardarDatosEnArchi("ArchivoCliente","ArchivoAlojamiento");//se guardan datos en el archivo
 
     }
     public static void opcionesMenu(){ //aca pongan las opciones del menu

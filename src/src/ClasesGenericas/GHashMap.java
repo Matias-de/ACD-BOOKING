@@ -17,22 +17,7 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         nuevoHashMap = new HashMap<>();
     }
     //metodo para guardar mapa en archivo
-    @Override
-    public String listar()
-    {
-        String rta = "";
-        Iterator<Map.Entry<E,HashSet<Reserva>>> nuevoIteratorMap = nuevoHashMap.entrySet().iterator();
-        while (nuevoIteratorMap.hasNext())
-        {
-            Map.Entry<E,HashSet<Reserva>> mapaAux = nuevoIteratorMap.next();
-            HashSet<Reserva> nuevoHashAux = mapaAux.getValue();
-            for (Reserva hashAux : nuevoHashAux)
-            {
-                rta += hashAux.toString();
-            }
-        }
-        return rta;
-    }
+
     public void pasarMapaAArchivo(String nombreArchi) //es indiferente que mapa se quiera utilizar ya que las reservas contienen la info de todo
     {
         FileOutputStream fileOutputStream = null;
@@ -77,7 +62,22 @@ public class GHashMap <E>implements IOperacionesMap<E> {
                 "nuevoHashMap=" + nuevoHashMap +
                 '}';
     }
-
+    @Override
+    public String listar()
+    {
+        String rta = "";
+        Iterator<Map.Entry<E,HashSet<Reserva>>> nuevoIteratorMap = nuevoHashMap.entrySet().iterator();
+        while (nuevoIteratorMap.hasNext())
+        {
+            Map.Entry<E,HashSet<Reserva>> mapaAux = nuevoIteratorMap.next();
+            HashSet<Reserva> nuevoHashAux = mapaAux.getValue();
+            for (Reserva hashAux : nuevoHashAux)
+            {
+                rta += hashAux.toString();
+            }
+        }
+        return rta;
+    }
     @Override
     public void agregar(E clave, Reserva valor) {
         HashSet<Reserva> aux ;
