@@ -33,7 +33,7 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         }
         return rta;
     }
-    public void pasarMapaAArchivo(String nombreArchi)
+    public void pasarMapaAArchivo(String nombreArchi) //es indiferente que mapa se quiera utilizar ya que las reservas contienen la info de todo
     {
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;

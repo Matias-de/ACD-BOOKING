@@ -54,13 +54,14 @@ public class BookingACD {
 
     //metodos para conservacion de archivos
     public void guardarDatosEnArchi(String nombreArchiCliente, String nombreArchiAlojamiento) {
-        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiCliente);
-        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiAlojamiento);
+        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiCliente);  //al guardar un cliente y su reserva, dicha reserva tambien tendra el dato del alojamiento
+        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiAlojamiento);//por lo cual con cargar cualquiera de las dos colecciones ya nos brindaria toda la informacion necesaria
+                                                                    // para la persistencia de los mapas en el sistema.
     }
 
-    public void pasarArchiAMapa(String nombreArchi) {
-        ObjectInputStream objectInputStream = null;
-        try {
+    public void pasarArchiAMapa(String nombreArchi) { //esta funcion va a pasar todos los datos de cualquier archivo a los
+        ObjectInputStream objectInputStream = null; // respectivos mapas ya que los archivos van a guardar todas las reservas
+        try {                                       // que existan, y luego se guardan en su correspondiente mapa
             FileInputStream fileInputStream = new FileInputStream(nombreArchi);
             objectInputStream = new ObjectInputStream(fileInputStream);
             while (true) {

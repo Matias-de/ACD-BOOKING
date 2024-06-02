@@ -12,14 +12,11 @@ public class Main {
 
 
         BookingACD nuevoBooking = new BookingACD();
-       nuevoBooking.pasarArchiAMapa("ArchivoCliente");
-       nuevoBooking.pasarArchiAMapa("ArchivoAlojamiento");
+       nuevoBooking.pasarArchiAMapa("ArchivoCliente"); // esta funcion se debe usar de manera unica con cualquier archivo ya sea cliente o alojamiento.
+
        nuevoBooking.jsonAJavaClientes();
-     //  nuevoBooking.jsonAJavaAlojamiento();
-        System.out.println(nuevoBooking.mostrarMapCliente());
-        System.out.println("-----------------------------------------------------------------------------");
-        System.out.println(nuevoBooking.mostrarSetCliente());
-       // System.out.println(nuevoBooking.getAlojamientoHashSet());
+         nuevoBooking.jsonAJavaAlojamiento();
+    
 
         menu(nuevoBooking);
         //nuevoBooking.guardarDatosEnArchi("ArchivoCliente","ArchivoAlojamiento");
