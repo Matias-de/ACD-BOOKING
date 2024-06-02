@@ -61,10 +61,14 @@ public class Reserva implements Serializable  {
 
     @Override
     public String toString() {
-        return "Reserva{" +
-                "alojamiento=" + alojamiento +
-                ", cliente=" + cliente +
+        Date auxDateInicio = cliente.getFechaInicio();
+        Date auxDateFin = cliente.getFechaFinal();
+        return "\nReserva{" +
+                "alojamiento=" + alojamiento.getNombre() +
+                ", cliente=" + cliente.getNombre() +" "+ cliente.getApellido() +
                 ", precioTotal=" + precioTotal +
+                "Fecha inicio= "+ auxDateInicio.getDay()+"/"+auxDateInicio.getMonth()+"/"+(auxDateInicio.getYear()+1900)+
+                "Fecha fin= "+ auxDateFin.getDay()+"/"+auxDateFin.getMonth()+"/"+(auxDateFin.getYear()+1900)+
                // ", pin=" + pin +
                 '}';
     }

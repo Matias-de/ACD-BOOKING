@@ -17,7 +17,8 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         nuevoHashMap = new HashMap<>();
     }
     //metodo para guardar mapa en archivo
-    public void pasarMapaAArchivo(String nombreArchi)
+
+    public void pasarMapaAArchivo(String nombreArchi) //es indiferente que mapa se quiera utilizar ya que las reservas contienen la info de todo
     {
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null;
@@ -61,7 +62,22 @@ public class GHashMap <E>implements IOperacionesMap<E> {
                 "nuevoHashMap=" + nuevoHashMap +
                 '}';
     }
-
+    @Override
+    public String listar()
+    {
+        String rta = "";
+        Iterator<Map.Entry<E,HashSet<Reserva>>> nuevoIteratorMap = nuevoHashMap.entrySet().iterator();
+        while (nuevoIteratorMap.hasNext())
+        {
+            Map.Entry<E,HashSet<Reserva>> mapaAux = nuevoIteratorMap.next();
+            HashSet<Reserva> nuevoHashAux = mapaAux.getValue();
+            for (Reserva hashAux : nuevoHashAux)
+            {
+                rta += hashAux.toString();
+            }
+        }
+        return rta;
+    }
     @Override
     public void agregar(E clave, Reserva valor) {
         HashSet<Reserva> aux ;
@@ -76,10 +92,7 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         }
         aux.add(valor);
     }
-    @Override
-    public String listar() {
-        return nuevoHashMap.toString();
-    }
+
 
     @Override
     public void borrar(E clave) {
@@ -109,8 +122,12 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         while (nuevoIterator.hasNext())
         {
             reservaAux = nuevoIterator.next();
-            if((clienteAAnalizar.getFechaInicio()).compareTo((reservaAux.getCliente()).getFechaInicio())!=0 &&
-                    (clienteAAnalizar.getFechaFinal()).compareTo((reservaAux.getCliente().getFechaFinal()))!=0)
+            /*if((clienteAAnalizar.getFechaInicio()).compareTo((reservaAux.getCliente()).getFechaInicio())!=0 &&
+                    (clienteAAnalizar.getFechaFinal()).compareTo((reservaAux.getCliente().getFechaFinal()))!=0)*/
+            Date fechaInicioAux = clienteAAnalizar.getFechaInicio();
+            if( fechaInicioAux.getDay() == (reservaAux.getCliente()).getFechaInicio().getDay() &&//comparo los dias
+                fechaInicioAux.getDay() == (reservaAux.getCliente()).getFechaInicio().getMonth() && //comparo mes
+                fechaInicioAux.getYear() == (reservaAux.getCliente()).getFechaInicio().getYear())
             {
                 flag = false; //retornara false si las variables date son iguales
             }
@@ -126,8 +143,7 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         while (nuevoIterator.hasNext())
         {
             auxReserva = nuevoIterator.next();
-            //hay q cambiar ese isDisponibilidad de nombre por que estamos programando en español
-            //no,es como el get, te lo hace solo el ide.
+           
              if(alojamientoAAnalizar.isDisponibilidad() && (auxReserva.getAlojamiento()).isDisponibilidad() && (fechaInicioCliente.after((auxReserva.getCliente()).getFechaFinal())) || !fechaInicioCliente.after((auxReserva.getCliente().getFechaInicio())) || !fechaFinCliente.after(auxReserva.getCliente().getFechaInicio()))
              {
                  flag = true;

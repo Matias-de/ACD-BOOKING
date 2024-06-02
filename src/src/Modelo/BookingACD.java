@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.util.*;
 
-public class BookingACD  {
+public class BookingACD {
 
     //atributos
 
@@ -54,22 +54,24 @@ public class BookingACD  {
 
     //metodos para conservacion de archivos
     public void guardarDatosEnArchi(String nombreArchiCliente, String nombreArchiAlojamiento) {
-        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiCliente);
-        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiAlojamiento);
+        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiCliente);  //al guardar un cliente y su reserva, dicha reserva tambien tendra el dato del alojamiento
+        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiAlojamiento);//por lo cual con cargar cualquiera de las dos colecciones ya nos brindaria toda la informacion necesaria
+                                                                    // para la persistencia de los mapas en el sistema.
     }
 
-    public void pasarArchiAMapa(String nombreArchi) {
-        ObjectInputStream objectInputStream = null;
-        try {
+    public void pasarArchiAMapa(String nombreArchi) { //esta funcion va a pasar todos los datos de cualquier archivo a los
+        ObjectInputStream objectInputStream = null; // respectivos mapas ya que los archivos van a guardar todas las reservas
+        try {                                       // que existan, y luego se guardan en su correspondiente mapa
             FileInputStream fileInputStream = new FileInputStream(nombreArchi);
             objectInputStream = new ObjectInputStream(fileInputStream);
             while (true) {
                 Reserva nuevaReserva = (Reserva) objectInputStream.readObject();
                 hashMapAlojamiento.agregar(nuevaReserva.getAlojamiento(), nuevaReserva);
                 hashMapCliente.agregar(nuevaReserva.getCliente(), nuevaReserva);
+                reservaHashSet.agregar(nuevaReserva);
             }
         } catch (EOFException e) {
-            System.out.println("Cargando Map.");
+            System.out.println("Archivos traidos al sistema.");
         } catch (FileNotFoundException e2) {
             e2.printStackTrace();
         } catch (IOException e3) {
@@ -111,10 +113,10 @@ public class BookingACD  {
         if (hashMapCliente.buscarElemento(cliente)) // en el caso de que ya haya, ahi si comparo reservas
         {
             enFecha = hashMapCliente.verificacionFechaCliente(cliente); //si recibe un false no continuara el programa de reservas
-        }
+        }                                                               //esta funcion devolvera si el cliente ya tiene una reserva con esas fechas
         // y si no hay reservas a comparar que siga el programa para agregarla con la funcion de Agregar.
 
-
+        //si el programa llega hasta aca significa que o no hay fechas asignadas o el cliente no tiene esas fechas asignadas a priori
         if (enFecha) //si la fecha no es igual o no existe aun
         {
             if (hashMapAlojamiento.buscarElemento(alojamiento))//si el alojamiento existe en el mapa
@@ -230,9 +232,22 @@ public class BookingACD  {
 
         return rta;
     }
-
-
-
+    public String mostrarSetCliente()
+    {
+        return clienteHashSet.listar();
+    }
+    public String mostrarMapAlojamiento()
+    {
+        String rta = "";
+        rta = hashMapAlojamiento.listar();
+        return rta;
+    }
+    public String mostrarMapCliente()
+    {
+        String rta = "";
+        rta = hashMapCliente.listar();
+        return rta;
+    }
     public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
     {
         String rta = "";
