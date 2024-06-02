@@ -116,7 +116,7 @@ public class BookingACD {
         }                                                               //esta funcion devolvera si el cliente ya tiene una reserva con esas fechas
         // y si no hay reservas a comparar que siga el programa para agregarla con la funcion de Agregar.
 
-
+        //si el programa llega hasta aca significa que o no hay fechas asignadas o el cliente no tiene esas fechas asignadas a priori
         if (enFecha) //si la fecha no es igual o no existe aun
         {
             if (hashMapAlojamiento.buscarElemento(alojamiento))//si el alojamiento existe en el mapa

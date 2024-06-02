@@ -143,8 +143,7 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         while (nuevoIterator.hasNext())
         {
             auxReserva = nuevoIterator.next();
-            //hay q cambiar ese isDisponibilidad de nombre por que estamos programando en español
-            //no,es como el get, te lo hace solo el ide.
+           
              if(alojamientoAAnalizar.isDisponibilidad() && (auxReserva.getAlojamiento()).isDisponibilidad() && (fechaInicioCliente.after((auxReserva.getCliente()).getFechaFinal())) || !fechaInicioCliente.after((auxReserva.getCliente().getFechaInicio())) || !fechaFinCliente.after(auxReserva.getCliente().getFechaInicio()))
              {
                  flag = true;
