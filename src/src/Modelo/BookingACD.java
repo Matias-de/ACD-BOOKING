@@ -68,9 +68,10 @@ public class BookingACD {
                 Reserva nuevaReserva = (Reserva) objectInputStream.readObject();
                 hashMapAlojamiento.agregar(nuevaReserva.getAlojamiento(), nuevaReserva);
                 hashMapCliente.agregar(nuevaReserva.getCliente(), nuevaReserva);
+                reservaHashSet.agregar(nuevaReserva);
             }
         } catch (EOFException e) {
-            System.out.println("Cargando Map.");
+            System.out.println("Archivos traidos al sistema.");
         } catch (FileNotFoundException e2) {
             e2.printStackTrace();
         } catch (IOException e3) {
