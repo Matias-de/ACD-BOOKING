@@ -122,8 +122,12 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         while (nuevoIterator.hasNext())
         {
             reservaAux = nuevoIterator.next();
-            if((clienteAAnalizar.getFechaInicio()).compareTo((reservaAux.getCliente()).getFechaInicio())!=0 &&
-                    (clienteAAnalizar.getFechaFinal()).compareTo((reservaAux.getCliente().getFechaFinal()))!=0)
+            /*if((clienteAAnalizar.getFechaInicio()).compareTo((reservaAux.getCliente()).getFechaInicio())!=0 &&
+                    (clienteAAnalizar.getFechaFinal()).compareTo((reservaAux.getCliente().getFechaFinal()))!=0)*/
+            Date fechaInicioAux = clienteAAnalizar.getFechaInicio();
+            if( fechaInicioAux.getDay() == (reservaAux.getCliente()).getFechaInicio().getDay() &&//comparo los dias
+                fechaInicioAux.getDay() == (reservaAux.getCliente()).getFechaInicio().getMonth() && //comparo mes
+                fechaInicioAux.getYear() == (reservaAux.getCliente()).getFechaInicio().getYear())
             {
                 flag = false; //retornara false si las variables date son iguales
             }

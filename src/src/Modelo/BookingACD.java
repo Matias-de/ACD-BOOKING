@@ -113,7 +113,7 @@ public class BookingACD {
         if (hashMapCliente.buscarElemento(cliente)) // en el caso de que ya haya, ahi si comparo reservas
         {
             enFecha = hashMapCliente.verificacionFechaCliente(cliente); //si recibe un false no continuara el programa de reservas
-        }
+        }                                                               //esta funcion devolvera si el cliente ya tiene una reserva con esas fechas
         // y si no hay reservas a comparar que siga el programa para agregarla con la funcion de Agregar.
 
 
