@@ -17,6 +17,22 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         nuevoHashMap = new HashMap<>();
     }
     //metodo para guardar mapa en archivo
+    @Override
+    public String listar()
+    {
+        String rta = "";
+        Iterator<Map.Entry<E,HashSet<Reserva>>> nuevoIteratorMap = nuevoHashMap.entrySet().iterator();
+        while (nuevoIteratorMap.hasNext())
+        {
+            Map.Entry<E,HashSet<Reserva>> mapaAux = nuevoIteratorMap.next();
+            HashSet<Reserva> nuevoHashAux = mapaAux.getValue();
+            for (Reserva hashAux : nuevoHashAux)
+            {
+                rta += hashAux.toString();
+            }
+        }
+        return rta;
+    }
     public void pasarMapaAArchivo(String nombreArchi)
     {
         FileOutputStream fileOutputStream = null;
@@ -76,12 +92,7 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         }
         aux.add(valor);
     }
-    @Override
-    public String listar()
-    {
-        String rta = "";
-        return nuevoHashMap.toString();
-    }
+
 
     @Override
     public void borrar(E clave) {
