@@ -100,7 +100,7 @@ public class Main {
                                 System.out.println("Alojamientos disponibles: ");
                                 System.out.println(nuevoBooking.devolverAlojamientosDisponibles(clienteAux));
                                 System.out.println("Ingrese el nombre del Alojamiento elegido: ");
-                                scan.nextLine(); 
+                                scan.nextLine();
                                 stringAux = scan.nextLine();
                                 ArrayList<Alojamiento> alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
 

@@ -172,6 +172,8 @@ public class BookingACD{
     }
 
 
+
+
     public boolean reservar(Cliente cliente, Alojamiento alojamiento){
         boolean reservada = false; //bandera
 
