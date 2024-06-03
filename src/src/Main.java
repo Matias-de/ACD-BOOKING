@@ -28,9 +28,10 @@ public class Main {
         System.out.println("1)Cargar un nuevo cliente.");
         System.out.println("2)Cargar un alojamiento.");
         System.out.println("3)Realizar una reserva.");
-        System.out.println("4)Mostrar Las reservas del Sistema.");
-        System.out.println("5)Mostrar los Clientes del Sistema.");
-        System.out.println("6)Mostrar los Alojamientos del Sistema.");
+        System.out.println("4)Finalizar una reserva.");
+        System.out.println("5)Mostrar Las reservas del Sistema.");
+        System.out.println("6)Mostrar los Clientes del Sistema.");
+        System.out.println("7)Mostrar los Alojamientos del Sistema.");
     }
 
     public static void menu(BookingACD nuevoBooking){
@@ -139,9 +140,70 @@ public class Main {
                         alojamientoAux = cargarAlojamiento();
                         nuevoBooking.agregarAlojamiento(alojamientoAux);
                     }
-                    System.out.println("(True=exitoso)/(False=no se pudo reservar)--->Rta:"+nuevoBooking.reservar(clienteAux,alojamientoAux));
+                  /*cambiar*/  System.out.println("(True=exitoso)/(False=no se pudo reservar)--->Rta:"+nuevoBooking.reservar(clienteAux,alojamientoAux));
                     break;
                 case 4:
+                    String motivo="";
+                    System.out.println("Estas son las reservas que terminan hoy!: \n"+nuevoBooking.mostrarReservasAPuntoDeTerminar());
+                    do {
+                        System.out.println("Desea terminar la reserva por fin de fecha o antes de la misma? Ingrese 'fecha' u 'otro' según corresponda: ");
+                        scan.nextLine();
+                         motivo = scan.nextLine();
+                    } while (!motivo.equalsIgnoreCase("fecha") && !motivo.equalsIgnoreCase("otro"));
+                    System.out.println("Clientes ya cargados: ");
+                    System.out.println(nuevoBooking.getClienteHashSet().toString());
+                    System.out.println("Ingrese el nombre del cliente, se buscara una reserva a cargo de ese nombre:");
+                    stringAux = scan.nextLine();
+                    while (nuevoBooking.buscarClientePorNombre(stringAux) == null) {
+                        System.out.println("Nombre de cliente incorrecto, favor de elegir un nombre válido:");
+                        stringAux = scan.nextLine();
+                    }
+                    clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
+                    String muestraReservas = nuevoBooking.mostrarReservasDeCliente(clienteAux);
+                    if(muestraReservas.equalsIgnoreCase("cliente no encontrado/sin reservas")){
+                        System.out.println(muestraReservas);
+                    }else{
+                        System.out.println(muestraReservas);
+
+                    }
+                    System.out.println("Ingrese el nombre del alojamiento:");
+                    stringAux = scan.nextLine();
+                    ArrayList<Alojamiento> alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
+
+                    while (alojamientos.isEmpty()) {
+                        System.out.println("Nombre de alojamiento incorrecto, favor de elegir un nombre válido:");
+                        stringAux = scan.nextLine();
+                        alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
+                    }
+
+                    System.out.println("Alojamientos encontrados:");
+                    for (int i = 0; i < alojamientos.size(); i++) {
+                        System.out.println((i + 1) + ". " + alojamientos.get(i));
+                    }
+
+                    System.out.println("Ingrese el número del alojamiento que desea elegir:");
+                    int opcionAlojamiento = scan.nextInt();
+                    while (opcionAlojamiento < 1 || opcionAlojamiento > alojamientos.size()) {
+                        System.out.println("Opción incorrecta. Favor de elegir un número válido:");
+                        opcionAlojamiento = scan.nextInt();
+                    }
+                    alojamientoAux = alojamientos.get(opcionAlojamiento - 1);
+
+                    int valoracion = 0;
+                    do{
+                        System.out.println("Ingrese una valoración (1-5):");
+                        valoracion=scan.nextInt();
+                    }while(valoracion<1 || valoracion>5);
+
+
+                    String ticket = nuevoBooking.finalizarReserva(clienteAux, alojamientoAux, valoracion, motivo);
+                    System.out.println("Reserva finalizada y valoración agregada. Ticket a imprimir:" +"\n"+ ticket);
+                    break;
+
+
+
+
+                case 5:
                     if (nuevoBooking.getReservaHashSet().isEmpty()) {
                         System.out.println("no hay reservas en el sistema");
                     } else {
@@ -149,7 +211,7 @@ public class Main {
                         System.out.println(nuevoBooking.mostrarSetReserva());
                     }
                     break;
-                case 5:
+                case 6:
 
                     if (nuevoBooking.getClienteHashSet().isEmpty()) {
                         System.out.println("No hay clientes cargados en el sitema");
@@ -158,7 +220,7 @@ public class Main {
                         System.out.println(nuevoBooking.getClienteHashSet().toString());
                     }
                     break;
-                case 6:
+                case 7:
 
                     if (nuevoBooking.getAlojamientoHashSet().isEmpty()) {
                         System.out.println("No hay alojamientos cargados en el sistema");
