@@ -189,9 +189,13 @@ public abstract class Alojamiento implements Serializable  {
         valoracion= (valoracion + nuevaValoracion) / cantReservas;
     }
 
+
+
+
+
     public void agregarComentario(String comentario) {
         if (!this.comentarios.isEmpty()) {
-            this.comentarios += "\n"; //deja un espacio para que se separen los comentarios
+            this.comentarios += "\n";
         }
         this.comentarios += comentario;
     }
