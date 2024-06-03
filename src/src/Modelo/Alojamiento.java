@@ -193,12 +193,7 @@ public abstract class Alojamiento implements Serializable  {
 
 
 
-    public void agregarComentario(String comentario) {
-        if (!this.comentarios.isEmpty()) {
-            this.comentarios += "\n";
-        }
-        this.comentarios += comentario;
-    }
+
 
 }
 
