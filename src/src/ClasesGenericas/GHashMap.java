@@ -95,8 +95,8 @@ public class GHashMap <E>implements IOperacionesMap<E> {
 
 
     @Override
-    public void borrar(E clave) {
-        nuevoHashMap.remove(clave);
+    public void borrar(E clave, Reserva valor) {
+        nuevoHashMap.remove(clave, valor);
 
     }
 
