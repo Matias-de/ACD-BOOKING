@@ -18,7 +18,9 @@ public class Main {
        nuevoBooking.jsonAJavaAlojamiento();//se carga set alojamiento
         menu(nuevoBooking);
         nuevoBooking.guardarDatosEnArchi("ArchivoCliente","ArchivoAlojamiento");//se guardan datos en el archivo
-
+        nuevoBooking.jsonCliente();
+        nuevoBooking.jsonAlojamiento();
+        nuevoBooking.jsonReservas();
     }
     public static void opcionesMenu(){ //aca pongan las opciones del menu
         System.out.println("BIENVENIDO!");
@@ -54,7 +56,7 @@ public class Main {
 
                     break;
                 case 3:
-                    if (!nuevoBooking.getClienteHashSet().isEmpty()) {
+                    if (!nuevoBooking.getClienteHashSet().isEmpty()){
                         do {
                             System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
                             auxInt = scan.nextInt();
@@ -71,11 +73,11 @@ public class Main {
                                 clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
                                 System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
                                 preguntarEstadia(clienteAux);
-                            } else if (auxInt == 2) {
+                            }else if(auxInt == 2){
                                 System.out.println("Carga de cliente nuevo:");
-                                Cliente auxCliente = cargaCliente();
-                                nuevoBooking.agregarCliente(auxCliente);
-                                preguntarEstadia(auxCliente);
+                                clienteAux= cargaCliente();
+                                nuevoBooking.agregarCliente(clienteAux);
+                                preguntarEstadia(clienteAux);
 
                             } else {
                                 System.out.println("Error al ingresar, favor de ingresar solamente el boton 1 o el 2.");
@@ -83,11 +85,11 @@ public class Main {
                             }
                         } while (auxInt != 1 && auxInt != 2);
 
-                    } else {
+                    } else{
                         System.out.println("No hay clientes cargados, cargue uno para poder continuar.");
-                        Cliente auxCliente = cargaCliente();
-                        nuevoBooking.agregarCliente(auxCliente);
-                        preguntarEstadia(auxCliente);
+                        clienteAux= cargaCliente();
+                        nuevoBooking.agregarCliente(clienteAux);
+                        preguntarEstadia(clienteAux);
                     }
 
                     if(!nuevoBooking.getAlojamientoHashSet().isEmpty())
@@ -280,8 +282,8 @@ public class Main {
        // nuevoCliente.asignarFecha(diaInicio,diaFin,mesInicio,mesFin,añoInicio,añoFin); //su uso es para cuando se reserva
         return nuevoCliente;
 
-
     }
+
     public static boolean validarIngresoFecha(int dia, int mes){ //valida que el dia y el mes sean reales y correspondan a una fecha que exista
         boolean rta=true; //bandera
         int diaMaximoDelMes = 0;

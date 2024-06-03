@@ -440,7 +440,7 @@ public void jsonCliente() {
     }
     ///guardamos el jsonobject en un json Array para recorrerlo despuescon el nombre de "clientes"
     JsonUtiles.grabar(ja, "clientes");///
-    System.out.println(ja.toString());
+   // System.out.println(ja.toString());
 
 }
     ///CREACION DEL JSON ALOJAMIENTO A PARTIR DE UN HASH SET
@@ -495,7 +495,7 @@ public void jsonCliente() {
         JsonUtiles.grabar(joAlojamientos, "alojamientos");//lo grabo.
 
         // System.out.println(joAlojamientos);
-        System.out.println((JsonUtiles.leer("alojamientos")));
+       // System.out.println((JsonUtiles.leer("alojamientos")));
     }
     ///CREACION DEL JSON DE RESERVAS A PARTIR DE UN HASH SET
     public void jsonReservas(){
@@ -574,7 +574,7 @@ public void jsonCliente() {
         }
         ///GRABO
         JsonUtiles.grabar(joReserva,"reserva");
-        System.out.println((JsonUtiles.leer("reserva")));
+       // System.out.println((JsonUtiles.leer("reserva")));
 
 
     }
