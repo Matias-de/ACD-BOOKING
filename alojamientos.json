@@ -68,7 +68,7 @@
       "direccion": "Av. Patricio Peralta Ramos 576",
       "valoracion": 0,
       "tipoHabitacion": "premium",
-      "cantReservas": 0,
+      "cantReservas": 1,
       "nombre": "Hotel Costa Galana",
       "comentarios": ""
     },
@@ -96,7 +96,7 @@
       "direccion": "Av. Colon 2434",
       "valoracion": 0,
       "tipoHabitacion": "triple",
-      "cantReservas": 0,
+      "cantReservas": 1,
       "nombre": "Hotel Artico",
       "comentarios": ""
     }

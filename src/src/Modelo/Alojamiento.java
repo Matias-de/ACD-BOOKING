@@ -138,6 +138,7 @@ public abstract class Alojamiento implements Serializable  {
         return "\nAlojamiento{" +
                 "precioXAlojar=" + precioXAlojar +
                 ", valoracion=" + valoracion +
+                ", cantidad de Reservas= " + cantReservas+
                // ", descripcion='" + descripcion + '\'' +
                 ", NOMBRE='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
