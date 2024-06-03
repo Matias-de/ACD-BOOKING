@@ -283,6 +283,57 @@ public class BookingACD{
     }
 
      */
+    public Reserva buscarReservaPorClienteYAlojamiento(Cliente cliente, Alojamiento alojamiento) {
+        HashSet<Reserva> reservas = hashMapCliente.getReserva(cliente);
+        Reserva reservaRetornada=null;
+        if (reservas != null) {
+            Iterator<Reserva> iterator = reservas.iterator();
+            while (iterator.hasNext()) {
+                Reserva reserva = iterator.next();
+                if (reserva.getAlojamiento().equals(alojamiento)) {
+                    reservaRetornada = reserva;
+                }
+            }
+
+
+        }
+        return reservaRetornada;
+    }
+    public String finalizarReserva(Cliente cliente, Alojamiento alojamiento, double nuevaValoracion /*String comentario*/, String motivo) {
+        String ticket = "";
+        Reserva reserva = buscarReservaPorClienteYAlojamiento(cliente, alojamiento);
+        if (reserva != null) {
+            alojamiento.calculoValoracion(nuevaValoracion);
+            //alojamiento.agregarComentario(comentario);
+            alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
+            hashMapCliente.borrar(cliente, reserva); // no se porque no borra
+            hashMapAlojamiento.borrar(alojamiento, reserva);
+            
+
+            ticket = "Motivo de finalización de la reserva: " + motivo + "\n" +
+                    "Nombre del Alojamiento: " + reserva.getAlojamiento().getNombre() + "\n";
+
+            if (reserva.getAlojamiento() instanceof HabitacionHotel) {
+                ticket += "Habitación: " + ((HabitacionHotel) reserva.getAlojamiento()).getNumeroHabitacion() + "\n";
+            } else if (reserva.getAlojamiento() instanceof Departamento) {
+                ticket += "Número de Piso: " + ((Departamento) reserva.getAlojamiento()).getNumeroPiso() + "\n";
+            }
+
+            ticket += "Reserva a cargo de: " + reserva.getCliente().getNombre() + "\n" +
+                    "Contacto: " + reserva.getCliente().getCorreoElectronico() + "\n" +
+                    "Inicio de estadía: " + reserva.getCliente().getFechaInicio() + "\n" +
+                    "Precio a abonar (precio del alojamiento + 21%): " + reserva.getPrecioTotal() + "\n" +
+                    "Pin de autenticación: " + reserva.getPin() + "\n";
+        } else {
+            ticket = "No se encontró la reserva para el cliente y alojamiento proporcionados.";
+        }
+
+        return ticket;
+    }
+
+
+
+
 
 
     public String devolverAlojamientosDisponibles(Cliente cliente){ //muestra los alojamientos disponibles en la fecha que el cliente quiere reservar
@@ -304,7 +355,7 @@ public class BookingACD{
     public String mostrarReservasDeCliente(Cliente cliente) { //deberia mostrar las reservas de un cliente
         String rta = "cliente no encontrado/sin reservas";
         if (hashMapCliente.buscarElemento(cliente)) {
-            rta += hashMapCliente.getReserva(cliente) + "\n";
+            rta = hashMapCliente.getReserva(cliente) + "\n";
         }
 
         return rta;
