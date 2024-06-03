@@ -110,8 +110,8 @@ public class GHashMap <E>implements IOperacionesMap<E> {
     }
 
     public Iterator<Map.Entry<E, HashSet<Reserva>>> entrySetIterator(){
-        nuevoHashMap.entrySet().iterator();
-        return null;
+
+        return nuevoHashMap.entrySet().iterator();
     }
 
 

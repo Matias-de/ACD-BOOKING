@@ -128,7 +128,7 @@ public class Cliente implements Serializable {
     }
 
     public String mostrarFechaDeViaje(){
-        String rta="no asignada";
+        String rta="DIA DE HOY / NO ASIGNADA TODAVIA";
         Date aux= new Date();
         int mesinicioAux= fechaInicio.getMonth()+1, mesFinalAux = fechaFinal.getMonth()+1, anioInicio = fechaInicio.getYear()+1900, anioFin=fechaFinal.getYear()+1900;
 

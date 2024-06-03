@@ -92,8 +92,7 @@ public class Main {
                         preguntarEstadia(clienteAux);
                     }
 
-                    if(!nuevoBooking.getAlojamientoHashSet().isEmpty())
-                    {
+                    if (!nuevoBooking.getAlojamientoHashSet().isEmpty()) {
                         do {
                             System.out.println("Desea usar los alojamientos ya cargados o cargar uno nuevo? (1 usar ya cargado, 2 cargar nuevo): ");
                             auxInt = scan.nextInt();
@@ -101,17 +100,16 @@ public class Main {
                                 System.out.println("Alojamientos disponibles: ");
                                 System.out.println(nuevoBooking.devolverAlojamientosDisponibles(clienteAux));
                                 System.out.println("Ingrese el nombre del Alojamiento elegido: ");
-                                scan.nextLine();
+                                scan.nextLine(); 
                                 stringAux = scan.nextLine();
-                                ArrayList<Alojamiento> alojamientos=nuevoBooking.buscarAlojamientosPorNombre(stringAux);
+                                ArrayList<Alojamiento> alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
 
-                                if (alojamientos.isEmpty()) {
-                                    while(nuevoBooking.buscarAlojamientosPorNombre(stringAux) == null){
-                                        System.out.println("Nombre de alojamiento incorrecto, Favor de elegir un nombre valido:");
-                                        stringAux = scan.nextLine();
-                                    }
+                                while (alojamientos.isEmpty()) {
+                                    System.out.println("Nombre de alojamiento incorrecto, Favor de elegir un nombre valido:");
+                                    stringAux = scan.nextLine();
+                                    alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
                                 }
-                                alojamientos=nuevoBooking.buscarAlojamientosPorNombre(stringAux);
+
                                 System.out.println("Alojamientos encontrados: ");
                                 for (int i = 0; i < alojamientos.size(); i++) {
                                     System.out.println((i + 1) + ". " + alojamientos.get(i));
@@ -123,7 +121,6 @@ public class Main {
                                     System.out.println("Opción incorrecta. Favor de elegir un número válido:");
                                     opcionAlojamiento = scan.nextInt();
                                 }
-
                                 alojamientoAux = alojamientos.get(opcionAlojamiento - 1);
                                 System.out.println("Alojamiento elegido: " + alojamientoAux);
 
@@ -136,14 +133,11 @@ public class Main {
                                 System.out.println("Error al ingresar, favor de ingresar solamente el boton 1 o el 2.");
                                 auxInt = scan.nextInt();
                             }
-                        }while ( auxInt!=1 && auxInt!=2 );
-
-                    }
-                    else
-                    {
-                        System.out.println("No hay alojamientos cargados. Cargue uno para poder continuar:");
-                        Alojamiento auxAlojamiento = cargarAlojamiento();
-                        nuevoBooking.agregarAlojamiento(auxAlojamiento);
+                        } while (auxInt != 1 && auxInt != 2);
+                    } else {
+                        System.out.println("No hay alojamientos cargados, cargue uno para poder continuar.");
+                        alojamientoAux = cargarAlojamiento();
+                        nuevoBooking.agregarAlojamiento(alojamientoAux);
                     }
                     System.out.println("(True=exitoso)/(False=no se pudo reservar)--->Rta:"+nuevoBooking.reservar(clienteAux,alojamientoAux));
                     break;
