@@ -751,25 +751,31 @@ public class BookingACD {
 
     public void jsonAJavaReserva() {
 
+        ///leemos nuestro archivo reserva, esto nos retorna un string
         String rta = JsonUtiles.leer("reserva");
         JSONObject jo = null;
+        ///creamos nuestro JSONOBject con el contenido de nuestro string que contenia el jsonobject
         try {
             jo = new JSONObject(rta);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         JSONArray JA = new JSONArray();
+        ///creamos nuestro jsonarray y lo cargamos con el jsonarray de nombre "reserva" que contiene nustro jsonobject
         try {
             JA = jo.getJSONArray("reserva");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-
+        /// recorremos nuestro array.
         for (int i = 0; i < JA.length(); i++) {
             try {
+                ///en cada iteracion se creara un jsonobject con los objetos que tenga nuestro jsonarray en cada posicion
                 JSONObject joReserva = JA.getJSONObject(i);
+                ///creamos una instancia de reserva en cada iteracion
                 Reserva reserva = new Reserva();
 
+                ///atributos que compondran nuestra reserva
                 reserva.setPin(UUID.fromString(joReserva.getString("pin")));
                 reserva.setPrecioTotal(joReserva.getDouble("preciototal"));
                 reserva.getCliente().setNombre(joReserva.getString("nombre"));
@@ -787,7 +793,7 @@ public class BookingACD {
                 reserva.getAlojamiento().setZona(joReserva.getString("zona"));
                 reserva.getAlojamiento().setComentarios(joReserva.getString("comentarios"));
                 reserva.getAlojamiento().setEstado(EstadoAlojamiento.valueOf(joReserva.getString("estado")));
-
+             /// instance of porque hay metodos propios de departamento o habitacion hotel
                 if (reserva.getAlojamiento() instanceof Departamento) {
 
                     ((Departamento) reserva.getAlojamiento()).setNumeroPiso(joReserva.getInt("numeroPiso"));
