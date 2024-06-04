@@ -161,43 +161,49 @@ public class Main {
                     clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
                     String muestraReservas = nuevoBooking.mostrarReservasDeCliente(clienteAux);
                     if(muestraReservas.equalsIgnoreCase("cliente no encontrado/sin reservas")){
-                        System.out.println(muestraReservas);
+                        System.out.println("no se encontraron reservas para ese cliente..");
                     }else{
                         System.out.println(muestraReservas);
 
-                    }
-                    System.out.println("Ingrese el nombre del alojamiento:");
-                    stringAux = scan.nextLine();
-                    ArrayList<Alojamiento> alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
-
-                    while (alojamientos.isEmpty()) {
-                        System.out.println("Nombre de alojamiento incorrecto, favor de elegir un nombre válido:");
+                        System.out.println("Ingrese el nombre del alojamiento:");
                         stringAux = scan.nextLine();
-                        alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
+                        ArrayList<Alojamiento> alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
+
+                        while (alojamientos.isEmpty()) {
+                            System.out.println("Nombre de alojamiento incorrecto, favor de elegir un nombre válido:");
+                            stringAux = scan.nextLine();
+                            alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
+                        }
+
+                        System.out.println("Alojamientos encontrados:");
+                        for (int i = 0; i < alojamientos.size(); i++) {
+                            System.out.println((i + 1) + ". " + alojamientos.get(i));
+                        }
+
+                        System.out.println("Ingrese el número del alojamiento que desea elegir:");
+                        int opcionAlojamiento = scan.nextInt();
+                        while (opcionAlojamiento < 1 || opcionAlojamiento > alojamientos.size()) {
+                            System.out.println("Opción incorrecta. Favor de elegir un número válido:");
+                            opcionAlojamiento = scan.nextInt();
+                        }
+                        alojamientoAux = alojamientos.get(opcionAlojamiento - 1);
+
+                        int valoracion = 0;
+                        do{
+                            System.out.println("Ingrese una valoración (1-5):");
+                            valoracion=scan.nextInt();
+                        }while(valoracion<1 || valoracion>5);
+
+
+                        String ticket = nuevoBooking.finalizarReserva(clienteAux, alojamientoAux, valoracion, motivo);
+                        if(!ticket.equalsIgnoreCase("No se encontró la reserva para el cliente y alojamiento proporcionados.")){
+
+                            System.out.println("Reserva finalizada y valoración agregada. Ticket a imprimir:" +"\n"+ ticket);
+                        }else{
+                            System.out.println(ticket);
+                        }
+
                     }
-
-                    System.out.println("Alojamientos encontrados:");
-                    for (int i = 0; i < alojamientos.size(); i++) {
-                        System.out.println((i + 1) + ". " + alojamientos.get(i));
-                    }
-
-                    System.out.println("Ingrese el número del alojamiento que desea elegir:");
-                    int opcionAlojamiento = scan.nextInt();
-                    while (opcionAlojamiento < 1 || opcionAlojamiento > alojamientos.size()) {
-                        System.out.println("Opción incorrecta. Favor de elegir un número válido:");
-                        opcionAlojamiento = scan.nextInt();
-                    }
-                    alojamientoAux = alojamientos.get(opcionAlojamiento - 1);
-
-                    int valoracion = 0;
-                    do{
-                        System.out.println("Ingrese una valoración (1-5):");
-                        valoracion=scan.nextInt();
-                    }while(valoracion<1 || valoracion>5);
-
-
-                    String ticket = nuevoBooking.finalizarReserva(clienteAux, alojamientoAux, valoracion, motivo);
-                    System.out.println("Reserva finalizada y valoración agregada. Ticket a imprimir:" +"\n"+ ticket);
                     break;
 
 
