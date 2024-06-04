@@ -16,6 +16,7 @@ public class Main {
        nuevoBooking.pasarArchiAMapa("ArchivoCliente"); // (se carga mapas)esta funcion se debe usar de manera unica con cualquier archivo ya sea cliente o alojamiento.
        nuevoBooking.jsonAJavaClientes(); //se carga set cliente
        nuevoBooking.jsonAJavaAlojamiento();//se carga set alojamiento
+        //FALTA CARGAR EL JSON DE RESERVAS
         menu(nuevoBooking);
         nuevoBooking.guardarDatosEnArchi("ArchivoCliente","ArchivoAlojamiento");//se guardan datos en el archivo
         nuevoBooking.jsonCliente();
@@ -140,7 +141,8 @@ public class Main {
                         alojamientoAux = cargarAlojamiento();
                         nuevoBooking.agregarAlojamiento(alojamientoAux);
                     }
-                  /*cambiar*/  System.out.println("(True=exitoso)/(False=no se pudo reservar)--->Rta:"+nuevoBooking.reservar(clienteAux,alojamientoAux));
+                    System.out.println(nuevoBooking.reservar(clienteAux,alojamientoAux));
+                  /*cambiar*/ // System.out.println("(True=exitoso)/(False=no se pudo reservar)--->Rta:"+nuevoBooking.reservar(clienteAux,alojamientoAux));
                     break;
                 case 4:
                     String motivo="";
@@ -196,7 +198,7 @@ public class Main {
 
 
                         String ticket = nuevoBooking.finalizarReserva(clienteAux, alojamientoAux, valoracion, motivo);
-                        if(!ticket.equalsIgnoreCase("No se encontró la reserva para el cliente y alojamiento proporcionados.")){
+                        if(!ticket.equalsIgnoreCase("No se encontró la reserva para el cliente y/o alojamiento proporcionados.")){
 
                             System.out.println("Reserva finalizada y valoración agregada. Ticket a imprimir:" +"\n"+ ticket);
                         }else{

@@ -14,11 +14,11 @@ public class BookingACD{
 
     //atributos
 
-    GHashMap<Cliente> hashMapCliente; //Estos dos en archivos
-    GHashMap<Alojamiento> hashMapAlojamiento;
+    GHashMap<Cliente> hashMapCliente;
+    GHashMap<Alojamiento> hashMapAlojamiento;//Estos dos en archivos
     GHashSet<Cliente> clienteHashSet; //Guardariamos un JSON
     GHashSet<Alojamiento> alojamientoHashSet; //guardariamos un JSON
-    GHashSet<Reserva> reservaHashSet; //guardariamos en Archivo // no, tambien JSON
+    GHashSet<Reserva> reservaHashSet; //tambien JSON
 
     //constructor
     public BookingACD() {
@@ -176,9 +176,9 @@ public class BookingACD{
 
 
 
-    public boolean reservar(Cliente cliente, Alojamiento alojamiento){
-        boolean reservada = false; //bandera
-
+    public String reservar(Cliente cliente, Alojamiento alojamiento){
+       // boolean reservada = false; //bandera
+        String rta="";
 
         if(verificacionFechaCliente(cliente)){// Verificar que el cliente no tenga reservas en la misma fecha
 
@@ -196,11 +196,16 @@ public class BookingACD{
                 reservaHashSet.agregar(nuevaReserva); //se agrega la reserva al set
 
                 alojamiento.setEstado(EstadoAlojamiento.RESERVADO); // el alojamiento esta reservado
-                reservada = true; //se concreto la reserva, si devuelve false no
+                //reservada = true; //se concreto la reserva, si devuelve false no
+                rta="Reserva realizada con exito";
+            }else{
+                rta="ERROR, el alojamiento no esta disponible en esa fecha";
             }
+        }else{
+            rta="ERROR, el cliente no esta disponible para reservar";
         }
-
-        return reservada;
+        return rta;
+        //return reservada;
     }
         /*
         public boolean reservar(Cliente cliente, Alojamiento alojamiento){ //probar / revisar
