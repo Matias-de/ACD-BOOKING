@@ -1,1 +1,56 @@
-{"reserva":[{"cliente":{"apellido":"Benzo","cantPersonas":3,"nombre":"Fausto","correoElectronico":"fausbenzo@gmail.com","medioDePago":"Mercado Pago"},"pin":"69e66434-0adf-404b-b756-d7c8ba698110","preciototal":3025,"alojamiento":{"descripcion":"Balcon.Piscina.3 Habitaciones. Pequeño patio","estado":"RESERVADO","tipo":"HabitacionHotel","numeroHabitacion":60,"direccion":"Av. Colon 2434","valoracion":0,"tipoHabitacion":"triple","nombre":"Hotel Artico","servicios":"Parrila. Internet. Piscina. Limpieza","PrecioXAlojar":2500,"zona":"Costanera y Colon","cantReservas":1,"comentarios":""}},{"cliente":{"apellido":"Benzo","cantPersonas":3,"nombre":"Fausto","correoElectronico":"fausbenzo@gmail.com","medioDePago":"Mercado Pago"},"pin":"532353fb-6cb0-4eeb-88f0-073a885f09a3","preciototal":7260,"alojamiento":{"descripcion":"Hotel Lujoso con patio grande, piscina y quincho. 4 habitaciones. 3 baños. Garage. Cancha de Futbol","estado":"RESERVADO","tipo":"HabitacionHotel","numeroHabitacion":343,"direccion":"Av. Patricio Peralta Ramos 576","valoracion":0,"tipoHabitacion":"premium","nombre":"Hotel Costa Galana","servicios":"Cancha de Futbol. Servicio a la Habitacion. Internet. Sala de juegos. Gimnasio","PrecioXAlojar":6000,"zona":"Costanera","cantReservas":1,"comentarios":""}}]}
+{
+  "reserva": [
+    {
+      "cliente": {
+        "apellido": "Benzo",
+        "cantPersonas": 3,
+        "nombre": "Fausto",
+        "correoElectronico": "fausbenzo@gmail.com",
+        "medioDePago": "Mercado Pago"
+      },
+      "pin": "69e66434-0adf-404b-b756-d7c8ba698110",
+      "preciototal": 3025,
+      "alojamiento": {
+        "descripcion": "Balcon.Piscina.3 Habitaciones. Pequeño patio",
+        "estado": "RESERVADO",
+        "tipo": "HabitacionHotel",
+        "numeroHabitacion": 60,
+        "direccion": "Av. Colon 2434",
+        "valoracion": 0,
+        "tipoHabitacion": "triple",
+        "nombre": "Hotel Artico",
+        "servicios": "Parrila. Internet. Piscina. Limpieza",
+        "PrecioXAlojar": 2500,
+        "zona": "Costanera y Colon",
+        "cantReservas": 1,
+        "comentarios": ""
+      }
+    },
+    {
+      "cliente": {
+        "apellido": "Benzo",
+        "cantPersonas": 3,
+        "nombre": "Fausto",
+        "correoElectronico": "fausbenzo@gmail.com",
+        "medioDePago": "Mercado Pago"
+      },
+      "pin": "532353fb-6cb0-4eeb-88f0-073a885f09a3",
+      "preciototal": 7260,
+      "alojamiento": {
+        "descripcion": "Hotel Lujoso con patio grande, piscina y quincho. 4 habitaciones. 3 baños. Garage. Cancha de Futbol",
+        "estado": "RESERVADO",
+        "tipo": "HabitacionHotel",
+        "numeroHabitacion": 343,
+        "direccion": "Av. Patricio Peralta Ramos 576",
+        "valoracion": 0,
+        "tipoHabitacion": "premium",
+        "nombre": "Hotel Costa Galana",
+        "servicios": "Cancha de Futbol. Servicio a la Habitacion. Internet. Sala de juegos. Gimnasio",
+        "PrecioXAlojar": 6000,
+        "zona": "Costanera",
+        "cantReservas": 1,
+        "comentarios": ""
+      }
+    }
+  ]
+}
