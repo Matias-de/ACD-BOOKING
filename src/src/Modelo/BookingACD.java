@@ -108,6 +108,8 @@ public class BookingACD{
     }
 
 
+
+
     public void actualizarEstadoAlojamiento(Alojamiento alojamiento) {
         Date fechaActual = new Date(); //guardo la fecha actual del sistema
         HashSet<Reserva> reservas = hashMapAlojamiento.getReserva(alojamiento); //guardo el set de las reservas en un auxiliar
@@ -183,7 +185,9 @@ public class BookingACD{
             //si esto es correcto pasa al siguiente, osea revisar la dispo del alojamiento
 
             if(verificarFechaAlojamiento(alojamiento, cliente.getFechaInicio(), cliente.getFechaFinal())){ // si el alojamiento esta disponible crea la reserva
+
                 alojamiento.aumentarCantReservas(); //aumenta 1 la cantidad de reservas
+
                 Reserva nuevaReserva =new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar() * 1.21); //nuestro costo extra es ese 21%
 
 
@@ -308,7 +312,7 @@ public class BookingACD{
             alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
             hashMapCliente.borrar(cliente, reserva); // no se porque no borra
             hashMapAlojamiento.borrar(alojamiento, reserva);
-            
+            reservaHashSet.borrarReserva(reserva);
 
             ticket = "Motivo de finalización de la reserva: " + motivo + "\n" +
                     "Nombre del Alojamiento: " + reserva.getAlojamiento().getNombre() + "\n";
@@ -535,7 +539,7 @@ public void jsonCliente() {
                 }
 
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+               e.printStackTrace();
             }
         }
         JSONObject joAlojamientos = new JSONObject();//creo este jsonobject para guardarles mis jsonarray y asi tener un objeto que contenga arreglos de objetos

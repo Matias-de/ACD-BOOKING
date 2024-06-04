@@ -43,5 +43,9 @@ public class GHashSet<E> implements IOperacionesSet<E> {
         return nuevoHashSet.isEmpty();
     }
 
+    public boolean borrarReserva(Reserva reserva){
+       return nuevoHashSet.remove(reserva);
+    }
+
 
 }
