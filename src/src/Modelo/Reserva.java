@@ -29,6 +29,25 @@ public class Reserva implements Serializable  {
         pin=UUID.randomUUID();
     }
 
+    //Setters para json
+
+    public void setAlojamiento(Alojamiento alojamiento) {
+        this.alojamiento = alojamiento;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setPrecioTotal(double precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
+    public void setPin(UUID pin) {
+        this.pin = pin;
+    }
+
+
     //Getters
 
     public Cliente getCliente() {

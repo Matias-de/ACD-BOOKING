@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.util.*;
 
-public class BookingACD{
+public class BookingACD {
 
     //atributos
 
@@ -56,7 +56,7 @@ public class BookingACD{
     public void guardarDatosEnArchi(String nombreArchiCliente, String nombreArchiAlojamiento) {
         hashMapAlojamiento.pasarMapaAArchivo(nombreArchiCliente);  //al guardar un cliente y su reserva, dicha reserva tambien tendra el dato del alojamiento
         hashMapAlojamiento.pasarMapaAArchivo(nombreArchiAlojamiento);//por lo cual con cargar cualquiera de las dos colecciones ya nos brindaria toda la informacion necesaria
-                                                                    // para la persistencia de los mapas en el sistema.
+        // para la persistencia de los mapas en el sistema.
     }
 
     public void pasarArchiAMapa(String nombreArchi) { //esta funcion va a pasar todos los datos de cualquier archivo a los
@@ -108,8 +108,6 @@ public class BookingACD{
     }
 
 
-
-
     public void actualizarEstadoAlojamiento(Alojamiento alojamiento) {
         Date fechaActual = new Date(); //guardo la fecha actual del sistema
         HashSet<Reserva> reservas = hashMapAlojamiento.getReserva(alojamiento); //guardo el set de las reservas en un auxiliar
@@ -127,7 +125,7 @@ public class BookingACD{
             }
         }
 
-        if(reservado){ //si el flag devuelve true
+        if (reservado) { //si el flag devuelve true
             alojamiento.setEstado(EstadoAlojamiento.RESERVADO); //el alojamiento esta reservado
         } else {
             alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE); //sino el dia de hoy esta disponible
@@ -136,17 +134,17 @@ public class BookingACD{
 
     }
 
-    public boolean verificacionFechaCliente(Cliente clienteAAnalizar){ //ahora las trata booking directamente, para que GHashMap solo trate con la genericidad
+    public boolean verificacionFechaCliente(Cliente clienteAAnalizar) { //ahora las trata booking directamente, para que GHashMap solo trate con la genericidad
 
         boolean flag = true; //bandera
         HashSet<Reserva> auxHashSet = hashMapCliente.getReserva(clienteAAnalizar); //guardo las reservas del cliente
 
-        if(auxHashSet != null){ //mientras tenga reservas
+        if (auxHashSet != null) { //mientras tenga reservas
             Iterator<Reserva> it = auxHashSet.iterator(); //creo el iterador
             while (it.hasNext() && flag) { //mientras haya reservas y el flag sea true
                 Reserva reserva = it.next();//guardo el it en un auxiliar
-                if((clienteAAnalizar.getFechaInicio().before(reserva.getCliente().getFechaFinal()) && clienteAAnalizar.getFechaFinal().after(reserva.getCliente().getFechaInicio()))){
-                   //si la fecha inicial del cliente es anterior a la final de la de la reserva y la fecha final del cliente es posterior a la  inicial de la reserva
+                if ((clienteAAnalizar.getFechaInicio().before(reserva.getCliente().getFechaFinal()) && clienteAAnalizar.getFechaFinal().after(reserva.getCliente().getFechaInicio()))) {
+                    //si la fecha inicial del cliente es anterior a la final de la de la reserva y la fecha final del cliente es posterior a la  inicial de la reserva
                     flag = false; //quiere decir que el cliente tiene una reserva
                 }
             }
@@ -159,12 +157,12 @@ public class BookingACD{
         boolean flag = true; //bandera
         HashSet<Reserva> auxAlojamientos = hashMapAlojamiento.getReserva(alojamientoAAnalizar); //guardo en un auxiliar las reservas con ese alojamiento
 
-        if(auxAlojamientos != null){ //si hay reservas
+        if (auxAlojamientos != null) { //si hay reservas
             Iterator<Reserva> it = auxAlojamientos.iterator(); //uso iterador para recorrer
-            while(it.hasNext() && flag){ //mientras haya un siguiente y el flag sea verdadero
+            while (it.hasNext() && flag) { //mientras haya un siguiente y el flag sea verdadero
                 Reserva reserva = it.next(); //guardo en una reserva aux
                 if (fechaInicioCliente.before(reserva.getCliente().getFechaFinal()) && fechaFinCliente.after(reserva.getCliente().getFechaInicio())) {
-                   //si la fecha de inicio del cliente es anterior a la final de la reserva y la final del cliente es posterior a la de inicio de la reserva
+                    //si la fecha de inicio del cliente es anterior a la final de la reserva y la final del cliente es posterior a la de inicio de la reserva
                     flag = false; //el alojamiento no esta disponible
                 }
             }
@@ -174,21 +172,19 @@ public class BookingACD{
     }
 
 
+    public String reservar(Cliente cliente, Alojamiento alojamiento) {
+        // boolean reservada = false; //bandera
+        String rta = "";
 
-
-    public String reservar(Cliente cliente, Alojamiento alojamiento){
-       // boolean reservada = false; //bandera
-        String rta="";
-
-        if(verificacionFechaCliente(cliente)){// Verificar que el cliente no tenga reservas en la misma fecha
+        if (verificacionFechaCliente(cliente)) {// Verificar que el cliente no tenga reservas en la misma fecha
 
             //si esto es correcto pasa al siguiente, osea revisar la dispo del alojamiento
 
-            if(verificarFechaAlojamiento(alojamiento, cliente.getFechaInicio(), cliente.getFechaFinal())){ // si el alojamiento esta disponible crea la reserva
+            if (verificarFechaAlojamiento(alojamiento, cliente.getFechaInicio(), cliente.getFechaFinal())) { // si el alojamiento esta disponible crea la reserva
 
                 alojamiento.aumentarCantReservas(); //aumenta 1 la cantidad de reservas
 
-                Reserva nuevaReserva =new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar() * 1.21); //nuestro costo extra es ese 21%
+                Reserva nuevaReserva = new Reserva(alojamiento, cliente, alojamiento.getPrecioXAlojar() * 1.21); //nuestro costo extra es ese 21%
 
 
                 hashMapCliente.agregar(cliente, nuevaReserva); // se agregan a los mapas
@@ -197,12 +193,12 @@ public class BookingACD{
 
                 alojamiento.setEstado(EstadoAlojamiento.RESERVADO); // el alojamiento esta reservado
                 //reservada = true; //se concreto la reserva, si devuelve false no
-                rta="Reserva realizada con exito";
-            }else{
-                rta="ERROR, el alojamiento no esta disponible en esa fecha";
+                rta = "Reserva realizada con exito";
+            } else {
+                rta = "ERROR, el alojamiento no esta disponible en esa fecha";
             }
-        }else{
-            rta="ERROR, el cliente no esta disponible para reservar";
+        } else {
+            rta = "ERROR, el cliente no esta disponible para reservar";
         }
         return rta;
         //return reservada;
@@ -262,8 +258,6 @@ public class BookingACD{
          */
 
 
-
-
     /*
    public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
     {
@@ -294,7 +288,7 @@ public class BookingACD{
      */
     public Reserva buscarReservaPorClienteYAlojamiento(Cliente cliente, Alojamiento alojamiento) {
         HashSet<Reserva> reservas = hashMapCliente.getReserva(cliente);
-        Reserva reservaRetornada=null;
+        Reserva reservaRetornada = null;
         if (reservas != null) {
             Iterator<Reserva> iterator = reservas.iterator();
             while (iterator.hasNext()) {
@@ -308,6 +302,7 @@ public class BookingACD{
         }
         return reservaRetornada;
     }
+
     public String finalizarReserva(Cliente cliente, Alojamiento alojamiento, double nuevaValoracion /*String comentario*/, String motivo) {
         String ticket = "";
         Reserva reserva = buscarReservaPorClienteYAlojamiento(cliente, alojamiento);
@@ -341,18 +336,14 @@ public class BookingACD{
     }
 
 
-
-
-
-
-    public String devolverAlojamientosDisponibles(Cliente cliente){ //muestra los alojamientos disponibles en la fecha que el cliente quiere reservar
+    public String devolverAlojamientosDisponibles(Cliente cliente) { //muestra los alojamientos disponibles en la fecha que el cliente quiere reservar
         String rta = "";
-        if(alojamientoHashSet != null){
+        if (alojamientoHashSet != null) {
             Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator();
-            while(alojamientoIterator.hasNext()){
+            while (alojamientoIterator.hasNext()) {
                 Alojamiento aux = alojamientoIterator.next();
-               if(verificarFechaAlojamiento(aux, cliente.getFechaInicio(), cliente.getFechaFinal())){
-                   rta+="\n"+aux.toString();
+                if (verificarFechaAlojamiento(aux, cliente.getFechaInicio(), cliente.getFechaFinal())) {
+                    rta += "\n" + aux.toString();
                 }
             }
 
@@ -379,23 +370,23 @@ public class BookingACD{
 
         return rta;
     }
-    public String mostrarSetCliente()
-    {
+
+    public String mostrarSetCliente() {
         return clienteHashSet.listar();
     }
 
-    public String mostrarMapAlojamiento()
-    {
+    public String mostrarMapAlojamiento() {
         String rta = "";
         rta = hashMapAlojamiento.listar();
         return rta;
     }
-    public String mostrarMapCliente()
-    {
+
+    public String mostrarMapCliente() {
         String rta = "";
         rta = hashMapCliente.listar();
         return rta;
     }
+
     public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
     {
         String rta = "";
@@ -448,27 +439,26 @@ public class BookingACD{
         Cliente cliente = null;
         while (iterator.hasNext()) {
             Cliente aux = iterator.next();
-            if (aux.equalsXNombre(nombre))
-            {
+            if (aux.equalsXNombre(nombre)) {
                 cliente = aux;
             }
         }
         return cliente;
     }
 
-    public ArrayList<Alojamiento> buscarAlojamientosPorNombre(String nombre){
-       ArrayList<Alojamiento> alojamientos = new ArrayList<>(); //creo una lista donde van a estar los alojamientos con ese nombre(por las habitaciones de hotel que comparten nombre)
-       if(alojamientoHashSet!=null){ //mientras haya alojamientos
-           Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator(); //creo un iterador
-           while(alojamientoIterator.hasNext()){ //se recorre
-               Alojamiento alojamiento = alojamientoIterator.next(); //guardo el next en un alojamiento auxiliar
-               if (alojamiento.getNombre().equalsIgnoreCase(nombre)){ //si el alojamiento tiene el mismo nombre lo guarda en el arreglo que voy a retornar
-                   alojamientos.add(alojamiento);
-               }
-           }
+    public ArrayList<Alojamiento> buscarAlojamientosPorNombre(String nombre) {
+        ArrayList<Alojamiento> alojamientos = new ArrayList<>(); //creo una lista donde van a estar los alojamientos con ese nombre(por las habitaciones de hotel que comparten nombre)
+        if (alojamientoHashSet != null) { //mientras haya alojamientos
+            Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator(); //creo un iterador
+            while (alojamientoIterator.hasNext()) { //se recorre
+                Alojamiento alojamiento = alojamientoIterator.next(); //guardo el next en un alojamiento auxiliar
+                if (alojamiento.getNombre().equalsIgnoreCase(nombre)) { //si el alojamiento tiene el mismo nombre lo guarda en el arreglo que voy a retornar
+                    alojamientos.add(alojamiento);
+                }
+            }
 
-       }
-       //no usamos instanceof porque tranquilamente el departamento puede tener mas de un nombre Y PUEDEN HABER MAS ALOJAMIENTOS CON IGUAL NOMBRE
+        }
+        //no usamos instanceof porque tranquilamente el departamento puede tener mas de un nombre Y PUEDEN HABER MAS ALOJAMIENTOS CON IGUAL NOMBRE
         return alojamientos;
 
     }
@@ -476,35 +466,36 @@ public class BookingACD{
 
 ///JSON
 
-//CREACION DEL JSON DE CLIENTE A PARTIR DE UN HASHSET
-public void jsonCliente() {
+    //CREACION DEL JSON DE CLIENTE A PARTIR DE UN HASHSET
+    public void jsonCliente() {
 
 
-    JSONArray ja= new JSONArray();
-    Iterator<Cliente> iterator = clienteHashSet.iterator();//iterator de hashSetcliente
+        JSONArray ja = new JSONArray();
+        Iterator<Cliente> iterator = clienteHashSet.iterator();//iterator de hashSetcliente
 
-    while (iterator.hasNext()) {//recorremos hashset
-        JSONObject jo = new JSONObject();
-        Cliente cliente = iterator.next();
+        while (iterator.hasNext()) {//recorremos hashset
+            JSONObject jo = new JSONObject();
+            Cliente cliente = iterator.next();
 
-        ///clave valor de cliente y hacemos el put en jo atributo x atributo
+            ///clave valor de cliente y hacemos el put en jo atributo x atributo
 
-        try {
-            jo.put("nombre",cliente.getNombre());
-            jo.put("apellido",cliente.getApellido());
-            jo.put("correoElectronico",cliente.getCorreoElectronico());
-            jo.put("medioDePago",cliente.getMedioDePago());
-            jo.put("cantPersonas",cliente.getCantPersonas());
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
+            try {
+                jo.put("nombre", cliente.getNombre());
+                jo.put("apellido", cliente.getApellido());
+                jo.put("correoElectronico", cliente.getCorreoElectronico());
+                jo.put("medioDePago", cliente.getMedioDePago());
+                jo.put("cantPersonas", cliente.getCantPersonas());
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            ja.put(jo);
         }
-        ja.put(jo);
-    }
-    ///guardamos el jsonobject en un json Array para recorrerlo despuescon el nombre de "clientes"
-    JsonUtiles.grabar(ja, "clientes");///
-   // System.out.println(ja.toString());
+        ///guardamos el jsonobject en un json Array para recorrerlo despuescon el nombre de "clientes"
+        JsonUtiles.grabar(ja, "clientes");///
+        // System.out.println(ja.toString());
 
-}
+    }
+
     ///CREACION DEL JSON ALOJAMIENTO A PARTIR DE UN HASH SET
     public void jsonAlojamiento() {
         //creacion de mi array para luego guardar los jsonobject
@@ -534,9 +525,7 @@ public void jsonCliente() {
                     jo.put("servicioExtra", ((Departamento) alojamiento).getServicioExtra());
                     jaDepto.put(jo);
 
-                }
-                else if (alojamiento instanceof HabitacionHotel)
-                {
+                } else if (alojamiento instanceof HabitacionHotel) {
                     jo.put("servicios", ((HabitacionHotel) alojamiento).getServicios());
                     jo.put("tipoHabitacion", ((HabitacionHotel) alojamiento).getTipoHabitacion());
                     jo.put("numeroHabitacion", ((HabitacionHotel) alojamiento).getNumeroHabitacion());
@@ -544,42 +533,42 @@ public void jsonCliente() {
                 }
 
             } catch (JSONException e) {
-               e.printStackTrace();
+                e.printStackTrace();
             }
         }
         JSONObject joAlojamientos = new JSONObject();//creo este jsonobject para guardarles mis jsonarray y asi tener un objeto que contenga arreglos de objetos
         try {
             joAlojamientos.put("Departamento", jaDepto);
-            joAlojamientos.put("HabitacionesHotel",jaHabHotel);
+            joAlojamientos.put("HabitacionesHotel", jaHabHotel);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         JsonUtiles.grabar(joAlojamientos, "alojamientos");//lo grabo.
 
         // System.out.println(joAlojamientos);
-       // System.out.println((JsonUtiles.leer("alojamientos")));
+        // System.out.println((JsonUtiles.leer("alojamientos")));
     }
+
     ///CREACION DEL JSON DE RESERVAS A PARTIR DE UN HASH SET
-    public void jsonReservas(){
+    public void jsonReservas() {
 
 
         JSONArray jaReservas = new JSONArray();//ESTE SERA MIJSON ARRAY DE RESERVAS
-        Iterator <Reserva> iterator = reservaHashSet.iterator();///MI ITERATOR DE HASHSET RESERVA
-        while(iterator.hasNext())
-        {
+        Iterator<Reserva> iterator = reservaHashSet.iterator();///MI ITERATOR DE HASHSET RESERVA
+        while (iterator.hasNext()) {
             ///CREAMOS T VARIABLES DE CLIENTE Y ALOJAMIENTO CON SU RSPECTIVO CONTENIDO BASADO EN SU RESERVA HACIENDO EL GET, PARA MODULARIZAR
             Reserva reserva = iterator.next();
             Cliente cliente = reserva.getCliente();
-            Alojamiento alojamiento=reserva.getAlojamiento();
+            Alojamiento alojamiento = reserva.getAlojamiento();
             ////CREAMOS UN JSON OBJECT POR CADA HASHSET PARA QUE APAREZCA UN STRING ANTES DEL OBJETO EN JSON Y QUE QUEDE MAS MODULARIZADO Y MASORGANIZADO
-            JSONObject joReserva= new JSONObject();
-            JSONObject joCliente= new JSONObject();
+            JSONObject joReserva = new JSONObject();
+            JSONObject joCliente = new JSONObject();
             JSONObject joAloj = new JSONObject();
             {
                 try {
                     //PRIMERO HAGO EL PUT DE LOS ATRIBUTOS DE RESERVA PARA QUE SEA LO PRIMERO QUE SE VEA EN EL JSON
-                    joReserva.put("preciototal",reserva.getPrecioTotal());
-                    joReserva.put("pin",reserva.getPin());
+                    joReserva.put("preciototal", reserva.getPrecioTotal());
+                    joReserva.put("pin", reserva.getPin());
 
                     ///ATRIBUTOS DE ALOJAMIENTO
                     joAloj.put("PrecioXAlojar", alojamiento.getPrecioXAlojar());
@@ -593,15 +582,13 @@ public void jsonCliente() {
                     joAloj.put("estado", alojamiento.getEstado());
 
                     if (alojamiento instanceof Departamento) {
-                        joAloj.put("tipo","Departamento");
+                        joAloj.put("tipo", "Departamento");
                         joAloj.put("numeroPiso", ((Departamento) alojamiento).getNumeroPiso());
                         joAloj.put("tamañoDepartamento", ((Departamento) alojamiento).getTamañoDepartamento());
                         joAloj.put("servicioExtra", ((Departamento) alojamiento).getServicioExtra());
 
-                    }
-                    else if (alojamiento instanceof HabitacionHotel)
-                    {
-                        joAloj.put("tipo","HabitacionHotel");
+                    } else if (alojamiento instanceof HabitacionHotel) {
+                        joAloj.put("tipo", "HabitacionHotel");
                         joAloj.put("servicios", ((HabitacionHotel) alojamiento).getServicios());
                         joAloj.put("tipoHabitacion", ((HabitacionHotel) alojamiento).getTipoHabitacion());
                         joAloj.put("numeroHabitacion", ((HabitacionHotel) alojamiento).getNumeroHabitacion());
@@ -609,15 +596,15 @@ public void jsonCliente() {
                     }
 
                     ///REALIZO EL PUT DE ALOJAMIENTO EN MI JSON OBJECT DE RESERVA
-                    joReserva.put("alojamiento",joAloj);
+                    joReserva.put("alojamiento", joAloj);
                     ///ATRIBUTOS DE CLIENTE
-                    joCliente.put("nombre",cliente.getNombre());
-                    joCliente.put("apellido",cliente.getApellido());
-                    joCliente.put("correoElectronico",cliente.getCorreoElectronico());
-                    joCliente.put("medioDePago",cliente.getMedioDePago());
-                    joCliente.put("cantPersonas",cliente.getCantPersonas());
+                    joCliente.put("nombre", cliente.getNombre());
+                    joCliente.put("apellido", cliente.getApellido());
+                    joCliente.put("correoElectronico", cliente.getCorreoElectronico());
+                    joCliente.put("medioDePago", cliente.getMedioDePago());
+                    joCliente.put("cantPersonas", cliente.getCantPersonas());
                     ///REALIZO EL PUT DE MIJSONOBJECT DE CLIENTE
-                    joReserva.put("cliente",joCliente);
+                    joReserva.put("cliente", joCliente);
 
 
                 } catch (JSONException e) {
@@ -630,16 +617,17 @@ public void jsonCliente() {
         JSONObject joReserva = new JSONObject();
         ///CREO UN NUEVOJSON OBJECT QUE VA ATENER MI JSONARRAY
         try {
-            joReserva.put("reserva",jaReservas);
+            joReserva.put("reserva", jaReservas);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         ///GRABO
-        JsonUtiles.grabar(joReserva,"reserva");
-       // System.out.println((JsonUtiles.leer("reserva")));
+        JsonUtiles.grabar(joReserva, "reserva");
+        // System.out.println((JsonUtiles.leer("reserva")));
 
 
     }
+
     ///PASAR DE JSON A JAVA. CLIENTE
     public void jsonAJavaClientes() {
 
@@ -653,7 +641,7 @@ public void jsonCliente() {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        JSONObject jo =new JSONObject();
+        JSONObject jo = new JSONObject();
 /// RECORRO ARRAY
         for (int i = 0; i < JA.length(); i++) {
             try {
@@ -674,9 +662,10 @@ public void jsonCliente() {
             }
 
         }
-       // System.out.println(clienteHashSet.toString());
+        // System.out.println(clienteHashSet.toString());
 
     }
+
     ///PASAR A JSON A JAVA ALOJAMIENTO
     public void jsonAJavaAlojamiento() {
 
@@ -711,6 +700,7 @@ public void jsonCliente() {
 
                 Depto.setPrecioXAlojar(joDepto.getDouble("PrecioXAlojar"));
                 Depto.setValoracion(joDepto.getDouble("valoracion"));
+                Depto.setCantReservas(joDepto.getInt("cantReservas"));
                 Depto.setDescripcion(joDepto.getString("descripcion"));
                 Depto.setNombre(joDepto.getString("nombre"));
 
@@ -734,18 +724,18 @@ public void jsonCliente() {
                 //Mi Json object Tendra cada objeto de mi arreglo
                 JSONObject joHotel = jsonArrayHotel.getJSONObject(i);
 
-                Hotel.setPrecioXAlojar(joHotel .getDouble("PrecioXAlojar"));
-                Hotel.setValoracion(joHotel .getDouble("valoracion"));
-                Hotel.setCantReservas(joHotel .getInt("cantReservas"));
-                Hotel.setDescripcion(joHotel .getString("descripcion"));
-                Hotel.setNombre(joHotel .getString("nombre"));
-                Hotel.setDireccion(joHotel .getString("direccion"));
-                Hotel.setZona(joHotel .getString("zona"));
-                Hotel.setComentarios(joHotel .getString("comentarios"));
-                Hotel.setEstado(EstadoAlojamiento.valueOf(joHotel .getString("estado")));
-                Hotel.setServicios(joHotel .getString("servicios"));
-                Hotel.setTipoHabitacion(joHotel .getString("tipoHabitacion"));
-                Hotel.setNumeroHabitacion(joHotel .getInt("numeroHabitacion"));
+                Hotel.setPrecioXAlojar(joHotel.getDouble("PrecioXAlojar"));
+                Hotel.setValoracion(joHotel.getDouble("valoracion"));
+                Hotel.setCantReservas(joHotel.getInt("cantReservas"));
+                Hotel.setDescripcion(joHotel.getString("descripcion"));
+                Hotel.setNombre(joHotel.getString("nombre"));
+                Hotel.setDireccion(joHotel.getString("direccion"));
+                Hotel.setZona(joHotel.getString("zona"));
+                Hotel.setComentarios(joHotel.getString("comentarios"));
+                Hotel.setEstado(EstadoAlojamiento.valueOf(joHotel.getString("estado")));
+                Hotel.setServicios(joHotel.getString("servicios"));
+                Hotel.setTipoHabitacion(joHotel.getString("tipoHabitacion"));
+                Hotel.setNumeroHabitacion(joHotel.getInt("numeroHabitacion"));
                 agregarAlojamiento(Hotel);
 
             } catch (JSONException e) {
@@ -759,4 +749,59 @@ public void jsonCliente() {
 
     }
 
+    public void jsonAJavaReserva() {
+
+        String rta = JsonUtiles.leer("reserva");
+        JSONObject jo = null;
+        try {
+            jo = new JSONObject(rta);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        JSONArray JA = new JSONArray();
+        try {
+            JA = jo.getJSONArray("reserva");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (int i = 0; i < JA.length(); i++) {
+            try {
+                JSONObject joReserva = JA.getJSONObject(i);
+                Reserva reserva = new Reserva();
+
+                reserva.setPin(UUID.fromString(joReserva.getString("pin")));
+                reserva.setPrecioTotal(joReserva.getDouble("preciototal"));
+                reserva.getCliente().setNombre(joReserva.getString("nombre"));
+                reserva.getCliente().setApellido(joReserva.getString("apellido"));
+                reserva.getCliente().setCorreoElectronico(joReserva.getString("correoElectronico"));
+                reserva.getCliente().setMedioDePago(joReserva.getString("medioDePago"));
+                reserva.getCliente().setCantPersonas(joReserva.getInt("cantPersonas"));
+
+                reserva.getAlojamiento().setPrecioXAlojar(joReserva.getDouble("PrecioXAlojar"));
+                reserva.getAlojamiento().setValoracion(joReserva.getDouble("valoracion"));
+                reserva.getAlojamiento().setCantReservas(joReserva.getInt("cantReservas"));
+                reserva.getAlojamiento().setDescripcion(joReserva.getString("descripcion"));
+                reserva.getAlojamiento().setNombre(joReserva.getString("nombre"));
+                reserva.getAlojamiento().setDireccion(joReserva.getString("direccion"));
+                reserva.getAlojamiento().setZona(joReserva.getString("zona"));
+                reserva.getAlojamiento().setComentarios(joReserva.getString("comentarios"));
+                reserva.getAlojamiento().setEstado(EstadoAlojamiento.valueOf(joReserva.getString("estado")));
+
+                if (reserva.getAlojamiento() instanceof Departamento) {
+
+                    ((Departamento) reserva.getAlojamiento()).setNumeroPiso(joReserva.getInt("numeroPiso"));
+                    ((Departamento) reserva.getAlojamiento()).setTamañoDepartamento(joReserva.getInt("tamañoDepartamento"));
+                    ((Departamento) reserva.getAlojamiento()).setServicioExtra(joReserva.getString("servicioExtra"));
+                } else if (reserva.getAlojamiento() instanceof HabitacionHotel) {
+                    ((HabitacionHotel) reserva.getAlojamiento()).setServicios(joReserva.getString("servicios"));
+                    ((HabitacionHotel) reserva.getAlojamiento()).setTipoHabitacion(joReserva.getString("tipoHabitacion"));
+                    ((HabitacionHotel) reserva.getAlojamiento()).setNumeroHabitacion(joReserva.getInt("numeroHabitacion"));
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
 }
