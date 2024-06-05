@@ -56,38 +56,27 @@ public class BookingACD {
 
     //metodos para conservacion de archivos
     public void guardarDatosEnArchi(String nombreArchiCliente, String nombreArchiAlojamiento) {
-        hashMapAlojamiento.pasarMapaAArchivo(nombreArchiCliente);  //al guardar un cliente y su reserva, dicha reserva tambien tendra el dato del alojamiento
+        hashMapCliente.pasarMapaAArchivo(nombreArchiCliente);  //al guardar un cliente y su reserva, dicha reserva tambien tendra el dato del alojamiento
         hashMapAlojamiento.pasarMapaAArchivo(nombreArchiAlojamiento);//por lo cual con cargar cualquiera de las dos colecciones ya nos brindaria toda la informacion necesaria
         // para la persistencia de los mapas en el sistema.
     }
 
-    public void pasarArchiAMapa(String nombreArchi) { //esta funcion va a pasar todos los datos de cualquier archivo a los
-        ObjectInputStream objectInputStream = null; // respectivos mapas ya que los archivos van a guardar todas las reservas
-        try {                                       // que existan, y luego se guardan en su correspondiente mapa
-            FileInputStream fileInputStream = new FileInputStream(nombreArchi);
-            objectInputStream = new ObjectInputStream(fileInputStream);
+    public void pasarArchiAMapa(String nombreArchi) {
+        try (FileInputStream fileInputStream = new FileInputStream(nombreArchi);
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+
             while (true) {
-                Reserva nuevaReserva = (Reserva) objectInputStream.readObject();
-                hashMapAlojamiento.agregar(nuevaReserva.getAlojamiento(), nuevaReserva);
-                hashMapCliente.agregar(nuevaReserva.getCliente(), nuevaReserva);
+                try {
+                    Reserva nuevaReserva = (Reserva) objectInputStream.readObject();
+                    hashMapAlojamiento.agregar(nuevaReserva.getAlojamiento(), nuevaReserva);
+                    hashMapCliente.agregar(nuevaReserva.getCliente(), nuevaReserva);
+                } catch (EOFException e) {
+                    break;  // Fin del archivo alcanzado
+                }
             }
-        } catch (EOFException e) {
-           e.printStackTrace();// System.out.println("Archivos traidos al sistema.");
-        } catch (FileNotFoundException e2) {
-            e2.printStackTrace();
-        } catch (IOException e3) {
-            e3.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                objectInputStream.close();
-            } catch (IOException e4) {
-                e4.printStackTrace();
-            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-
-
     }
 
 
@@ -277,17 +266,13 @@ public class BookingACD {
         return reservaRetornada;
     }
 
+
     public String finalizarReserva(Cliente cliente, Alojamiento alojamiento, double nuevaValoracion /*String comentario*/, String motivo) {
         String ticket = "";
         Reserva reserva = buscarReservaPorClienteYAlojamiento(cliente, alojamiento);
         if (reserva != null) {
             alojamiento.calculoValoracion(nuevaValoracion);
-            //alojamiento.agregarComentario(comentario);
-            alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
-            hashMapCliente.borrar(cliente, reserva); // no se porque no borra
-            hashMapAlojamiento.borrar(alojamiento, reserva);
-            reservaHashSet.borrarReserva(reserva);
-
+            // alojamiento.agregarComentario(comentario);
             ticket = "Motivo de finalización de la reserva: " + motivo + "\n" +
                     "Nombre del Alojamiento: " + reserva.getAlojamiento().getNombre() + "\n";
 
@@ -302,13 +287,22 @@ public class BookingACD {
                     "Inicio de estadía: " + reserva.getCliente().getFechaInicio() + "\n" +
                     "Precio a abonar (precio del alojamiento + 21%): " + reserva.getPrecioTotal() + "\n" +
                     "Pin de autenticación: " + reserva.getPin() + "\n";
+
+            boolean borrado = reservaHashSet.borrarReserva(reserva);
+            alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
+            hashMapCliente.borrar(cliente, reserva);
+            hashMapAlojamiento.borrar(alojamiento, reserva);
+
+            if (borrado) {
+                // Actualiza el archivo JSON después de eliminar la reserva
+                jsonReservas();
+                ticket += "\noperacion realizada con exito";
+            }
         } else {
             ticket = "No se encontró la reserva para el cliente y alojamiento proporcionados.";
         }
-
         return ticket;
     }
-
 
     public String devolverAlojamientosDisponibles(Cliente cliente) { //muestra los alojamientos disponibles en la fecha que el cliente quiere reservar
         String rta = "";
@@ -528,25 +522,21 @@ public class BookingACD {
 
     ///CREACION DEL JSON DE RESERVAS A PARTIR DE UN HASH SET
     public void jsonReservas() {
-        JSONArray jaReservas = new JSONArray(); // ESTE SERA MI JSON ARRAY DE RESERVAS
-        Iterator<Reserva> iterator = reservaHashSet.iterator(); // MI ITERATOR DE HASHSET RESERVA
+        JSONArray jaReservas = new JSONArray();
+        Iterator<Reserva> iterator = reservaHashSet.iterator();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         while (iterator.hasNext()) {
-            // CREAMOS T VARIABLES DE CLIENTE Y ALOJAMIENTO CON SU RESPECTIVO CONTENIDO BASADO EN SU RESERVA HACIENDO EL GET, PARA MODULARIZAR
             Reserva reserva = iterator.next();
             Cliente cliente = reserva.getCliente();
             Alojamiento alojamiento = reserva.getAlojamiento();
-            // CREAMOS UN JSON OBJECT POR CADA HASHSET PARA QUE APAREZCA UN STRING ANTES DEL OBJETO EN JSON Y QUE QUEDE MAS MODULARIZADO Y MAS ORGANIZADO
             JSONObject joReserva = new JSONObject();
             JSONObject joCliente = new JSONObject();
             JSONObject joAloj = new JSONObject();
-            try {
-                // PRIMERO HAGO EL PUT DE LOS ATRIBUTOS DE RESERVA PARA QUE SEA LO PRIMERO QUE SE VEA EN EL JSON
-                joReserva.put("preciototal", reserva.getPrecioTotal());
-                joReserva.put("pin", reserva.getPin());
 
-                // ATRIBUTOS DE ALOJAMIENTO
+            try {
+                joReserva.put("preciototal", reserva.getPrecioTotal());
+                joReserva.put("pin", reserva.getPin().toString());
                 joAloj.put("PrecioXAlojar", alojamiento.getPrecioXAlojar());
                 joAloj.put("valoracion", alojamiento.getValoracion());
                 joAloj.put("cantReservas", alojamiento.getCantReservas());
@@ -555,14 +545,13 @@ public class BookingACD {
                 joAloj.put("direccion", alojamiento.getDireccion());
                 joAloj.put("zona", alojamiento.getZona());
                 joAloj.put("comentarios", alojamiento.getComentarios());
-                joAloj.put("estado", alojamiento.getEstado());
+                joAloj.put("estado", alojamiento.getEstado().name());
 
                 if (alojamiento instanceof Departamento) {
                     joAloj.put("tipo", "Departamento");
                     joAloj.put("numeroPiso", ((Departamento) alojamiento).getNumeroPiso());
                     joAloj.put("tamañoDepartamento", ((Departamento) alojamiento).getTamañoDepartamento());
                     joAloj.put("servicioExtra", ((Departamento) alojamiento).getServicioExtra());
-
                 } else if (alojamiento instanceof HabitacionHotel) {
                     joAloj.put("tipo", "HabitacionHotel");
                     joAloj.put("servicios", ((HabitacionHotel) alojamiento).getServicios());
@@ -570,10 +559,8 @@ public class BookingACD {
                     joAloj.put("numeroHabitacion", ((HabitacionHotel) alojamiento).getNumeroHabitacion());
                 }
 
-                // REALIZO EL PUT DE ALOJAMIENTO EN MI JSON OBJECT DE RESERVA
                 joReserva.put("alojamiento", joAloj);
 
-                // ATRIBUTOS DE CLIENTE
                 joCliente.put("nombre", cliente.getNombre());
                 joCliente.put("apellido", cliente.getApellido());
                 joCliente.put("correoElectronico", cliente.getCorreoElectronico());
@@ -582,27 +569,22 @@ public class BookingACD {
                 joCliente.put("fechaInicio", dateFormat.format(cliente.getFechaInicio()));
                 joCliente.put("fechaFinal", dateFormat.format(cliente.getFechaFinal()));
 
-                // REALIZO EL PUT DE MI JSON OBJECT DE CLIENTE
                 joReserva.put("cliente", joCliente);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-            // A MI JSON ARRAY LE ASIGNO MI JSON OBJECT DE RESERVA
             jaReservas.put(joReserva);
         }
 
         JSONObject joReserva = new JSONObject();
-        // CREO UN NUEVO JSON OBJECT QUE VA A TENER MI JSON ARRAY
         try {
             joReserva.put("reserva", jaReservas);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        // GRABO
         JsonUtiles.grabar(joReserva, "reserva");
-        // System.out.println((JsonUtiles.leer("reserva")));
     }
 
     ///PASAR DE JSON A JAVA. CLIENTE
@@ -806,10 +788,9 @@ public class BookingACD {
                     alojamiento.setComentarios(joAlojamiento.getString("comentarios"));
                     reserva.setAlojamiento(alojamiento);
 
-                    // Añadir reserva a las colecciones correspondientes
-//                    hashMapAlojamiento.agregar(alojamiento, reserva);
-//                hashMapCliente.agregar(cliente, reserva);
-//                    reservaHashSet.agregar(reserva);
+
+                   // hashMapAlojamiento.agregar(alojamiento, reserva);
+               // hashMapCliente.agregar(cliente, reserva);
                     reservaHashSet.agregar(reserva);
                 }
             } catch (JSONException e) {
