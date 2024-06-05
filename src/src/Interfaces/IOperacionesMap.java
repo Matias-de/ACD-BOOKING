@@ -12,5 +12,5 @@ public interface IOperacionesMap<E>{
     void borrar(E clave, Reserva valor); //borra un elemento
     boolean buscarElemento (E clave); // confirma si existe dicho elemento en el mapa
     HashSet<Reserva> getReserva(E generico);
-
+    boolean estaVacio();
 }

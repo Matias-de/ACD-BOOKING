@@ -36,9 +36,12 @@ public class Main {
         System.out.println("2)Cargar un alojamiento.");
         System.out.println("3)Realizar una reserva.");
         System.out.println("4)Finalizar una reserva.");
-        System.out.println("5)Mostrar Las reservas del Sistema.");
-        System.out.println("6)Mostrar los Clientes del Sistema.");
-        System.out.println("7)Mostrar los Alojamientos del Sistema.");
+        System.out.println("5)Mostrar las reservas actuales");
+        System.out.println("6)Mostrar Las reservas alguna vez ocurridas en el Sistema.");
+        System.out.println("7)Mostrar los Clientes del Sistema.");
+        System.out.println("8)Mostrar los Alojamientos del Sistema.");
+        System.out.println("9)Ingresar al menu de modificación de Clientes");
+
     }
 
     public static void menu(BookingACD nuevoBooking){
@@ -229,10 +232,15 @@ public class Main {
                     }
                     break;
 
-
-
-
                 case 5:
+                    if(nuevoBooking.getHashMapCliente().estaVacio()){
+                        System.out.println("Ninguna reserva en curso..");
+                    }else{
+                        System.out.println(nuevoBooking.getHashMapCliente());
+                    }
+                break;
+
+                case 6:
                     if (nuevoBooking.getReservaHashSet().isEmpty()) {
                         System.out.println("no hay reservas en el sistema");
                     } else {
@@ -240,7 +248,7 @@ public class Main {
                         System.out.println(nuevoBooking.mostrarSetReserva());
                     }
                     break;
-                case 6:
+                case 7:
 
                     if (nuevoBooking.getClienteHashSet().isEmpty()) {
                         System.out.println("No hay clientes cargados en el sitema");
@@ -249,7 +257,7 @@ public class Main {
                         System.out.println(nuevoBooking.getClienteHashSet().toString());
                     }
                     break;
-                case 7:
+                case 8:
 
                     if (nuevoBooking.getAlojamientoHashSet().isEmpty()) {
                         System.out.println("No hay alojamientos cargados en el sistema");
@@ -257,6 +265,9 @@ public class Main {
 
                         System.out.println(nuevoBooking.getAlojamientoHashSet().toString());
                     }
+
+                    break;
+                case 9:
 
                     break;
 

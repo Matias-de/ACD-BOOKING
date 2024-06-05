@@ -91,6 +91,13 @@ public class GHashMap <E>implements IOperacionesMap<E> {
             nuevoHashMap.put(clave, aux);
         }
         aux.add(valor);
+
+
+    }
+
+    @Override
+    public boolean estaVacio(){
+        return nuevoHashMap.isEmpty();
     }
 
 @Override
