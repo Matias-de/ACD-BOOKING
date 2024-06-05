@@ -93,11 +93,15 @@ public class GHashMap <E>implements IOperacionesMap<E> {
         aux.add(valor);
     }
 
-
-    @Override
+@Override
     public void borrar(E clave, Reserva valor) {
-        nuevoHashMap.remove(clave, valor);
-
+        HashSet<Reserva> reservas = nuevoHashMap.get(clave);
+        if (reservas != null) {
+            reservas.remove(valor);
+            if (reservas.isEmpty()) {
+                nuevoHashMap.remove(clave);
+            }
+        }
     }
 
     public HashSet<Reserva> getReserva(E nuevoGenerico) {
