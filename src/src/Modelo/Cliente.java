@@ -174,15 +174,13 @@ public class Cliente implements Serializable {
 
         return rta;
     }
-    public boolean equalsXNombre(String obj) {
+    public boolean equalsXNombreYApellido(String nombreCliente, String apellidoCliente) {
         boolean rta=false;
-        if(obj!=null)
-        {
-                if(obj.equalsIgnoreCase(nombre))
+                if(nombre.equalsIgnoreCase(nombreCliente) && apellido.equalsIgnoreCase(apellidoCliente))
                 {
                     rta=true;
                 }
-        }
+
         return rta;
     }
 
