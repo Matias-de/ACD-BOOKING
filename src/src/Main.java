@@ -1,6 +1,9 @@
 import Enumeraciones.EstadoAlojamiento;
 import Modelo.*;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,11 +16,12 @@ public class Main {
 
 
         BookingACD nuevoBooking = new BookingACD();
-       nuevoBooking.pasarArchiAMapa("ArchivoCliente"); // (se carga mapas)esta funcion se debe usar de manera unica con cualquier archivo ya sea cliente o alojamiento.
-       nuevoBooking.jsonAJavaClientes(); //se carga set cliente
+       nuevoBooking.pasarArchiAMapa("ArchivoCliente"); // (se carga mapas)esta funcion se debe usar de manera unica con cualquier archivo ya sea cliente o alojamiento.nuevoBooking.jsonAJavaClientes(); //se carga set cliente
        nuevoBooking.jsonAJavaAlojamiento();//se carga set alojamiento
         nuevoBooking.jsonAJavaReserva();
-        //FALTA CARGAR EL JSON DE RESERVAS
+        System.out.println(nuevoBooking.getHashMapCliente());
+        System.out.println(nuevoBooking.getHashMapAlojamiento());
+        System.out.println(nuevoBooking.getReservaHashSet());
         menu(nuevoBooking);
         nuevoBooking.guardarDatosEnArchi("ArchivoCliente","ArchivoAlojamiento");//se guardan datos en el archivo
         nuevoBooking.jsonCliente();
@@ -59,6 +63,7 @@ public class Main {
 
                     break;
                 case 3:
+                   String apellidoAux="";
                     if (!nuevoBooking.getClienteHashSet().isEmpty()){
                         do {
                             System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
@@ -68,12 +73,14 @@ public class Main {
                                 System.out.println(nuevoBooking.getClienteHashSet().toString());
                                 System.out.println("Ingrese el nombre del cliente que quiere elegir: ");
                                 stringAux = scan.next();
-                                while (nuevoBooking.buscarClientePorNombre(stringAux) == null) {
+                                System.out.println("Ingrese el apellido del cliente");
+                                apellidoAux=scan.next();
+                                while (nuevoBooking.buscarClientePorNombre(stringAux, apellidoAux) == null) {
                                     System.out.println(nuevoBooking.getClienteHashSet().toString());
                                     System.out.println("Nombre de cliente incorecto, Favor de elegir un nombre valido:");
                                     stringAux = scan.next();
                                 }
-                                clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
+                                clienteAux = nuevoBooking.buscarClientePorNombre(stringAux, apellidoAux);
                                 System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
                                 preguntarEstadia(clienteAux);
                             }else if(auxInt == 2){
@@ -146,7 +153,7 @@ public class Main {
                   /*cambiar*/ // System.out.println("(True=exitoso)/(False=no se pudo reservar)--->Rta:"+nuevoBooking.reservar(clienteAux,alojamientoAux));
                     break;
                 case 4:
-                    String motivo="";
+                    String motivo="", apellido="";
                     System.out.println("Estas son las reservas que terminan hoy!: \n"+nuevoBooking.mostrarReservasAPuntoDeTerminar());
                     do {
                         System.out.println("Desea terminar la reserva por fin de fecha o antes de la misma? Ingrese 'fecha' u 'otro' según corresponda: ");
@@ -157,11 +164,13 @@ public class Main {
                     System.out.println(nuevoBooking.getClienteHashSet().toString());
                     System.out.println("Ingrese el nombre del cliente, se buscara una reserva a cargo de ese nombre:");
                     stringAux = scan.nextLine();
-                    while (nuevoBooking.buscarClientePorNombre(stringAux) == null) {
+                    System.out.println("Ahora ingrese el apellido: ");
+                    apellido= scan.nextLine();
+                    while (nuevoBooking.buscarClientePorNombre(stringAux, apellido) == null) {
                         System.out.println("Nombre de cliente incorrecto, favor de elegir un nombre válido:");
                         stringAux = scan.nextLine();
                     }
-                    clienteAux = nuevoBooking.buscarClientePorNombre(stringAux);
+                    clienteAux = nuevoBooking.buscarClientePorNombre(stringAux, apellido);
                     String muestraReservas = nuevoBooking.mostrarReservasDeCliente(clienteAux);
                     if(muestraReservas.equalsIgnoreCase("cliente no encontrado/sin reservas")){
                         System.out.println("no se encontraron reservas para ese cliente..");
@@ -330,17 +339,24 @@ public class Main {
         nombre = scan.nextLine();
         System.out.println("Ingrese apellido:");
         apellido = scan.nextLine();
-        System.out.println("Ingrese mail:");
-        email = scan.nextLine();
+
+       do{
+
+           System.out.println("Ingrese mail:");
+           email = scan.nextLine();
+       }while(!email.contains("@") || !email.contains(".com"));
+
         do{
             System.out.println("Ingrese medio de pago (Tarjeta / efectivo / transferencia):");
             medioDePago = scan.nextLine();
             //se va a ejecutar hasta que medio de pago sea uno de los que se pide
         }while(!medioDePago.equalsIgnoreCase("tarjeta") && !medioDePago.equalsIgnoreCase("efectivo") && !medioDePago.equalsIgnoreCase("transferencia"));
 
+            do{
+                System.out.println("Ingrese la cantidad de personas(no mas que 5):");
+                cantDePersonas= scan.nextInt();
 
-            System.out.println("Ingrese la cantidad de personas:");//deberiamos de saber si hay niños
-            cantDePersonas= scan.nextInt();
+            }while(cantDePersonas<0 || cantDePersonas>5);
 
 
         Cliente nuevoCliente = new Cliente(nombre,apellido,email,medioDePago,cantDePersonas);

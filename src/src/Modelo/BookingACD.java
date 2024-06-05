@@ -70,7 +70,6 @@ public class BookingACD {
                 Reserva nuevaReserva = (Reserva) objectInputStream.readObject();
                 hashMapAlojamiento.agregar(nuevaReserva.getAlojamiento(), nuevaReserva);
                 hashMapCliente.agregar(nuevaReserva.getCliente(), nuevaReserva);
-                reservaHashSet.agregar(nuevaReserva);
             }
         } catch (EOFException e) {
            e.printStackTrace();// System.out.println("Archivos traidos al sistema.");
@@ -409,12 +408,12 @@ public class BookingACD {
     }
 
 
-    public Cliente buscarClientePorNombre(String nombre) {
+    public Cliente buscarClientePorNombre(String nombre, String apellido) {
         Iterator<Cliente> iterator = clienteHashSet.iterator();
         Cliente cliente = null;
         while (iterator.hasNext()) {
             Cliente aux = iterator.next();
-            if (aux.equalsXNombre(nombre)) {
+            if (aux.equalsXNombreYApellido(nombre, apellido)) {
                 cliente = aux;
             }
         }
@@ -808,8 +807,9 @@ public class BookingACD {
                     reserva.setAlojamiento(alojamiento);
 
                     // Añadir reserva a las colecciones correspondientes
-                    hashMapAlojamiento.agregar(alojamiento, reserva);
-                    hashMapCliente.agregar(cliente, reserva);
+//                    hashMapAlojamiento.agregar(alojamiento, reserva);
+//                hashMapCliente.agregar(cliente, reserva);
+//                    reservaHashSet.agregar(reserva);
                     reservaHashSet.agregar(reserva);
                 }
             } catch (JSONException e) {
