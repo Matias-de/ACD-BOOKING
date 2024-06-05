@@ -8,6 +8,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class BookingACD {
@@ -71,7 +73,7 @@ public class BookingACD {
                 reservaHashSet.agregar(nuevaReserva);
             }
         } catch (EOFException e) {
-            System.out.println("Archivos traidos al sistema.");
+           e.printStackTrace();// System.out.println("Archivos traidos al sistema.");
         } catch (FileNotFoundException e2) {
             e2.printStackTrace();
         } catch (IOException e3) {
@@ -258,34 +260,7 @@ public class BookingACD {
          */
 
 
-    /*
-   public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
-    {
-        String rta = "";
-        Date fechaActualDelSistema = new Date();
 
-        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.entrySetIterator();
-        while (entryIterator.hasNext()) {
-            Map.Entry<Cliente, HashSet<Reserva>> reservaMapa = entryIterator.next();
-            HashSet<Reserva> reservas = reservaMapa.getValue();
-            Iterator<Reserva> reservaIterator = reservas.iterator();
-            while (reservaIterator.hasNext()) {
-                Reserva reservaAux = reservaIterator.next();
-                if (fechaActualDelSistema.getDay() == reservaAux.getCliente().getFechaFinal().getDay() && fechaActualDelSistema.getMonth() == reservaAux.getCliente().getFechaFinal().getMonth() && (fechaActualDelSistema.getYear() + 1900) == (reservaAux.getCliente().getFechaFinal().getYear() + 1900)) {
-                    rta += reservaAux.toString() + "\n";
-                }
-            }
-        }
-        if (rta.equalsIgnoreCase("")) {
-            rta = "No hay reservas que concluyan el dia de hoy..";
-        } else {
-            rta += "Recuerda agregar la valoracion de la estadia!";
-        }
-
-        return rta;
-    }
-
-     */
     public Reserva buscarReservaPorClienteYAlojamiento(Cliente cliente, Alojamiento alojamiento) {
         HashSet<Reserva> reservas = hashMapCliente.getReserva(cliente);
         Reserva reservaRetornada = null;
@@ -471,6 +446,7 @@ public class BookingACD {
 
 
         JSONArray ja = new JSONArray();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Iterator<Cliente> iterator = clienteHashSet.iterator();//iterator de hashSetcliente
 
         while (iterator.hasNext()) {//recorremos hashset
@@ -485,8 +461,10 @@ public class BookingACD {
                 jo.put("correoElectronico", cliente.getCorreoElectronico());
                 jo.put("medioDePago", cliente.getMedioDePago());
                 jo.put("cantPersonas", cliente.getCantPersonas());
+                jo.put("fechaInicio", dateFormat.format(cliente.getFechaInicio()));
+                jo.put("fechaFinal", dateFormat.format(cliente.getFechaFinal()));
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
             ja.put(jo);
         }
@@ -541,7 +519,7 @@ public class BookingACD {
             joAlojamientos.put("Departamento", jaDepto);
             joAlojamientos.put("HabitacionesHotel", jaHabHotel);
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         JsonUtiles.grabar(joAlojamientos, "alojamientos");//lo grabo.
 
@@ -551,81 +529,81 @@ public class BookingACD {
 
     ///CREACION DEL JSON DE RESERVAS A PARTIR DE UN HASH SET
     public void jsonReservas() {
+        JSONArray jaReservas = new JSONArray(); // ESTE SERA MI JSON ARRAY DE RESERVAS
+        Iterator<Reserva> iterator = reservaHashSet.iterator(); // MI ITERATOR DE HASHSET RESERVA
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-
-        JSONArray jaReservas = new JSONArray();//ESTE SERA MIJSON ARRAY DE RESERVAS
-        Iterator<Reserva> iterator = reservaHashSet.iterator();///MI ITERATOR DE HASHSET RESERVA
         while (iterator.hasNext()) {
-            ///CREAMOS T VARIABLES DE CLIENTE Y ALOJAMIENTO CON SU RSPECTIVO CONTENIDO BASADO EN SU RESERVA HACIENDO EL GET, PARA MODULARIZAR
+            // CREAMOS T VARIABLES DE CLIENTE Y ALOJAMIENTO CON SU RESPECTIVO CONTENIDO BASADO EN SU RESERVA HACIENDO EL GET, PARA MODULARIZAR
             Reserva reserva = iterator.next();
             Cliente cliente = reserva.getCliente();
             Alojamiento alojamiento = reserva.getAlojamiento();
-            ////CREAMOS UN JSON OBJECT POR CADA HASHSET PARA QUE APAREZCA UN STRING ANTES DEL OBJETO EN JSON Y QUE QUEDE MAS MODULARIZADO Y MASORGANIZADO
+            // CREAMOS UN JSON OBJECT POR CADA HASHSET PARA QUE APAREZCA UN STRING ANTES DEL OBJETO EN JSON Y QUE QUEDE MAS MODULARIZADO Y MAS ORGANIZADO
             JSONObject joReserva = new JSONObject();
             JSONObject joCliente = new JSONObject();
             JSONObject joAloj = new JSONObject();
-            {
-                try {
-                    //PRIMERO HAGO EL PUT DE LOS ATRIBUTOS DE RESERVA PARA QUE SEA LO PRIMERO QUE SE VEA EN EL JSON
-                    joReserva.put("preciototal", reserva.getPrecioTotal());
-                    joReserva.put("pin", reserva.getPin());
+            try {
+                // PRIMERO HAGO EL PUT DE LOS ATRIBUTOS DE RESERVA PARA QUE SEA LO PRIMERO QUE SE VEA EN EL JSON
+                joReserva.put("preciototal", reserva.getPrecioTotal());
+                joReserva.put("pin", reserva.getPin());
 
-                    ///ATRIBUTOS DE ALOJAMIENTO
-                    joAloj.put("PrecioXAlojar", alojamiento.getPrecioXAlojar());
-                    joAloj.put("valoracion", alojamiento.getValoracion());
-                    joAloj.put("cantReservas", alojamiento.getCantReservas());
-                    joAloj.put("descripcion", alojamiento.getDescripcion());
-                    joAloj.put("nombre", alojamiento.getNombre());
-                    joAloj.put("direccion", alojamiento.getDireccion());
-                    joAloj.put("zona", alojamiento.getZona());
-                    joAloj.put("comentarios", alojamiento.getComentarios());
-                    joAloj.put("estado", alojamiento.getEstado());
+                // ATRIBUTOS DE ALOJAMIENTO
+                joAloj.put("PrecioXAlojar", alojamiento.getPrecioXAlojar());
+                joAloj.put("valoracion", alojamiento.getValoracion());
+                joAloj.put("cantReservas", alojamiento.getCantReservas());
+                joAloj.put("descripcion", alojamiento.getDescripcion());
+                joAloj.put("nombre", alojamiento.getNombre());
+                joAloj.put("direccion", alojamiento.getDireccion());
+                joAloj.put("zona", alojamiento.getZona());
+                joAloj.put("comentarios", alojamiento.getComentarios());
+                joAloj.put("estado", alojamiento.getEstado());
 
-                    if (alojamiento instanceof Departamento) {
-                        joAloj.put("tipo", "Departamento");
-                        joAloj.put("numeroPiso", ((Departamento) alojamiento).getNumeroPiso());
-                        joAloj.put("tamañoDepartamento", ((Departamento) alojamiento).getTamañoDepartamento());
-                        joAloj.put("servicioExtra", ((Departamento) alojamiento).getServicioExtra());
+                if (alojamiento instanceof Departamento) {
+                    joAloj.put("tipo", "Departamento");
+                    joAloj.put("numeroPiso", ((Departamento) alojamiento).getNumeroPiso());
+                    joAloj.put("tamañoDepartamento", ((Departamento) alojamiento).getTamañoDepartamento());
+                    joAloj.put("servicioExtra", ((Departamento) alojamiento).getServicioExtra());
 
-                    } else if (alojamiento instanceof HabitacionHotel) {
-                        joAloj.put("tipo", "HabitacionHotel");
-                        joAloj.put("servicios", ((HabitacionHotel) alojamiento).getServicios());
-                        joAloj.put("tipoHabitacion", ((HabitacionHotel) alojamiento).getTipoHabitacion());
-                        joAloj.put("numeroHabitacion", ((HabitacionHotel) alojamiento).getNumeroHabitacion());
-
-                    }
-
-                    ///REALIZO EL PUT DE ALOJAMIENTO EN MI JSON OBJECT DE RESERVA
-                    joReserva.put("alojamiento", joAloj);
-                    ///ATRIBUTOS DE CLIENTE
-                    joCliente.put("nombre", cliente.getNombre());
-                    joCliente.put("apellido", cliente.getApellido());
-                    joCliente.put("correoElectronico", cliente.getCorreoElectronico());
-                    joCliente.put("medioDePago", cliente.getMedioDePago());
-                    joCliente.put("cantPersonas", cliente.getCantPersonas());
-                    ///REALIZO EL PUT DE MIJSONOBJECT DE CLIENTE
-                    joReserva.put("cliente", joCliente);
-
-
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                } else if (alojamiento instanceof HabitacionHotel) {
+                    joAloj.put("tipo", "HabitacionHotel");
+                    joAloj.put("servicios", ((HabitacionHotel) alojamiento).getServicios());
+                    joAloj.put("tipoHabitacion", ((HabitacionHotel) alojamiento).getTipoHabitacion());
+                    joAloj.put("numeroHabitacion", ((HabitacionHotel) alojamiento).getNumeroHabitacion());
                 }
+
+                // REALIZO EL PUT DE ALOJAMIENTO EN MI JSON OBJECT DE RESERVA
+                joReserva.put("alojamiento", joAloj);
+
+                // ATRIBUTOS DE CLIENTE
+                joCliente.put("nombre", cliente.getNombre());
+                joCliente.put("apellido", cliente.getApellido());
+                joCliente.put("correoElectronico", cliente.getCorreoElectronico());
+                joCliente.put("medioDePago", cliente.getMedioDePago());
+                joCliente.put("cantPersonas", cliente.getCantPersonas());
+                joCliente.put("fechaInicio", dateFormat.format(cliente.getFechaInicio()));
+                joCliente.put("fechaFinal", dateFormat.format(cliente.getFechaFinal()));
+
+                // REALIZO EL PUT DE MI JSON OBJECT DE CLIENTE
+                joReserva.put("cliente", joCliente);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            //A MI JSON ARRAY LE ASIGNO MI JSONOBJECT DE RESERVA
+
+            // A MI JSON ARRAY LE ASIGNO MI JSON OBJECT DE RESERVA
             jaReservas.put(joReserva);
         }
+
         JSONObject joReserva = new JSONObject();
-        ///CREO UN NUEVOJSON OBJECT QUE VA ATENER MI JSONARRAY
+        // CREO UN NUEVO JSON OBJECT QUE VA A TENER MI JSON ARRAY
         try {
             joReserva.put("reserva", jaReservas);
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
-        ///GRABO
+
+        // GRABO
         JsonUtiles.grabar(joReserva, "reserva");
         // System.out.println((JsonUtiles.leer("reserva")));
-
-
     }
 
     ///PASAR DE JSON A JAVA. CLIENTE
@@ -633,13 +611,14 @@ public class BookingACD {
 
         //leo mi archivo que contiene el json.
         String rta = JsonUtiles.leer("clientes");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         //CREO UN JSONARRAY Y UN JSONOBJECT
         JSONArray JA = null;
         //ASIGNO MI STRING QUE CONTENDRA EL CONTENIDO DE MI JSONCLIENTE
         try {
             JA = new JSONArray(rta);
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         JSONObject jo = new JSONObject();
 /// RECORRO ARRAY
@@ -655,10 +634,17 @@ public class BookingACD {
                 cliente.setCorreoElectronico(jo.getString("correoElectronico"));
                 cliente.setMedioDePago(jo.getString("medioDePago"));
                 cliente.setCantPersonas(jo.getInt("cantPersonas"));
+                try {
+                    cliente.setFechaInicio(dateFormat.parse(jo.getString("fechaInicio")));
+                    cliente.setFechaFinal(dateFormat.parse(jo.getString("fechaFinal")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 //Añado a mi HashSet
                 clienteHashSet.agregar(cliente);
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
 
         }
@@ -677,7 +663,7 @@ public class BookingACD {
             jo = new JSONObject(rta);
 
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         JSONArray jsonArrayDepto = new JSONArray();
         JSONArray jsonArrayHotel = new JSONArray();
@@ -686,7 +672,7 @@ public class BookingACD {
             jsonArrayDepto = jo.getJSONArray("Departamento");
             jsonArrayHotel = jo.getJSONArray("HabitacionesHotel");
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         //Instancio mi objeto
 
@@ -713,7 +699,7 @@ public class BookingACD {
                 Depto.setServicioExtra(joDepto.getString("servicioExtra"));
                 agregarAlojamiento(Depto);
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
             //Añado a mi HashSet
 
@@ -739,7 +725,7 @@ public class BookingACD {
                 agregarAlojamiento(Hotel);
 
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
             //Añado a mi HashSet
 
@@ -753,61 +739,82 @@ public class BookingACD {
 
         ///leemos nuestro archivo reserva, esto nos retorna un string
         String rta = JsonUtiles.leer("reserva");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         JSONObject jo = null;
         ///creamos nuestro JSONOBject con el contenido de nuestro string que contenia el jsonobject
         try {
             jo = new JSONObject(rta);
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         JSONArray JA = new JSONArray();
         ///creamos nuestro jsonarray y lo cargamos con el jsonarray de nombre "reserva" que contiene nustro jsonobject
         try {
             JA = jo.getJSONArray("reserva");
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         /// recorremos nuestro array.
         for (int i = 0; i < JA.length(); i++) {
             try {
-                ///en cada iteracion se creara un jsonobject con los objetos que tenga nuestro jsonarray en cada posicion
                 JSONObject joReserva = JA.getJSONObject(i);
-                ///creamos una instancia de reserva en cada iteracion
                 Reserva reserva = new Reserva();
 
-                ///atributos que compondran nuestra reserva
                 reserva.setPin(UUID.fromString(joReserva.getString("pin")));
                 reserva.setPrecioTotal(joReserva.getDouble("preciototal"));
-                reserva.getCliente().setNombre(joReserva.getString("nombre"));
-                reserva.getCliente().setApellido(joReserva.getString("apellido"));
-                reserva.getCliente().setCorreoElectronico(joReserva.getString("correoElectronico"));
-                reserva.getCliente().setMedioDePago(joReserva.getString("medioDePago"));
-                reserva.getCliente().setCantPersonas(joReserva.getInt("cantPersonas"));
 
-                reserva.getAlojamiento().setPrecioXAlojar(joReserva.getDouble("PrecioXAlojar"));
-                reserva.getAlojamiento().setValoracion(joReserva.getDouble("valoracion"));
-                reserva.getAlojamiento().setCantReservas(joReserva.getInt("cantReservas"));
-                reserva.getAlojamiento().setDescripcion(joReserva.getString("descripcion"));
-                reserva.getAlojamiento().setNombre(joReserva.getString("nombre"));
-                reserva.getAlojamiento().setDireccion(joReserva.getString("direccion"));
-                reserva.getAlojamiento().setZona(joReserva.getString("zona"));
-                reserva.getAlojamiento().setComentarios(joReserva.getString("comentarios"));
-                reserva.getAlojamiento().setEstado(EstadoAlojamiento.valueOf(joReserva.getString("estado")));
-             /// instance of porque hay metodos propios de departamento o habitacion hotel
-                if (reserva.getAlojamiento() instanceof Departamento) {
+                JSONObject joCliente = joReserva.getJSONObject("cliente");
+                Cliente cliente = new Cliente();
+                cliente.setNombre(joCliente.getString("nombre"));
+                cliente.setApellido(joCliente.getString("apellido"));
+                cliente.setCorreoElectronico(joCliente.getString("correoElectronico"));
+                cliente.setMedioDePago(joCliente.getString("medioDePago"));
+                cliente.setCantPersonas(joCliente.getInt("cantPersonas"));
+                try {
+                    cliente.setFechaInicio(dateFormat.parse(joCliente.getString("fechaInicio")));
+                    cliente.setFechaFinal(dateFormat.parse(joCliente.getString("fechaFinal")));
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
 
-                    ((Departamento) reserva.getAlojamiento()).setNumeroPiso(joReserva.getInt("numeroPiso"));
-                    ((Departamento) reserva.getAlojamiento()).setTamañoDepartamento(joReserva.getInt("tamañoDepartamento"));
-                    ((Departamento) reserva.getAlojamiento()).setServicioExtra(joReserva.getString("servicioExtra"));
-                } else if (reserva.getAlojamiento() instanceof HabitacionHotel) {
-                    ((HabitacionHotel) reserva.getAlojamiento()).setServicios(joReserva.getString("servicios"));
-                    ((HabitacionHotel) reserva.getAlojamiento()).setTipoHabitacion(joReserva.getString("tipoHabitacion"));
-                    ((HabitacionHotel) reserva.getAlojamiento()).setNumeroHabitacion(joReserva.getInt("numeroHabitacion"));
+                reserva.setCliente(cliente);
+
+                JSONObject joAlojamiento = joReserva.getJSONObject("alojamiento");
+                Alojamiento alojamiento=null;
+                String tipoAlojamiento = joAlojamiento.getString("tipo");
+
+                if ("HabitacionHotel".equals(tipoAlojamiento)) {
+                    alojamiento = new HabitacionHotel();
+                    ((HabitacionHotel) alojamiento).setServicios(joAlojamiento.getString("servicios"));
+                    ((HabitacionHotel) alojamiento).setTipoHabitacion(joAlojamiento.getString("tipoHabitacion"));
+                    ((HabitacionHotel) alojamiento).setNumeroHabitacion(joAlojamiento.getInt("numeroHabitacion"));
+                } else if ("Departamento".equals(tipoAlojamiento)) {
+                    alojamiento = new Departamento();
+                    ((Departamento) alojamiento).setNumeroPiso(joAlojamiento.getInt("numeroPiso"));
+                    ((Departamento) alojamiento).setTamañoDepartamento(joAlojamiento.getInt("tamañoDepartamento"));
+                    ((Departamento) alojamiento).setServicioExtra(joAlojamiento.getString("servicioExtra"));
+                }
+
+                if (alojamiento != null) {
+                    alojamiento.setDescripcion(joAlojamiento.getString("descripcion"));
+                    alojamiento.setEstado(EstadoAlojamiento.valueOf(joAlojamiento.getString("estado")));
+                    alojamiento.setDireccion(joAlojamiento.getString("direccion"));
+                    alojamiento.setValoracion(joAlojamiento.getDouble("valoracion"));
+                    alojamiento.setNombre(joAlojamiento.getString("nombre"));
+                    alojamiento.setPrecioXAlojar(joAlojamiento.getDouble("PrecioXAlojar"));
+                    alojamiento.setZona(joAlojamiento.getString("zona"));
+                    alojamiento.setCantReservas(joAlojamiento.getInt("cantReservas"));
+                    alojamiento.setComentarios(joAlojamiento.getString("comentarios"));
+                    reserva.setAlojamiento(alojamiento);
+
+                    // Añadir reserva a las colecciones correspondientes
+                    hashMapAlojamiento.agregar(alojamiento, reserva);
+                    hashMapCliente.agregar(cliente, reserva);
+                    reservaHashSet.agregar(reserva);
                 }
             } catch (JSONException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
-
         }
     }
 }
