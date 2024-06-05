@@ -132,7 +132,7 @@ public class Cliente implements Serializable {
         Date aux= new Date();
         int mesinicioAux= fechaInicio.getMonth()+1, mesFinalAux = fechaFinal.getMonth()+1, anioInicio = fechaInicio.getYear()+1900, anioFin=fechaFinal.getYear()+1900;
 
-        if(fechaInicio.after(aux)){ //si el año actual -1900 es distinto de lo que guarda el getYear de un Date(124 si es 2024 etc), significa que ya esta asignada una fecha, por lo que la muestra
+        if(fechaInicio.before(aux)){ //si el año actual -1900 es distinto de lo que guarda el getYear de un Date(124 si es 2024 etc), significa que ya esta asignada una fecha, por lo que la muestra
             rta= "fechaInicio= "+fechaInicio.getDate()+" / "+mesinicioAux+" / "+anioInicio +
                     " fechaFinal= "+fechaFinal.getDate()+" / "+mesFinalAux+" / "+anioFin;
         }
