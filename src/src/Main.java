@@ -16,12 +16,13 @@ public class Main {
 
 
         BookingACD nuevoBooking = new BookingACD();
-       nuevoBooking.pasarArchiAMapa("ArchivoCliente"); // (se carga mapas)esta funcion se debe usar de manera unica con cualquier archivo ya sea cliente o alojamiento.nuevoBooking.jsonAJavaClientes(); //se carga set cliente
+      nuevoBooking.pasarArchiAMapa("ArchivoCliente"); // (se carga mapas)esta funcion se debe usar de manera unica con cualquier archivo ya sea cliente o alojamiento.nuevoBooking.jsonAJavaClientes(); //se carga set cliente
        nuevoBooking.jsonAJavaAlojamiento();//se carga set alojamiento
         nuevoBooking.jsonAJavaReserva();
-        System.out.println(nuevoBooking.getHashMapCliente());
+        nuevoBooking.jsonAJavaClientes();
         System.out.println(nuevoBooking.getHashMapAlojamiento());
-        System.out.println(nuevoBooking.getReservaHashSet());
+        System.out.println(nuevoBooking.getHashMapCliente());
+       // System.out.println(nuevoBooking.getHashMapCliente());
         menu(nuevoBooking);
         nuevoBooking.guardarDatosEnArchi("ArchivoCliente","ArchivoAlojamiento");//se guardan datos en el archivo
         nuevoBooking.jsonCliente();
@@ -60,40 +61,50 @@ public class Main {
                 case 2:
                     alojamientoAux = cargarAlojamiento();
                     nuevoBooking.agregarAlojamiento(alojamientoAux);
-
+                    //scan.nextLine();
                     break;
                 case 3:
                    String apellidoAux="";
-                    if (!nuevoBooking.getClienteHashSet().isEmpty()){
-                        do {
-                            System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo: ");
+                    if (!nuevoBooking.getClienteHashSet().isEmpty()) {
+                        do{
+                            System.out.println("Desea usar los clientes ya cargados o cargar uno nuevo?: (1 para uno cargado, 2 para uno nuevo)");
                             auxInt = scan.nextInt();
-                            if (auxInt == 1) {
-                                System.out.println("Clientes ya cargados: ");
-                                System.out.println(nuevoBooking.getClienteHashSet().toString());
-                                System.out.println("Ingrese el nombre del cliente que quiere elegir: ");
-                                stringAux = scan.next();
-                                System.out.println("Ingrese el apellido del cliente");
-                                apellidoAux=scan.next();
-                                while (nuevoBooking.buscarClientePorNombre(stringAux, apellidoAux) == null) {
+                            scan.nextLine();
+
+                            if(auxInt == 1){
+                                boolean clienteEncontrado = false;
+
+                                while(!clienteEncontrado){
+                                    System.out.println("Clientes ya cargados: ");
                                     System.out.println(nuevoBooking.getClienteHashSet().toString());
-                                    System.out.println("Nombre de cliente incorecto, Favor de elegir un nombre valido:");
-                                    stringAux = scan.next();
+
+                                    System.out.println("Ingrese el nombre del cliente que quiere elegir: ");
+                                    stringAux = scan.nextLine();
+
+                                    System.out.println("Ingrese el apellido del cliente: ");
+                                    apellidoAux = scan.nextLine();
+
+                                    clienteAux = nuevoBooking.buscarClientePorNombre(stringAux, apellidoAux);
+
+                                    if(clienteAux != null){
+                                        clienteEncontrado = true;
+                                        System.out.println("Cliente encontrado! Se le asignará la reserva al cliente: " + clienteAux);
+                                        preguntarEstadia(clienteAux);
+                                    }else{
+                                        System.out.println("Nombre de cliente incorrecto, por favor elija un nombre válido:");
+                                    }
                                 }
-                                clienteAux = nuevoBooking.buscarClientePorNombre(stringAux, apellidoAux);
-                                System.out.println("Cliente encontrado!. Se le asignara la reserva al cliente: " + clienteAux);
-                                preguntarEstadia(clienteAux);
                             }else if(auxInt == 2){
                                 System.out.println("Carga de cliente nuevo:");
                                 clienteAux= cargaCliente();
                                 nuevoBooking.agregarCliente(clienteAux);
                                 preguntarEstadia(clienteAux);
 
-                            } else {
+                            }else{
                                 System.out.println("Error al ingresar, favor de ingresar solamente el boton 1 o el 2.");
                                 auxInt = scan.nextInt();
                             }
-                        } while (auxInt != 1 && auxInt != 2);
+                        }while (auxInt != 1 && auxInt != 2);
 
                     } else{
                         System.out.println("No hay clientes cargados, cargue uno para poder continuar.");
@@ -102,7 +113,7 @@ public class Main {
                         preguntarEstadia(clienteAux);
                     }
 
-                    if (!nuevoBooking.getAlojamientoHashSet().isEmpty()) {
+                    if (!nuevoBooking.getAlojamientoHashSet().isEmpty()){
                         do {
                             System.out.println("Desea usar los alojamientos ya cargados o cargar uno nuevo? (1 usar ya cargado, 2 cargar nuevo): ");
                             auxInt = scan.nextInt();
@@ -256,6 +267,7 @@ public class Main {
             System.out.println("Desea volver al menu? (si/no)");
             inicio = scan.next().charAt(0);
         }
+        scan.close();
     }
     public static void preguntarEstadia(Cliente cliente) { //pregunta la estadia al usuario, cuando se quiera reservar
         int diaInicio = 0, diaFin = 0, mesInicio = 0, mesFin = 0, anioAux = 0;
@@ -284,49 +296,71 @@ public class Main {
         cliente.asignarFecha(diaInicio, diaFin, mesInicio, mesFin, añoInicio, añoFin);
 
     }
-    public static Alojamiento cargarAlojamiento()
-    {
-        Alojamiento nuevo= null;
-        String tipoAux="";
-        int numeroPiso=0,numeroHabitacion=0, tamaño=0;
-        double precioXalojar=0;
+    public static Alojamiento cargarAlojamiento(){
+        Alojamiento nuevo = null;
+        String tipoAux = "";
+        int numeroPiso = 0, numeroHabitacion = 0, tamaño = 0;
+        double precioXalojar = 0;
         String nombreAlojamiento, descripcion, direccion, zona, comentarios, serviciosExtras, tipoHabitacion;
+
+        Scanner scan = new Scanner(System.in);
+
         System.out.println("Ingrese el nombre del alojamiento: ");
-        nombreAlojamiento=scan.next();
+        nombreAlojamiento = scan.nextLine();
         System.out.println("Ingrese la direccion: ");
-        scan.nextLine();
-        direccion=scan.next();
+        direccion = scan.nextLine();
         System.out.println("Ingrese la zona: ");
-        zona= scan.next();
+        zona = scan.nextLine();
         System.out.println("Ingrese una breve descripcion: ");
-        descripcion= scan.next();
+        descripcion = scan.nextLine();
         System.out.println("Ingrese algun comentario a agregar: ");
-        comentarios=scan.next();
+        comentarios = scan.nextLine();
         System.out.println("Ingrese el precio por alojar: ");
-        precioXalojar=scan.nextDouble();
-        do {
+        while (!scan.hasNextDouble()) {
+            System.out.println("Por favor, ingrese un número válido para el precio por alojar:");
+            scan.next();
+        }
+        precioXalojar = scan.nextDouble();
+        scan.nextLine();
+        do{
             System.out.println("Desea ingresar un Departamento o una Habitacion de Hotel? Ingrese alguna de esas dos palabras segun corresponda: (departamento/habitacion) ");
-            tipoAux=scan.next();
-        }while(!tipoAux.equalsIgnoreCase("departamento") && !tipoAux.equalsIgnoreCase("Habitacion")); //tiene que elegir si o si uno de los dos
+            tipoAux = scan.nextLine();
+        }while (!tipoAux.equalsIgnoreCase("departamento") && !tipoAux.equalsIgnoreCase("Habitacion")); // tiene que elegir sí o sí uno de los dos
+
         if(tipoAux.equalsIgnoreCase("departamento")){
             System.out.println("Ingrese el tamaño del Departamento: ");
-            tamaño= scan.nextInt();
+            while (!scan.hasNextInt()){
+                System.out.println("Por favor, ingrese un número válido para el tamaño:");
+                scan.next();
+            }
+            tamaño = scan.nextInt();
+            scan.nextLine();
             System.out.println("Ingrese el numero de piso: ");
-            numeroPiso= scan.nextInt();
+            while(!scan.hasNextInt()){
+                System.out.println("Por favor, ingrese un número válido para el número de piso:");
+                scan.next();
+            }
+            numeroPiso = scan.nextInt();
+            scan.nextLine();
             System.out.println("Ingrese (si tiene) servicios Extras: ");
-            serviciosExtras= scan.next();
+            serviciosExtras = scan.nextLine();
             nuevo = new Departamento(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, EstadoAlojamiento.DISPONIBLE, numeroPiso, tamaño, serviciosExtras);
-        }else{
+        }else if(tipoAux.equalsIgnoreCase("Habitacion")){
             System.out.println("Ingrese el numero de Habitacion: ");
-            numeroHabitacion=scan.nextInt();
+            while (!scan.hasNextInt()) {
+                System.out.println("Por favor, ingrese un número válido para el número de habitación:");
+                scan.next();
+            }
+            numeroHabitacion = scan.nextInt();
+            scan.nextLine();
+
             System.out.println("Ingrese el tipo de habitacion: ");
-            tipoHabitacion=scan.next();
-            System.out.println("Ingrese los servicios extras:  ");
-            serviciosExtras=scan.next();
+            tipoHabitacion = scan.nextLine();
+            System.out.println("Ingrese los servicios extras: ");
+            serviciosExtras = scan.nextLine();
             nuevo = new HabitacionHotel(precioXalojar, descripcion, nombreAlojamiento, direccion, zona, comentarios, EstadoAlojamiento.DISPONIBLE, serviciosExtras, tipoHabitacion, numeroHabitacion);
         }
 
-        //Alojamiento nuevo = new Departamento(20,"ads","gonza","22","corriente","nada",true,2,2,12,"no");
         return nuevo;
     }
     public static Cliente cargaCliente()
