@@ -455,8 +455,42 @@ public class BookingACD {
         }
         return rta;
     }
-
-
+    public String mostrarAlojamientoDeMayorValAMenorVal()
+    {
+        String rta="";
+        double valoracionAux=5;
+        double aRestar = 0.5;
+        Iterator<Alojamiento> nuevoIterator = alojamientoHashSet.iterator();
+        double contador=10;
+        for(contador=10; contador>0 ; contador--) //realizo una iteracion de 10 veces
+        {
+            while (nuevoIterator.hasNext()) // recorro siempre el set para agregar las reservas en orden
+            {
+                Alojamiento auxAlojamiento =nuevoIterator.next(); //creo copia del alojamiento
+                if(auxAlojamiento.getValoracion() == valoracionAux) //comparo la valoracion
+                {
+                    rta+=auxAlojamiento.toString(); //si corresponde la valoracion la cargo
+                }
+            }
+            valoracionAux = valoracionAux-aRestar; //recien
+        }
+        if(rta.equals(""))
+        {
+            rta+="No hay puntuacion en las valoraciones aun.";
+        }
+        return rta;
+    }
+    public double devolverTotalRecaudado()
+    {
+        double totalRecaudado = 0;
+        Iterator<Reserva> nuevoIterator = reservaHashSet.iterator();
+        while (nuevoIterator.hasNext())
+        {
+            Reserva auxReserva = nuevoIterator.next();
+            totalRecaudado += auxReserva.getPrecioTotal();
+        }
+        return totalRecaudado;
+    }
 ///JSON
 
     //CREACION DEL JSON DE CLIENTE A PARTIR DE UN HASHSET

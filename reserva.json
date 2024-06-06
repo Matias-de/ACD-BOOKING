@@ -27,6 +27,90 @@
         "cantReservas": 3,
         "comentarios": ""
       }
+    },
+    {
+      "cliente": {
+        "fechaInicio": "2024-10-30",
+        "apellido": "Tapia",
+        "fechaFinal": "2024-11-17",
+        "cantPersonas": 5,
+        "nombre": "Chiqui",
+        "correoElectronico": "chiqui@gmail.com",
+        "medioDePago": "Transferencia"
+      },
+      "pin": "46385d04-8807-4e76-9529-4076b96512f1",
+      "preciototal": 7260,
+      "alojamiento": {
+        "descripcion": "Hotel Lujoso con patio grande, piscina y quincho. 4 habitaciones. 3 baños. Garage. Cancha de Futbol",
+        "estado": "RESERVADO",
+        "tipo": "HabitacionHotel",
+        "numeroHabitacion": 343,
+        "direccion": "Av. Patricio Peralta Ramos 576",
+        "valoracion": 2.5,
+        "tipoHabitacion": "premium",
+        "nombre": "Hotel Costa Galana",
+        "servicios": "Cancha de Futbol. Servicio a la Habitacion. Internet. Sala de juegos. Gimnasio",
+        "PrecioXAlojar": 6000,
+        "zona": "Costanera",
+        "cantReservas": 5,
+        "comentarios": ""
+      }
+    },
+    {
+      "cliente": {
+        "fechaInicio": "2024-09-05",
+        "apellido": "Canevello",
+        "fechaFinal": "2024-09-10",
+        "cantPersonas": 1,
+        "nombre": "Andres",
+        "correoElectronico": "topovello@gmail.com",
+        "medioDePago": "Tarjeta"
+      },
+      "pin": "e0751ea6-4e9d-441c-a743-28fb10cb3a9e",
+      "preciototal": 3025,
+      "alojamiento": {
+        "descripcion": "Balcon.Piscina.3 Habitaciones. Pequeño patio",
+        "estado": "RESERVADO",
+        "tipo": "HabitacionHotel",
+        "numeroHabitacion": 60,
+        "direccion": "Av. Colon 2434",
+        "valoracion": 3.5,
+        "tipoHabitacion": "triple",
+        "nombre": "Hotel Artico",
+        "servicios": "Parrila. Internet. Piscina. Limpieza",
+        "PrecioXAlojar": 2500,
+        "zona": "Costanera y Colon",
+        "cantReservas": 3,
+        "comentarios": ""
+      }
+    },
+    {
+      "cliente": {
+        "fechaInicio": "2025-01-02",
+        "apellido": "de Andrade",
+        "fechaFinal": "2025-01-10",
+        "cantPersonas": 2,
+        "nombre": "Gonzalo",
+        "correoElectronico": "gonza1231@gmail.com",
+        "medioDePago": "Efectivo"
+      },
+      "pin": "488686fe-b4f5-4c9b-b4d7-66fd5f260005",
+      "preciototal": 1573,
+      "alojamiento": {
+        "descripcion": "Balcon.Comodo.Monoambiente.Economico",
+        "estado": "RESERVADO",
+        "tipo": "HabitacionHotel",
+        "numeroHabitacion": 377,
+        "direccion": "Guemes 1374",
+        "valoracion": 4.5,
+        "tipoHabitacion": "economica",
+        "nombre": "Hotel Dodo",
+        "servicios": "Desayuno incluido.",
+        "PrecioXAlojar": 1300,
+        "zona": "Guemes",
+        "cantReservas": 4,
+        "comentarios": ""
+      }
     }
   ]
 }

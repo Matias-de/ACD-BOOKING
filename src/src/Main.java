@@ -21,16 +21,14 @@ public class Main {
 //        System.out.println(nuevoBooking.getHashMapCliente());
         // System.out.println(nuevoBooking.getHashMapCliente());
         menu(nuevoBooking);
-        nuevoBooking.guardarDatosEnArchi("ArchivoCliente", "ArchivoAlojamiento");//se guardan datos en el archivo
-        nuevoBooking.jsonCliente();
-        nuevoBooking.jsonAlojamiento();
-        nuevoBooking.jsonReservas();
+
     }
 
     public static void opcionesMenu() { //aca pongan las opciones del menu
         System.out.println("BIENVENIDO!");
         System.out.println("Ingrese la opcion que desee realizar:");
         System.out.println("Carga:");
+        System.out.println("\t0)Guardar Cambios.");
         System.out.println("\t1)Cargar un nuevo cliente.");
         System.out.println("\t2)Cargar un alojamiento.");
         System.out.println("\t3)Realizar una reserva.");
@@ -47,7 +45,9 @@ public class Main {
         System.out.println("\t11)Mostrar el alojamiento con la mayor cantidad de Reservas");
         System.out.println("\t12)Mostrar el alojamiento mas caro");
         System.out.println("\t13)Mostrar las reservas por mes");
-        System.out.println("\t14)Mostrar los alojamientos por valoración");
+        System.out.println("\t14)Mostrar los alojamientos por valoración especifica");
+        System.out.println("\t15)Mostrar los alojamientos por valoración de mayor a menor");
+        System.out.println("\t16)Mostrar total recaudado");
 
 
     }
@@ -66,6 +66,12 @@ public class Main {
             opcionesMenu();
             opc = scan.nextInt(); // cargamos la opcion elegida por el administrador
             switch (opc) {
+                case 0:
+                    nuevoBooking.guardarDatosEnArchi("ArchivoCliente", "ArchivoAlojamiento");//se guardan datos en el archivo
+                    nuevoBooking.jsonCliente();
+                    nuevoBooking.jsonAlojamiento();
+                    nuevoBooking.jsonReservas();
+                    break;
                 case 1:
                     Cliente nuevoCliente = cargaCliente();
                     nuevoBooking.agregarCliente(nuevoCliente);
@@ -361,7 +367,6 @@ public class Main {
                     }
                         break;
                 case 14:
-                {
                     double valoracion = 0;
                     do {
                         System.out.println("Ingrese la valoración que desea ver (0/5)");
@@ -371,14 +376,33 @@ public class Main {
                     {
                         System.out.println("No hay alojamientos \n");
                     }
-                    else
-                    {
+                    else {
                         System.out.println(nuevoBooking.mostrarSetAlojamientoXValoracion(valoracion));
                     }
-                }
             break;
-            }
+                case 15:
 
+                    if (nuevoBooking.getAlojamientoHashSet().isEmpty()){
+                        System.out.println("NO HAY ALOJAMIENTOS");
+                    }
+                    else
+                    {
+                        System.out.println("MOSTRANDO ALOJAMIENTOS DE MAYOR VALORACION A MENOR");
+                        System.out.println(nuevoBooking.mostrarAlojamientoDeMayorValAMenorVal());
+                    }
+                    break;
+                case 16:
+
+                    if(nuevoBooking.getReservaHashSet().isEmpty())
+                    {
+                        System.out.println("NO RESERVAS");
+                    }
+                    else {
+
+                        System.out.println("EL TOTAL RECAUDADO ES: ["+nuevoBooking.devolverTotalRecaudado()+"  ]");
+                    }
+                    break;
+            }
             System.out.println("Desea volver al menu? (si/no)");
             inicio = scan.next().charAt(0);
         }
