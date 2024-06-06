@@ -63,6 +63,13 @@ public class Departamento extends Alojamiento  implements Serializable {
                 ", servicioExtra='" + servicioExtra + '\'' +
                 '}';
     }
+    public String listar(){
+        return super.listarAlojamiento()+"Departamento{" +
+                "numeroPiso=" + numeroPiso +
+                ", tamañoDepartamento=" + tamañoDepartamento +
+                ", servicioExtra='" + servicioExtra + '\'' +
+                '}';
+    }
     @Override
     public int hashCode() {
         return 1;

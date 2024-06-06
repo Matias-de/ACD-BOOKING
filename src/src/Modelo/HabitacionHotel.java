@@ -65,6 +65,14 @@ public class HabitacionHotel extends Alojamiento implements Serializable {
                 ", numeroHabitacion=" + numeroHabitacion +
                 '}';
     }
+    public String listar(){
+        return super.listarAlojamiento()+"Habitacion de hotel: " +
+                "servicios='" + servicios + '\'' +
+                ", tipoHabitacion='" + tipoHabitacion + '\'' +
+                ", numeroHabitacion=" + numeroHabitacion +
+                '}';
+    }
+
     @Override
     public boolean equals(Object obj)
     {

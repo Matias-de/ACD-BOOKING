@@ -147,6 +147,19 @@ public abstract class Alojamiento implements Serializable  {
                 ", estado ='"+ estado +'\'' +
                 "}\n";
     }
+    public String listarAlojamiento(){
+        return "\nAlojamiento{" +
+                "precioXAlojar=" + precioXAlojar +
+                ", valoracion=" + valoracion +
+                ", cantidad de Reservas= " + cantReservas+
+                ", descripcion='" + descripcion + '\'' +
+                ", NOMBRE='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                  ", zona='" + zona + '\'' +
+                  ", comentarios='" + comentarios + '\'' +
+                ", estado ='"+ estado +'\'' +
+                "}\n";
+    }
 
     @Override
     public boolean equals(Object obj) {
