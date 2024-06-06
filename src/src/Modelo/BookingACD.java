@@ -381,6 +381,24 @@ public class BookingACD {
         return mayorReservas;
     }
 
+    public Alojamiento buscarAlojamientoMasCaro(){
+        Alojamiento masCaro = null;
+        Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator();
+        while (alojamientoIterator.hasNext()) {
+            Alojamiento aux = alojamientoIterator.next();
+            if(masCaro == null){
+                masCaro = aux;
+            }
+            if(aux.getPrecioXAlojar()> masCaro.getPrecioXAlojar()){
+                masCaro = aux;
+            }
+        }
+        return masCaro;
+    }
+
+
+
+
 
     public Cliente buscarClientePorNombre(String nombre, String apellido) {
         Iterator<Cliente> iterator = clienteHashSet.iterator();
