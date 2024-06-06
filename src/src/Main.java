@@ -268,7 +268,7 @@ public class Main {
 
                     break;
                 case 9:
-
+                    menuModificacionCliente(nuevoBooking);
                     break;
 
                 default:
@@ -477,6 +477,99 @@ public class Main {
         }
 
         return rta;
+    }
+
+    public static void opcionesMenuCliente(){
+
+        System.out.println("1) Modificar nombre");
+        System.out.println("2) Modificar apellido");
+        System.out.println("3) Modificar correo electrónico");
+        System.out.println("4) Modificar medio de pago");
+        System.out.println("5) Modificar cantidad de personas de viaje");
+        System.out.println("6) Mostrar al cliente");
+        System.out.println("0. Volver al menu principal");
+    }
+
+    public static void menuModificacionCliente(BookingACD nuevoBooking){
+
+        System.out.println("Estos son los clientes cargados:");
+        System.out.println(nuevoBooking.getClienteHashSet());
+        System.out.print("Ingrese el nombre del cliente a buscar: ");
+        String nombre = scan.next();
+        System.out.print("Ingrese el apellido del cliente a buscar: ");
+        String apellido = scan.next();
+        Cliente cliente = nuevoBooking.buscarClientePorNombre(nombre, apellido);
+        if(cliente==null){
+            System.out.println("no se encontro al cliente");
+        }else{
+            int opcion=0;
+          do{
+
+
+            opcionesMenuCliente();
+            System.out.println("Ingrese la opcion a realizar: ");
+            opcion = scan.nextInt();
+            switch(opcion) {
+                case 1:
+                    System.out.println("Ingrese el nuevo nombre ");
+                    String nombreAux = scan.next();
+                    cliente.setNombre(nombreAux);
+
+                    break;
+                case 2:
+                    System.out.println("Ingrese el nuevo apellido");
+                    String apellidoAux = scan.next();
+                    cliente.setApellido(apellidoAux);
+                    break;
+                case 3:
+                    String email;
+                    do {
+                        System.out.println("Ingrese el nuevo mail:");
+                        email = scan.nextLine();
+                        cliente.setCorreoElectronico(email);
+                    } while (!email.contains("@") || !email.contains(".com"));
+
+                    break;
+                case 4:
+                    String medioDePago;
+                    do{
+                        System.out.println("Ingrese el nuevo medio de pago (Tarjeta / efectivo / transferencia):");
+                        medioDePago = scan.nextLine();
+                        cliente.setMedioDePago(medioDePago);
+                    }while(!medioDePago.equalsIgnoreCase("tarjeta") && !medioDePago.equalsIgnoreCase("efectivo") && !medioDePago.equalsIgnoreCase("transferencia"));
+
+                    break;
+                case 5:
+                    int cantDePersonas;
+                    do{
+                        System.out.println("Ingrese la cantidad de personas(no mas que 5):");
+                        cantDePersonas= scan.nextInt();
+                        cliente.setCantPersonas(cantDePersonas);
+                    }while(cantDePersonas<0 || cantDePersonas>5);
+
+                    break;
+                case 6:
+                    System.out.println(cliente);
+                case 0:
+                    System.out.println("Volveras al menu principal");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+          }while(opcion!=0);
+
+            nuevoBooking.jsonCliente();
+
+        }
+
+
+
+
+
+
+
+
+
     }
 
 
