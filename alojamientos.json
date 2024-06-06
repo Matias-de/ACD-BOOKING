@@ -47,7 +47,7 @@
     {
       "descripcion": "Gran Balcon. Vista al Lago. 2 habitaciones",
       "servicios": "Desayuno y Merienda incluidas. Parrila 24hs",
-      "PrecioXAlojar": 1500,
+      "PrecioXAlojar": 2500,
       "zona": "Guemes",
       "estado": "DISPONIBLE",
       "numeroHabitacion": 375,
@@ -75,7 +75,7 @@
     {
       "descripcion": "Balcon.Comodo.Monoambiente.Economico",
       "servicios": "Desayuno incluido.",
-      "PrecioXAlojar": 1000,
+      "PrecioXAlojar": 1300,
       "zona": "Guemes",
       "estado": "DISPONIBLE",
       "numeroHabitacion": 377,
