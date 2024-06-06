@@ -28,7 +28,6 @@ public class Main {
         System.out.println("BIENVENIDO!");
         System.out.println("Ingrese la opcion que desee realizar:");
         System.out.println("Carga:");
-        System.out.println("\t0)Guardar Cambios.");
         System.out.println("\t1)Cargar un nuevo cliente.");
         System.out.println("\t2)Cargar un alojamiento.");
         System.out.println("\t3)Realizar una reserva.");
@@ -48,6 +47,8 @@ public class Main {
         System.out.println("\t14)Mostrar los alojamientos por valoración especifica");
         System.out.println("\t15)Mostrar los alojamientos por valoración de mayor a menor");
         System.out.println("\t16)Mostrar total recaudado");
+        System.out.println("---------------------------");
+        System.out.println("\t0)Guardar Cambios.");
 
 
     }
