@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -410,33 +411,26 @@ public class Main {
 
     }
 
-    public static boolean validarIngresoFecha(int dia, int mes){ //valida que el dia y el mes sean reales y correspondan a una fecha que exista
-        boolean rta=true; //bandera
-        int diaMaximoDelMes = 0;
-        if(dia>31){
-            System.out.println("ERROR, no existen meses mayores a 31 dias..");
-            rta = false; //false= rebota y pide denuevo los datos
-        }else if(mes<1 || mes>12){ //verifica que los meses sean validos
-            System.out.println("ERROR, el dia no corresponde al mes..");
-            rta=false;
+    public static boolean validarIngresoFecha(int dia, int mes) {
+        boolean flag=true; //bandera
+        if(mes < 1 || mes > 12){ //si el mes es invalido tira mensaje de error
+            System.out.println("ERROR: El mes debe estar entre 1 y 12.");
+            flag= false;
+        }else if(dia < 1 || dia > 31){ //sino si el mes esta bien pero el dia no corresponde tambien tira error
+                System.out.println("ERROR: El día debe estar entre 1 y 31.");
+                flag= false;
         }else{
-            if(mes==1||mes==3||mes==5||mes==7||mes==8||mes==10||mes==12)
-            {
-                diaMaximoDelMes = 31;
-            }
-            else if(mes ==4||mes==6||mes==9||mes==11)
-            {
-                diaMaximoDelMes = 30;
-            }
-            else {
-                diaMaximoDelMes = 28;
-            }
-            if(dia<0 || dia>diaMaximoDelMes){ //si el dia es negativo o si supera el limite del mes
-                System.out.println("ERROR, el dia no corresponde al mes o queres reservar un dia negativo(?");
-                rta=false;
+            //si pasa por aca crea un YearMonth-->Api que toma a las fechas por mes y año sin dia en especifico (ponele mayo del 2033
+            YearMonth yearMonth = YearMonth.of(LocalDate.now().getYear(), mes); //cuando lo creo le asigno el año del localdate y el mes enviado por el usuario
+            int maxDaysInMonth = yearMonth.lengthOfMonth(); //saco la longitud maxima que tiene ese mes
+
+            if (dia > maxDaysInMonth) { //si el dia es mayor tira error
+                System.out.println("ERROR: El dia "+dia+" no corresponde al mes "+mes);//--> chiche
+                flag= false;
             }
         }
-        return rta;
+        
+        return flag;
     }
 
     public static boolean ingresarAnioValidado(int anioAux){ //revisa que el usuario ingrese 1 o 2
