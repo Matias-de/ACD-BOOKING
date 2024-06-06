@@ -347,7 +347,45 @@ public class Main {
                         }
                     }
                     break;
-                    
+                case 10:
+                    System.out.println("Ingrese el nombre del cliente a buscar:");
+                    scan.nextLine();
+                    stringAux = scan.nextLine();
+                    System.out.println("Ingrese el apellido del cliente: ");
+                    apellidoAux = scan.nextLine();
+                    clienteAux = nuevoBooking.buscarClientePorNombre(stringAux, apellidoAux);
+                    if (clienteAux == null) {
+                        System.out.println("No se encontro al cliente.");
+                    } else {
+                        System.out.println(nuevoBooking.getHashMapCliente().mostrarReservasPorClave(clienteAux));
+                    }
+                    break;
+                case 11:
+                    int opAlojamiento = 0;
+                    System.out.println("Ingrese el nombre del alojamiento a buscar: ");
+                    scan.nextLine();
+                    stringAux = scan.nextLine();
+                    ArrayList<Alojamiento> alojamientos = nuevoBooking.buscarAlojamientosPorNombre(stringAux);
+
+                    if(alojamientos.isEmpty()){
+                        System.out.println("Alojamiento no encontrado.");
+                    }else{
+                        System.out.println("Alojamientos encontrados:");
+                        for (int i = 0; i < alojamientos.size(); i++) {
+                            System.out.println((i + 1) + ". " + alojamientos.get(i));
+                        }
+                        System.out.print("Ingrese el numero del alojamiento que desee: ");
+                        opAlojamiento = scan.nextInt();
+                        scan.nextLine();
+
+                        if (opAlojamiento < 1 || opAlojamiento > alojamientos.size()) {
+                            System.out.println("Opción inválida, REINTENTE");
+                        } else {
+                            Alojamiento alojamiento = alojamientos.get(opAlojamiento - 1);
+                            System.out.println(nuevoBooking.getHashMapAlojamiento().mostrarReservasPorClave(alojamiento));
+                        }
+                    }
+                    break;
 
                 case 12:
                     menuModificacionCliente(nuevoBooking);
