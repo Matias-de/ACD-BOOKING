@@ -38,9 +38,9 @@ public class Main {
         System.out.println("3)Realizar una reserva.");
         System.out.println("4)Finalizar una reserva.");
         System.out.println("5)Mostrar las reservas actuales");
-        System.out.println("6)Mostrar Las reservas alguna vez ocurridas en el Sistema.");
-        System.out.println("7)Mostrar los Clientes del Sistema.");
-        System.out.println("8)Mostrar los Alojamientos del Sistema.");
+        System.out.println("6)Mostrar los Clientes del Sistema.");
+        System.out.println("7)Mostrar los Alojamientos del Sistema.");
+        System.out.println("8)Mostrar Las reservas alguna vez ocurridas en el Sistema.");
         System.out.println("9)Ingresar al menu de modificacion de Clientes");
         System.out.println("10)Ingresar al menu de modificacion de alojamientos");
 
@@ -189,8 +189,8 @@ public class Main {
                         stringAux = scan.nextLine();
                     }
                     clienteAux = nuevoBooking.buscarClientePorNombre(stringAux, apellido);
-                    String muestraReservas = nuevoBooking.mostrarReservasDeCliente(clienteAux);
-                    if(muestraReservas.equalsIgnoreCase("cliente no encontrado/sin reservas")){
+                    String muestraReservas = nuevoBooking.getHashMapCliente().mostrarReservasPorClave(clienteAux);
+                    if(muestraReservas.equalsIgnoreCase("No se encontraron reservas para lo ingresado.")){
                         System.out.println("no se encontraron reservas para ese cliente..");
                     }else{
                         System.out.println(muestraReservas);
@@ -245,14 +245,6 @@ public class Main {
                 break;
 
                 case 6:
-                    if (nuevoBooking.getReservaHashSet().isEmpty()) {
-                        System.out.println("no hay reservas en el sistema");
-                    } else {
-                        System.out.println("Reservas realizadas:");
-                        System.out.println(nuevoBooking.mostrarSetReserva());
-                    }
-                    break;
-                case 7:
 
                     if (nuevoBooking.getClienteHashSet().isEmpty()) {
                         System.out.println("No hay clientes cargados en el sitema");
@@ -261,7 +253,7 @@ public class Main {
                         System.out.println(nuevoBooking.getClienteHashSet().toString());
                     }
                     break;
-                case 8:
+                case 7:
 
                     if (nuevoBooking.getAlojamientoHashSet().isEmpty()) {
                         System.out.println("No hay alojamientos cargados en el sistema");
@@ -269,7 +261,14 @@ public class Main {
 
                         System.out.println(nuevoBooking.getAlojamientoHashSet().toString());
                     }
-
+                    break;
+                case 8:
+                if (nuevoBooking.getReservaHashSet().isEmpty()) {
+                        System.out.println("no hay reservas en el sistema");
+                    } else {
+                        System.out.println("Reservas realizadas:");
+                        System.out.println(nuevoBooking.mostrarSetReserva());
+                    }
                     break;
                 case 9:
                     menuModificacionCliente(nuevoBooking);

@@ -320,24 +320,24 @@ public class BookingACD {
         return rta;
     }
 
-    public String mostrarReservasDeCliente(Cliente cliente) { //deberia mostrar las reservas de un cliente
-        String rta = "cliente no encontrado/sin reservas";
-        if (hashMapCliente.buscarElemento(cliente)) {
-            rta = hashMapCliente.getReserva(cliente) + "\n";
-        }
-
-        return rta;
-    }
-
-    //preguntar como hacer para no repetir estas funciones // hay que hacerlo en el la clase map y usar el tipo de dato generico
-    public String mostrarReservasEnAlojamiento(Alojamiento alojamiento) {
-        String rta = "Alojamiento no encontrado/sin reservas";
-        if (hashMapAlojamiento.buscarElemento(alojamiento)) {
-            rta += hashMapAlojamiento.getReserva(alojamiento) + "\n";
-        }
-
-        return rta;
-    }
+//    public String mostrarReservasDeCliente(Cliente cliente) { //deberia mostrar las reservas de un cliente
+//        String rta = "cliente no encontrado/sin reservas";
+//        if (hashMapCliente.buscarElemento(cliente)) {
+//            rta = hashMapCliente.getReserva(cliente) + "\n";
+//        }
+//
+//        return rta;
+//    }
+//
+//    //preguntar como hacer para no repetir estas funciones // hay que hacerlo en el la clase map y usar el tipo de dato generico
+//    public String mostrarReservasEnAlojamiento(Alojamiento alojamiento) {
+//        String rta = "Alojamiento no encontrado/sin reservas";
+//        if (hashMapAlojamiento.buscarElemento(alojamiento)) {
+//            rta += hashMapAlojamiento.getReserva(alojamiento) + "\n";
+//        }
+//
+//        return rta;
+//    }
 
     public String mostrarSetCliente() {
         return clienteHashSet.listar();
