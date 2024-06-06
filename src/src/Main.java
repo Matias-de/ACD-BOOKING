@@ -762,15 +762,16 @@ public class Main {
     }
 
     public static void menuModificacionAlojamiento(BookingACD nuevoBooking) {
-        int opcionAlojamiento = 0, opSwitch = 0;
+        int opcionAlojamiento = 0, opSwitch=0;
+        Alojamiento alojamiento = null;
         System.out.println("Alojamientos disponibles: \n" + nuevoBooking.getAlojamientoHashSet());
         System.out.print("Ingrese el nombre del alojamiento a buscar: ");
         scan.nextLine();
         String nombre = scan.nextLine();
         ArrayList<Alojamiento> alojamientos = nuevoBooking.buscarAlojamientosPorNombre(nombre);
+
         if (alojamientos.isEmpty()) {
             System.out.println("Alojamiento no encontrado.");
-
         } else {
             System.out.println("Alojamientos encontrados:");
             for (int i = 0; i < alojamientos.size(); i++) {
@@ -779,135 +780,135 @@ public class Main {
             System.out.print("Seleccione un alojamiento por su numero: ");
             opcionAlojamiento = scan.nextInt();
             scan.nextLine();
+
             if (opcionAlojamiento < 1 || opcionAlojamiento > alojamientos.size()) {
                 System.out.println("Opción invalida, REINTENTE");
+            } else {
+                alojamiento = alojamientos.get(opcionAlojamiento - 1);
             }
-
         }
-        Alojamiento alojamiento = alojamientos.get(opcionAlojamiento - 1);
-        do {
-            opcionesMenuAlojamiento(alojamiento);
-            System.out.print("Ingrese la opcion ahora:");
-            opSwitch = scan.nextInt();
-            scan.nextLine();
-            switch (opSwitch) {
-                case 1:
-                    System.out.print("Ingrese el nuevo nombre: ");
-                    String nombreAux = scan.nextLine();
-                    alojamiento.setNombre(nombreAux);
-                    break;
-                case 2:
-                    double valoracion;
-                    do {
-                        System.out.print("Ingrese la nueva valoración (0 a 5): ");
-                        valoracion = scan.nextDouble();
+
+        if (alojamiento != null) {
+            do {
+                opcionesMenuAlojamiento(alojamiento);
+                System.out.print("Ingrese la opcion ahora: ");
+                opSwitch = scan.nextInt();
+                scan.nextLine();
+                switch (opSwitch) {
+                    case 1:
+                        System.out.print("Ingrese el nuevo nombre: ");
+                        String nombreAux = scan.nextLine();
+                        alojamiento.setNombre(nombreAux);
+                        break;
+                    case 2:
+                        double valoracion;
+                        do {
+                            System.out.print("Ingrese la nueva valoración (0 a 5): ");
+                            valoracion = scan.nextDouble();
+                            scan.nextLine();
+                        } while (valoracion < 0 || valoracion > 5);
+                        alojamiento.setValoracion(valoracion);
+                        break;
+                    case 3:
+                        System.out.print("Ingrese la nueva descripción: ");
+                        String descripcion = scan.nextLine();
+                        alojamiento.setDescripcion(descripcion);
+                        break;
+                    case 4:
+                        System.out.print("Ingrese la nueva dirección: ");
+                        String direccion = scan.nextLine();
+                        alojamiento.setDireccion(direccion);
+                        break;
+                    case 5:
+                        System.out.print("Ingrese la nueva zona: ");
+                        String zona = scan.nextLine();
+                        alojamiento.setZona(zona);
+                        break;
+                    case 6:
+                        System.out.print("Ingrese la nueva cantidad de reservas: ");
+                        int cantReservas = scan.nextInt();
                         scan.nextLine();
-                    } while (valoracion < 0 || valoracion > 5);
-                    alojamiento.setValoracion(valoracion);
-                    break;
-                case 3:
-                    System.out.print("Ingrese la nueva descripción: ");
-                    String descripcion = scan.nextLine();
-                    alojamiento.setDescripcion(descripcion);
-                    break;
-                case 4:
-                    System.out.print("Ingrese la nueva dirección: ");
-                    String direccion = scan.nextLine();
-                    alojamiento.setDireccion(direccion);
-                    break;
-                case 5:
-                    System.out.print("Ingrese la nueva zona: ");
-                    String zona = scan.nextLine();
-                    alojamiento.setZona(zona);
-                    break;
-                case 6:
-                    System.out.print("Ingrese la nueva cantidad de reservas: ");
-                    int cantReservas = scan.nextInt();
-                    scan.nextLine();
-                    alojamiento.setCantReservas(cantReservas);
-                    break;
-                case 7:
-                    System.out.print("Ingrese el nuevo precio por alojar: ");
-                    double precio = scan.nextDouble();
-                    scan.nextLine();
-                    alojamiento.setPrecioXAlojar(precio);
-                    break;
-                case 8:
-                    System.out.print("Ingrese los nuevos comentarios: ");
-                    String comentarios = scan.nextLine();
-                    alojamiento.setComentarios(comentarios);
-                    break;
-                case 9:
-                    String estadoAux;
-
-                    do {
-                        System.out.println("Ingrese el nuevo estado del alojamiento: (DISPONIBLE, RESERVADO, MANTENIMIENTO");
-                        estadoAux = scan.nextLine();
-                    } while (!estadoAux.equalsIgnoreCase("DISPONIBLE") && !estadoAux.equalsIgnoreCase("MANTENIMIENTO") && !estadoAux.equalsIgnoreCase("RESERVADO"));
-                    if (estadoAux.equalsIgnoreCase("DISPONIBLE")) {
-                        alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
-                    } else if (estadoAux.equalsIgnoreCase("MANTENIMIENTO")) {
-                        alojamiento.setEstado(EstadoAlojamiento.MANTENIMIENTO);
-                    } else {
-                        alojamiento.setEstado(EstadoAlojamiento.RESERVADO);
-                    }
-                    break;
-                case 10:
-                    if (alojamiento instanceof Departamento) {
-                        System.out.print("Ingrese el nuevo numero de piso: ");
-                        int numeroPiso = scan.nextInt();
+                        alojamiento.setCantReservas(cantReservas);
+                        break;
+                    case 7:
+                        System.out.print("Ingrese el nuevo precio por alojar: ");
+                        double precio = scan.nextDouble();
                         scan.nextLine();
-                        ((Departamento) alojamiento).setNumeroPiso(numeroPiso);
-                    } else {
-                        System.out.println("Ingrese el nuevo numero de Habitacion: ");
-                        int nroHabitacion = scan.nextInt();
+                        alojamiento.setPrecioXAlojar(precio);
+                        break;
+                    case 8:
+                        System.out.print("Ingrese los nuevos comentarios: ");
+                        String comentarios = scan.nextLine();
+                        alojamiento.setComentarios(comentarios);
+                        break;
+                    case 9:
+                        String estadoAux;
+                        do {
+                            System.out.println("Ingrese el nuevo estado del alojamiento: (DISPONIBLE, RESERVADO, MANTENIMIENTO)");
+                            estadoAux = scan.nextLine();
+                        } while (!estadoAux.equalsIgnoreCase("DISPONIBLE") && !estadoAux.equalsIgnoreCase("MANTENIMIENTO") && !estadoAux.equalsIgnoreCase("RESERVADO"));
+                        if (estadoAux.equalsIgnoreCase("DISPONIBLE")) {
+                            alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
+                        } else if (estadoAux.equalsIgnoreCase("MANTENIMIENTO")) {
+                            alojamiento.setEstado(EstadoAlojamiento.MANTENIMIENTO);
+                        } else {
+                            alojamiento.setEstado(EstadoAlojamiento.RESERVADO);
+                        }
+                        break;
+                    case 10:
+                        if (alojamiento instanceof Departamento) {
+                            System.out.print("Ingrese el nuevo numero de piso: ");
+                            int numeroPiso = scan.nextInt();
+                            scan.nextLine();
+                            ((Departamento) alojamiento).setNumeroPiso(numeroPiso);
+                        } else {
+                            System.out.println("Ingrese el nuevo numero de Habitacion: ");
+                            int nroHabitacion = scan.nextInt();
+                            scan.nextLine();
+                            ((HabitacionHotel) alojamiento).setNumeroHabitacion(nroHabitacion);
+                        }
+                        break;
+                    case 11:
+                        if (alojamiento instanceof Departamento) {
+                            System.out.println("Ingrese el nuevo tamaño del departamento: ");
+                            int auxTamaño = scan.nextInt();
+                            scan.nextLine();
+                            ((Departamento) alojamiento).setTamañoDepartamento(auxTamaño);
+                        } else {
+                            System.out.println("Ingrese el nuevo tipo de Habitacion: ");
+                            String tipoAux = scan.next();
+                            ((HabitacionHotel) alojamiento).setTipoHabitacion(tipoAux);
+                        }
+                        break;
+                    case 12:
+                        System.out.println("Ingrese el/los nuevos servicios extra: ");
+                        String servicios = scan.next();
                         scan.nextLine();
-                        ((HabitacionHotel) alojamiento).setNumeroHabitacion(nroHabitacion);
-                    }
-                    break;
-                case 11:
-                    if (alojamiento instanceof Departamento) {
-                        System.out.println("Ingrese el nuevo tamaño del departamento: ");
-                        int auxTamaño = scan.nextInt();
-                        scan.nextLine();
-                        ((Departamento) alojamiento).setTamañoDepartamento(auxTamaño);
-                    } else {
-                        System.out.println("Ingrese el nuevo tipo de Habitacion: ");
-                        String tipoAux = scan.next();
-                        ((HabitacionHotel) alojamiento).setTipoHabitacion(tipoAux);
-                    }
-                    break;
-                case 12:
-                    System.out.println("Ingrese el/los nuevos servicios extra: ");
-                    String servicios = scan.nextLine();
-                    if (alojamiento instanceof Departamento) {
-                        ((Departamento) alojamiento).setServicioExtra(servicios);
-                    } else {
-                        ((HabitacionHotel) alojamiento).setServicios(servicios);
-                    }
-                    break;
-                case 13:
-                    if (alojamiento instanceof Departamento) {
-                        System.out.println(((Departamento) alojamiento).listar());
+                        if (alojamiento instanceof Departamento) {
+                            ((Departamento) alojamiento).setServicioExtra(servicios);
+                        } else {
+                            ((HabitacionHotel) alojamiento).setServicios(servicios);
+                        }
+                        break;
+                    case 13:
+                        if (alojamiento instanceof Departamento) {
+                            System.out.println(((Departamento) alojamiento).listar());
+                        } else if (alojamiento instanceof HabitacionHotel) {
+                            System.out.println(((HabitacionHotel) alojamiento).listar());
+                        }
+                        break;
+                    case 0:
+                        System.out.println("Volveras al menu principal");
+                        break;
+                    default:
+                        System.out.println("ERROR, OPCION INVALIDA; REINTENTE..");
+                        break;
+                }
+            } while (opSwitch != 0);
 
-                    } else if (alojamiento instanceof HabitacionHotel) {
-                        System.out.println(((HabitacionHotel) alojamiento).listar());
-                    }
-
-                    break;
-                case 0:
-                    System.out.println("Volveras al menu principal");
-                    break;
-                default:
-                    System.out.println("ERROR, OPCION INVALIDA; REINTENTE..");
-                    break;
-            }
-
-
-        } while (opSwitch != 0);
-
-        nuevoBooking.jsonAlojamiento();
-
+            nuevoBooking.jsonAlojamiento();
+        }
     }
+
 
 }
