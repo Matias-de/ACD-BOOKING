@@ -37,16 +37,18 @@ public class Main {
         System.out.println("\t6)Mostrar los Clientes del Sistema.");
         System.out.println("\t7)Mostrar los Alojamientos del Sistema.");
         System.out.println("\t8)Mostrar Las reservas alguna vez ocurridas en el Sistema.");
+        System.out.println("\t9)Mostrar las reservas por mes");
+        System.out.println("\t10)Mostrar las reservas de un cliente especifico");
+        System.out.println("\t11)Mostrar las reservas de un alojamiento especifico");
         System.out.println("Modificaciones:");
-        System.out.println("\t9)Ingresar al menu de modificacion de Clientes");
-        System.out.println("\t10)Ingresar al menu de modificacion de alojamientos");
+        System.out.println("\t12)Ingresar al menu de modificacion de Clientes");
+        System.out.println("\t13)Ingresar al menu de modificacion de alojamientos");
         System.out.println("Estadisticas:");
-        System.out.println("\t11)Mostrar el alojamiento con la mayor cantidad de Reservas");
-        System.out.println("\t12)Mostrar el alojamiento mas caro");
-        System.out.println("\t13)Mostrar las reservas por mes");
-        System.out.println("\t14)Mostrar los alojamientos por valoración especifica");
-        System.out.println("\t15)Mostrar los alojamientos por valoración de mayor a menor");
-        System.out.println("\t16)Mostrar total recaudado");
+        System.out.println("\t14)Mostrar el alojamiento con la mayor cantidad de Reservas");
+        System.out.println("\t15)Mostrar el alojamiento mas caro");
+        System.out.println("\t16)Mostrar los alojamientos por valoración especifica");
+        System.out.println("\t17)Mostrar los alojamientos por valoración de mayor a menor");
+        System.out.println("\t18)Mostrar total recaudado");
         System.out.println("---------------------------");
         System.out.println("\t0)Guardar Cambios.");
 
@@ -283,31 +285,6 @@ public class Main {
                     }
                     break;
                 case 9:
-                    menuModificacionCliente(nuevoBooking);
-                    break;
-                case 10:
-                    menuModificacionAlojamiento(nuevoBooking);
-                    break;
-                case 11:
-                    alojamientoAux = nuevoBooking.buscarAlojamientoConMasReservas();
-                    if (alojamientoAux == null) {
-                        System.out.println("No se encontraron alojamientos");
-                    } else {
-                        System.out.println("ALOJAMIENTO ENCONTRADO: \n" + alojamientoAux + "\n con cantidad de reservas: " + alojamientoAux.getCantReservas());
-                    }
-                    break;
-                default:
-                    System.out.println("ERROR, OPCION INVALIDA");
-                    break;
-                case 12:
-                    alojamientoAux = nuevoBooking.buscarAlojamientoMasCaro();
-                    if (alojamientoAux == null) {
-                        System.out.println("No se encontraron alojamientos");
-                    } else {
-                        System.out.println("ALOJAMIENTO ENCONTRADO: \n" + alojamientoAux + "\n con precio: " + alojamientoAux.getPrecioXAlojar());
-                    }
-                    break;
-                case 13:
                     if (nuevoBooking.getReservaHashSet().isEmpty()) {
                         System.out.println("NO HAY RESERVAS");
                     } else {
@@ -364,10 +341,38 @@ public class Main {
                                 System.out.println("RESERVAS DE DICIEMBRE");
                                 System.out.println(nuevoBooking.mostrarReservaPorMes(mes));
                                 break;
+                            default:
+                                System.out.println("ERROR, OPCION INVALIDA");
+                                break;
                         }
                     }
-                        break;
+                    break;
+                    
+
+                case 12:
+                    menuModificacionCliente(nuevoBooking);
+                    break;
+                case 13:
+                    menuModificacionAlojamiento(nuevoBooking);
+                    break;
                 case 14:
+                    alojamientoAux = nuevoBooking.buscarAlojamientoConMasReservas();
+                    if (alojamientoAux == null) {
+                        System.out.println("No se encontraron alojamientos");
+                    } else {
+                        System.out.println("ALOJAMIENTO ENCONTRADO: \n" + alojamientoAux + "\n con cantidad de reservas: " + alojamientoAux.getCantReservas());
+                    }
+                    break;
+                case 15:
+                    alojamientoAux = nuevoBooking.buscarAlojamientoMasCaro();
+                    if (alojamientoAux == null) {
+                        System.out.println("No se encontraron alojamientos");
+                    } else {
+                        System.out.println("ALOJAMIENTO ENCONTRADO: \n" + alojamientoAux + "\n con precio: " + alojamientoAux.getPrecioXAlojar());
+                    }
+                    break;
+
+                case 16:
                     double valoracion = 0;
                     do {
                         System.out.println("Ingrese la valoración que desea ver (0/5)");
@@ -380,8 +385,8 @@ public class Main {
                     else {
                         System.out.println(nuevoBooking.mostrarSetAlojamientoXValoracion(valoracion));
                     }
-            break;
-                case 15:
+                    break;
+                case 17:
 
                     if (nuevoBooking.getAlojamientoHashSet().isEmpty()){
                         System.out.println("NO HAY ALOJAMIENTOS");
@@ -392,7 +397,7 @@ public class Main {
                         System.out.println(nuevoBooking.mostrarAlojamientoDeMayorValAMenorVal());
                     }
                     break;
-                case 16:
+                case 18:
 
                     if(nuevoBooking.getReservaHashSet().isEmpty())
                     {
@@ -400,8 +405,11 @@ public class Main {
                     }
                     else {
 
-                        System.out.println("EL TOTAL RECAUDADO ES: ["+nuevoBooking.devolverTotalRecaudado()+"  ]");
+                        System.out.println("EL TOTAL RECAUDADO ES: [ "+nuevoBooking.devolverTotalRecaudado()+" ]");
                     }
+                    break;
+                default:
+                    System.out.println("ERROR, OPCION INVALIDA");
                     break;
             }
             System.out.println("Desea volver al menu? (si/no)");
