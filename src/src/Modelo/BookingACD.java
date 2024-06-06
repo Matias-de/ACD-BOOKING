@@ -248,7 +248,6 @@ public class BookingACD {
          */
 
 
-
     public Reserva buscarReservaPorClienteYAlojamiento(Cliente cliente, Alojamiento alojamiento) {
         HashSet<Reserva> reservas = hashMapCliente.getReserva(cliente);
         Reserva reservaRetornada = null;
@@ -288,15 +287,15 @@ public class BookingACD {
                     "Precio a abonar (precio del alojamiento + 21%): " + reserva.getPrecioTotal() + "\n" +
                     "Pin de autenticación: " + reserva.getPin() + "\n";
 
-          //  boolean borrado = reservaHashSet.borrarReserva(reserva);
+            //  boolean borrado = reservaHashSet.borrarReserva(reserva);
             alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
             hashMapCliente.borrar(cliente, reserva);
             hashMapAlojamiento.borrar(alojamiento, reserva);
 
 
-                // Actualiza el archivo JSON después de eliminar la reserva
-               // jsonReservas();
-                ticket += "\noperacion realizada con exito";
+            // Actualiza el archivo JSON después de eliminar la reserva
+            // jsonReservas();
+            ticket += "\noperacion realizada con exito";
 
         } else {
             ticket = "No se encontró la reserva para el cliente y alojamiento proporcionados.";
@@ -321,7 +320,6 @@ public class BookingACD {
     }
 
 
-
     public String mostrarSetCliente() {
         return clienteHashSet.listar();
     }
@@ -338,8 +336,7 @@ public class BookingACD {
         return rta;
     }
 
-    public String mostrarReservasAPuntoDeTerminar()
-    {
+    public String mostrarReservasAPuntoDeTerminar() {
         String rta = "";
         Date fechaActualDelSistema = new Date();
 
@@ -364,15 +361,15 @@ public class BookingACD {
         return rta;
     }
 
-    public Alojamiento buscarAlojamientoConMasReservas(){
+    public Alojamiento buscarAlojamientoConMasReservas() {
         Alojamiento mayorReservas = null;
         Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator();
         while (alojamientoIterator.hasNext()) {
             Alojamiento aux = alojamientoIterator.next();
-            if(mayorReservas == null){
+            if (mayorReservas == null) {
                 mayorReservas = aux;
             }
-            if(aux.getCantReservas()> mayorReservas.getCantReservas()){
+            if (aux.getCantReservas() > mayorReservas.getCantReservas()) {
                 mayorReservas = aux;
             }
         }
@@ -381,23 +378,20 @@ public class BookingACD {
         return mayorReservas;
     }
 
-    public Alojamiento buscarAlojamientoMasCaro(){
+    public Alojamiento buscarAlojamientoMasCaro() {
         Alojamiento masCaro = null;
         Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator();
         while (alojamientoIterator.hasNext()) {
             Alojamiento aux = alojamientoIterator.next();
-            if(masCaro == null){
+            if (masCaro == null) {
                 masCaro = aux;
             }
-            if(aux.getPrecioXAlojar()> masCaro.getPrecioXAlojar()){
+            if (aux.getPrecioXAlojar() > masCaro.getPrecioXAlojar()) {
                 masCaro = aux;
             }
         }
         return masCaro;
     }
-
-
-
 
 
     public Cliente buscarClientePorNombre(String nombre, String apellido) {
@@ -427,6 +421,39 @@ public class BookingACD {
         //no usamos instanceof porque tranquilamente el departamento puede tener mas de un nombre Y PUEDEN HABER MAS ALOJAMIENTOS CON IGUAL NOMBRE
         return alojamientos;
 
+    }
+
+    public String mostrarReservaPorMes(int mes) {
+        String rta = "";
+        Iterator<Reserva> iterator = reservaHashSet.iterator();
+        while (iterator.hasNext()) {
+            Reserva reserva = iterator.next();
+            int mesReserva = reserva.getCliente().getFechaInicio().getMonth();
+            if (mesReserva + 1 == mes) {
+                    rta += reserva.toString();
+            }
+        }
+        if (rta.equals("")) {
+            rta = "NO HAY RESERVAS EN ESTE MES";
+        }
+        return rta;
+    }
+    public String mostrarSetAlojamientoXValoracion(double valoracion)
+    {
+        String rta="";
+        Iterator<Alojamiento> nuevoIterator = alojamientoHashSet.iterator();
+        while (nuevoIterator.hasNext())
+        {
+            Alojamiento auxAlojamiento = nuevoIterator.next();
+            if(auxAlojamiento.getValoracion() == valoracion)
+            {
+                rta += auxAlojamiento.toString();
+            }
+        }
+        if(rta.equals("")){
+            rta="NO HAY ALOJAMIENTOS CON ESA VALORACION";
+        }
+        return rta;
     }
 
 

@@ -1,1 +1,32 @@
-{"reserva":[]}
+{
+  "reserva": [
+    {
+      "cliente": {
+        "fechaInicio": "2023-05-29",
+        "apellido": "benzo",
+        "fechaFinal": "2023-06-06",
+        "cantPersonas": 2,
+        "nombre": "fausto",
+        "correoElectronico": "faustBenzo@gmail.com",
+        "medioDePago": "tarjeta"
+      },
+      "pin": "ed1763b7-c609-4d03-b5a4-910966351f57",
+      "preciototal": 3025,
+      "alojamiento": {
+        "descripcion": "Gran Balcon. Vista al Lago. 2 habitaciones",
+        "estado": "RESERVADO",
+        "tipo": "HabitacionHotel",
+        "numeroHabitacion": 375,
+        "direccion": "Guemes 1374",
+        "valoracion": 3.5,
+        "tipoHabitacion": "doble",
+        "nombre": "Hotel Dodo",
+        "servicios": "Desayuno y Merienda incluidas. Parrila 24hs",
+        "PrecioXAlojar": 2500,
+        "zona": "Guemes",
+        "cantReservas": 3,
+        "comentarios": ""
+      }
+    }
+  ]
+}
