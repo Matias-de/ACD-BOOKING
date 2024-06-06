@@ -126,9 +126,11 @@ public class GHashMap <E>implements IOperacionesMap<E> {
     }
 
     public String mostrarReservasPorClave(E clave){
-        String rta = "No se encontraron reservas para lo ingresado.";
+        String rta ="";
         if(nuevoHashMap.containsKey(clave)){
             rta+=nuevoHashMap.get(clave)+"\n";
+        }else{
+            rta="No se encontraron reservas para lo ingresado.";
         }
         return rta;
     }

@@ -43,7 +43,7 @@ public class Main {
         System.out.println("8)Mostrar Las reservas alguna vez ocurridas en el Sistema.");
         System.out.println("9)Ingresar al menu de modificacion de Clientes");
         System.out.println("10)Ingresar al menu de modificacion de alojamientos");
-
+        System.out.println("11)Mostrar el alojamiento con la mayor cantidad de Reservas");
 
     }
 
@@ -275,6 +275,14 @@ public class Main {
                     break;
                 case 10:
                     menuModificacionAlojamiento(nuevoBooking);
+                    break;
+                case 11:
+                    alojamientoAux= nuevoBooking.buscarAlojamientoConMasReservas();
+                    if(alojamientoAux==null){
+                        System.out.println("No se encontraron alojamientos");
+                    }else{
+                        System.out.println("ALOJAMIENTO ENCONTRADO: \n"+alojamientoAux+"\n con cantidad de reservas: "+alojamientoAux.getCantReservas());
+                    }
                     break;
                 default:
                     System.out.println("ERROR, OPCION INVALIDA");

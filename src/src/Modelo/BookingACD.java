@@ -320,24 +320,7 @@ public class BookingACD {
         return rta;
     }
 
-//    public String mostrarReservasDeCliente(Cliente cliente) { //deberia mostrar las reservas de un cliente
-//        String rta = "cliente no encontrado/sin reservas";
-//        if (hashMapCliente.buscarElemento(cliente)) {
-//            rta = hashMapCliente.getReserva(cliente) + "\n";
-//        }
-//
-//        return rta;
-//    }
-//
-//    //preguntar como hacer para no repetir estas funciones // hay que hacerlo en el la clase map y usar el tipo de dato generico
-//    public String mostrarReservasEnAlojamiento(Alojamiento alojamiento) {
-//        String rta = "Alojamiento no encontrado/sin reservas";
-//        if (hashMapAlojamiento.buscarElemento(alojamiento)) {
-//            rta += hashMapAlojamiento.getReserva(alojamiento) + "\n";
-//        }
-//
-//        return rta;
-//    }
+
 
     public String mostrarSetCliente() {
         return clienteHashSet.listar();
@@ -355,7 +338,7 @@ public class BookingACD {
         return rta;
     }
 
-    public String mostrarReservasAPuntoDeTerminar()//deberia mostrarse ni bien aparezca el programa
+    public String mostrarReservasAPuntoDeTerminar()
     {
         String rta = "";
         Date fechaActualDelSistema = new Date();
@@ -381,24 +364,21 @@ public class BookingACD {
         return rta;
     }
 
-    public void mostrarReservasYaTerminadas() { //muestra las reservas que terminaron para que el admin diga uy hay que modificar esto loco y lo haga con la funcion de abajo
-        String rta = "Reservas terminadas: ";
-        Date fechaActualDelSistema = new Date();
-
-        Iterator<Map.Entry<Cliente, HashSet<Reserva>>> entryIterator = hashMapCliente.entrySetIterator();
-        while (entryIterator.hasNext()) {
-            Map.Entry<Cliente, HashSet<Reserva>> reservaMapa = entryIterator.next();
-            HashSet<Reserva> reservas = reservaMapa.getValue();
-            Iterator<Reserva> reservaIterator = reservas.iterator();
-            while (reservaIterator.hasNext()) {
-                Reserva reservaAux = reservaIterator.next();
-                if (fechaActualDelSistema.after(reservaAux.getCliente().getFechaFinal())) {
-                    rta += reservaAux.toString() + "\n";
-                } else {
-                    rta += "Ninguna";
-                }
+    public Alojamiento buscarAlojamientoConMasReservas(){
+        Alojamiento mayorReservas = null;
+        Iterator<Alojamiento> alojamientoIterator = alojamientoHashSet.iterator();
+        while (alojamientoIterator.hasNext()) {
+            Alojamiento aux = alojamientoIterator.next();
+            if(mayorReservas == null){
+                mayorReservas = aux;
+            }
+            if(aux.getCantReservas()> mayorReservas.getCantReservas()){
+                mayorReservas = aux;
             }
         }
+
+
+        return mayorReservas;
     }
 
 
