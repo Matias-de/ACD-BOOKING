@@ -288,16 +288,16 @@ public class BookingACD {
                     "Precio a abonar (precio del alojamiento + 21%): " + reserva.getPrecioTotal() + "\n" +
                     "Pin de autenticación: " + reserva.getPin() + "\n";
 
-            boolean borrado = reservaHashSet.borrarReserva(reserva);
+          //  boolean borrado = reservaHashSet.borrarReserva(reserva);
             alojamiento.setEstado(EstadoAlojamiento.DISPONIBLE);
             hashMapCliente.borrar(cliente, reserva);
             hashMapAlojamiento.borrar(alojamiento, reserva);
 
-            if (borrado) {
+
                 // Actualiza el archivo JSON después de eliminar la reserva
-                jsonReservas();
+               // jsonReservas();
                 ticket += "\noperacion realizada con exito";
-            }
+
         } else {
             ticket = "No se encontró la reserva para el cliente y alojamiento proporcionados.";
         }
