@@ -1,9 +1,5 @@
 import Enumeraciones.EstadoAlojamiento;
 import Modelo.*;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
@@ -33,17 +29,22 @@ public class Main {
     public static void opcionesMenu(){ //aca pongan las opciones del menu
         System.out.println("BIENVENIDO!");
         System.out.println("Ingrese la opcion que desee realizar:");
-        System.out.println("1)Cargar un nuevo cliente.");
-        System.out.println("2)Cargar un alojamiento.");
-        System.out.println("3)Realizar una reserva.");
-        System.out.println("4)Finalizar una reserva.");
-        System.out.println("5)Mostrar las reservas actuales");
-        System.out.println("6)Mostrar los Clientes del Sistema.");
-        System.out.println("7)Mostrar los Alojamientos del Sistema.");
-        System.out.println("8)Mostrar Las reservas alguna vez ocurridas en el Sistema.");
-        System.out.println("9)Ingresar al menu de modificacion de Clientes");
-        System.out.println("10)Ingresar al menu de modificacion de alojamientos");
-        System.out.println("11)Mostrar el alojamiento con la mayor cantidad de Reservas");
+        System.out.println("Carga:");
+        System.out.println("\t1)Cargar un nuevo cliente.");
+        System.out.println("\t2)Cargar un alojamiento.");
+        System.out.println("\t3)Realizar una reserva.");
+        System.out.println("\t4)Finalizar una reserva.");
+        System.out.println("Mostrado:");
+        System.out.println("\t5)Mostrar las reservas actuales");
+        System.out.println("\t6)Mostrar los Clientes del Sistema.");
+        System.out.println("\t7)Mostrar los Alojamientos del Sistema.");
+        System.out.println("\t8)Mostrar Las reservas alguna vez ocurridas en el Sistema.");
+        System.out.println("Modificaciones:");
+        System.out.println("\t9)Ingresar al menu de modificacion de Clientes");
+        System.out.println("\t10)Ingresar al menu de modificacion de alojamientos");
+        System.out.println("Estadisticas:");
+        System.out.println("\t11)Mostrar el alojamiento con la mayor cantidad de Reservas");
+        System.out.println("\t12)Mostrar el alojamiento mas caro");
 
     }
 
@@ -286,6 +287,14 @@ public class Main {
                     break;
                 default:
                     System.out.println("ERROR, OPCION INVALIDA");
+                    break;
+                case 12:
+                    alojamientoAux= nuevoBooking.buscarAlojamientoMasCaro();
+                    if(alojamientoAux==null){
+                        System.out.println("No se encontraron alojamientos");
+                    }else{
+                        System.out.println("ALOJAMIENTO ENCONTRADO: \n"+alojamientoAux+"\n con precio: "+alojamientoAux.getPrecioXAlojar());
+                    }
                     break;
             }
             System.out.println("Desea volver al menu? (si/no)");
