@@ -61,17 +61,19 @@ public class BookingACD {
         // para la persistencia de los mapas en el sistema.
     }
 
+
     public void pasarArchiAMapa(String nombreArchi) {
         try (FileInputStream fileInputStream = new FileInputStream(nombreArchi);
              ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
 
-            while (true) {
+            boolean endOfFile = false;
+            while (!endOfFile) {
                 try {
                     Reserva nuevaReserva = (Reserva) objectInputStream.readObject();
                     hashMapAlojamiento.agregar(nuevaReserva.getAlojamiento(), nuevaReserva);
                     hashMapCliente.agregar(nuevaReserva.getCliente(), nuevaReserva);
                 } catch (EOFException e) {
-                    break;  // Fin del archivo alcanzado
+                    endOfFile = true;  // fin del archivo
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -460,10 +462,11 @@ public class BookingACD {
         String rta="";
         double valoracionAux=5;
         double aRestar = 0.5;
-        Iterator<Alojamiento> nuevoIterator = alojamientoHashSet.iterator();
+       // Iterator<Alojamiento> nuevoIterator = alojamientoHashSet.iterator();
         double contador=10;
         for(contador=10; contador>0 ; contador--) //realizo una iteracion de 10 veces
         {
+            Iterator<Alojamiento> nuevoIterator= alojamientoHashSet.iterator();
             while (nuevoIterator.hasNext()) // recorro siempre el set para agregar las reservas en orden
             {
                 Alojamiento auxAlojamiento =nuevoIterator.next(); //creo copia del alojamiento
