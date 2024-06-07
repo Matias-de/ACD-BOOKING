@@ -198,11 +198,12 @@ public abstract class Alojamiento implements Serializable  {
         cantReservas++;
     }
 
-    public void calculoValoracion(double nuevaValoracion){
-        if(valoracion==0 && cantReservas==0){
-            valoracion=nuevaValoracion;
-        }else{
-            valoracion= (valoracion + nuevaValoracion) / cantReservas;
+    public void calculoValoracion(double nuevaValoracion) {
+        if (valoracion == 0 && cantReservas == 0) {
+            valoracion = nuevaValoracion;
+        } else {
+            valoracion = (valoracion + nuevaValoracion) / cantReservas;
+            valoracion = Math.round(valoracion * 2) / 2.0; // Redondeo a .5 o entero
         }
     }
 

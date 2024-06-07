@@ -21,7 +21,10 @@ public class Main {
 //        System.out.println(nuevoBooking.getHashMapCliente());
         // System.out.println(nuevoBooking.getHashMapCliente());
         menu(nuevoBooking);
-
+        nuevoBooking.guardarDatosEnArchi("ArchivoCliente", "ArchivoAlojamiento");//se guardan datos en el archivo
+        nuevoBooking.jsonCliente();
+        nuevoBooking.jsonAlojamiento();
+        nuevoBooking.jsonReservas();
     }
 
     public static void opcionesMenu() { //aca pongan las opciones del menu
